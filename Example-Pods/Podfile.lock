@@ -1,0 +1,17 @@
+PODS:
+  - AwesomeCache (2.0)
+  - NowCastMapView (0.1.3):
+    - AwesomeCache
+
+DEPENDENCIES:
+  - NowCastMapView (from `../`)
+
+EXTERNAL SOURCES:
+  NowCastMapView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AwesomeCache: 5d6839ad139cdcee3c3a067f6fc1849523867dd9
+  NowCastMapView: 719a6a37674f59fc2f63da83671c14fc9c737316
+
+COCOAPODS: 0.39.0
