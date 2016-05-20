@@ -16,7 +16,7 @@ public protocol NowCastMapViewDataSource: NSObjectProtocol {
 
 public class NowCastMapView: MKMapView {
 	private var overlay = NowCastOverlay()
-	internal var renderer: NowCastOverlayRenderer
+	public var renderer: NowCastOverlayRenderer
 	public weak var dataSource: NowCastMapViewDataSource?
 	public var currentZoomScale: MKZoomScale?
 

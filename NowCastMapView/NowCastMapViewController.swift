@@ -85,12 +85,14 @@ public class NowCastMapViewController: UIViewController, MKMapViewDelegate, NowC
 	}
 
 // MARK: - MKMapViewDelegate
+
 	public func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
 		let aMapView = mapView as! NowCastMapView
 		return aMapView.renderer
 	}
 
 // MARK: - NowCastImageManagerNotification
+
 	dynamic public func imageFetched(notification: NSNotification) {
 		if let userInfo = notification.userInfo {
 			if let image = userInfo[NowCastImageManager.Notification.object] as? NowCastImage {
@@ -106,6 +108,7 @@ public class NowCastMapViewController: UIViewController, MKMapViewDelegate, NowC
 	}
 
 // MARK: - NowCastMapViewDataSource
+
 	public func isServiceAvailable(mapRect: MKMapRect) -> Bool {
 		return imageManager.isServiceAvailable(inMapRect: mapRect)
 	}

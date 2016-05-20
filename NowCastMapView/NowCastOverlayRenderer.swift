@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-internal class NowCastOverlayRenderer: MKOverlayRenderer {
+public class NowCastOverlayRenderer: MKOverlayRenderer {
 	static let DefaultBackgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
 	internal var mapView: NowCastMapView?
 	internal var backgroundColor = NowCastOverlayRenderer.DefaultBackgroundColor {
@@ -43,7 +43,7 @@ internal class NowCastOverlayRenderer: MKOverlayRenderer {
 		super.init(overlay: overlay)
 	}
 
-	override internal func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
+	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
 		mapView?.currentZoomScale = zoomScale
 
 		if let ncImages = mapView?.dataSource?.nowCastImages(inMapRect: mapRect, forZoomScale: zoomScale) {
@@ -66,7 +66,7 @@ internal class NowCastOverlayRenderer: MKOverlayRenderer {
 		}
 	}
 
-	override internal func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
+	override public func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
 		if let dataSource = mapView?.dataSource {
 			return dataSource.isServiceAvailable(mapRect)
 		}
