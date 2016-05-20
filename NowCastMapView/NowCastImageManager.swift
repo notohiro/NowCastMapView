@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 import AwesomeCache
 
-enum NCZoomLevel: Int {
+public enum NCZoomLevel: Int {
 	static let MKZoomScaleAsNCZoomLevel4: CGFloat = 0.000488
 	static let MKZoomScaleAsNCZoomLevel2: CGFloat = 0.000122
 

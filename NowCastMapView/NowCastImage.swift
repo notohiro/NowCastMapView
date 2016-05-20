@@ -92,12 +92,12 @@ public class NowCastImage: CustomStringConvertible {
 	}
 
 // MARK: - Variables
-	internal let latitudeNumber: Int, longitudeNumber: Int // longitudeNumber_latitudeNumber.png
-	internal let zoomLevel: NCZoomLevel
-	internal var image: UIImage?
-	internal let baseTime: NowCastBaseTime, baseTimeIndex: Int
-	internal let imageURL: NSURL
-	internal var priority: Float
+	public let latitudeNumber: Int, longitudeNumber: Int // longitudeNumber_latitudeNumber.png
+	public let zoomLevel: NCZoomLevel
+	public var image: UIImage?
+	public let baseTime: NowCastBaseTime, baseTimeIndex: Int
+	public let imageURL: NSURL
+	public var priority: Float
 //	private var observer: NSObjectProtocol?
 
 // MARK: - Calculated Property
