@@ -12,10 +12,14 @@ import MapKit
 public class NowCastMapViewController: UIViewController, MKMapViewDelegate, NowCastMapViewDataSource {
 	@IBOutlet public weak var mapView: NowCastMapView! {
 		didSet {
+			if mapView !== _mapView { _mapView = nil }
 			mapView.dataSource = self
 			mapView.delegate = self
 		}
 	}
+
+	// to retain instance in case of init from code
+	private var _mapView: NowCastMapView?
 
 	private var imageManager: NowCastImageManager = NowCastImageManager.sharedManager
 	
@@ -28,11 +32,25 @@ public class NowCastMapViewController: UIViewController, MKMapViewDelegate, NowC
 
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		setup()
+	}
 
+	override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		_mapView = NowCastMapView()
+		mapView = _mapView
+		setup()
+	}
+
+	convenience public init(mapView: NowCastMapView) {
+		self.init(nibName: nil, bundle: nil)
+		self._mapView = mapView
+		self.mapView = self._mapView
+	}
+
+	func setup() {
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: #selector(NowCastMapViewController.imageFetched(_:)), name: NowCastImageManager.Notification.name, object: nil)
-
-		mapView = NowCastMapView(coder: aDecoder)
 	}
 
 	public override func viewDidLoad() {
@@ -79,10 +97,10 @@ public class NowCastMapViewController: UIViewController, MKMapViewDelegate, NowC
 				if baseTime?.compare(image.baseTime) != .OrderedSame { return }
 				if image.baseTimeIndex != baseTimeIndex { return }
 
-				// check zoomScale
 				// check region of MapView
+				// issue #3
 
-				mapView?.setNeedsDisplay()
+				mapView.setNeedsDisplay()
 			}
 		}
 	}

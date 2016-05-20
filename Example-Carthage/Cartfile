@@ -1,3 +1,1 @@
-#github "aschuch/AwesomeCache" ~> 2.0
-git    "file:///Users/notohiro/Develop/NowCastMapView" "develop"
-#git    "file:///Users/notohiro/Develop/JBChartView" "carthage"
+github	"notohiro/NowCastMapView"

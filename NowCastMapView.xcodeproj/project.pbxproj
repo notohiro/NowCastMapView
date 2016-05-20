@@ -105,6 +105,7 @@
 		D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeTests.swift; sourceTree = "<group>"; };
 		D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastMapViewController.swift; sourceTree = "<group>"; };
 		D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImage.swift; sourceTree = "<group>"; };
+		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		D3FD41FA1C67891A00EE1A65 /* NowCastRainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevelsTest.swift; sourceTree = "<group>"; };
 		D3FD41FC1C68154F00EE1A65 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
 		D3FD42051C6B6A9C00EE1A65 /* NowCastImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImageTests.swift; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		D332497C1BA727C9008F1F21 = {
 			isa = PBXGroup;
 			children = (
+				D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */,
 				D33249881BA727C9008F1F21 /* NowCastMapView */,
 				D33249941BA727C9008F1F21 /* NowCastMapViewTests */,
 				D33249871BA727C9008F1F21 /* Products */,
