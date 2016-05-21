@@ -34,7 +34,6 @@
 		D37C3F061C72975300CEE631 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
-		D38D343B1CE724B100D77509 /* NowCastMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */; };
 		D38D343C1CE724B100D77509 /* NowCastMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A01BA7280F008F1F21 /* NowCastMapView.swift */; };
 		D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */; };
 		D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */; };
@@ -52,7 +51,6 @@
 		D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C7EFE01C952744007A7867 /* NowCastImageManagerTests.swift */; };
 		D3D3CCF01BAE60D00083B7FC /* OldBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */; };
 		D3D3CCF21BAE6BE70083B7FC /* NowCastBaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */; };
-		D3D3CCF71BB0326B0083B7FC /* NowCastMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */; };
 		D3D3CCFB1BB6098A0083B7FC /* NowCastImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */; };
 		D3FD41FB1C67891A00EE1A65 /* NowCastRainLevelsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD41FA1C67891A00EE1A65 /* NowCastRainLevelsTest.swift */; };
 		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
@@ -103,7 +101,6 @@
 		D3C7EFE01C952744007A7867 /* NowCastImageManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImageManagerTests.swift; sourceTree = "<group>"; };
 		D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OldBaseTime.xml; sourceTree = "<group>"; };
 		D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeTests.swift; sourceTree = "<group>"; };
-		D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastMapViewController.swift; sourceTree = "<group>"; };
 		D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImage.swift; sourceTree = "<group>"; };
 		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		D3FD41FA1C67891A00EE1A65 /* NowCastRainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevelsTest.swift; sourceTree = "<group>"; };
@@ -230,7 +227,6 @@
 		D3D3CCEE1BAE5A500083B7FC /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */,
 				D33249A01BA7280F008F1F21 /* NowCastMapView.swift */,
 				D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */,
 				D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */,
@@ -458,7 +454,6 @@
 				D30341391C63864100F44630 /* UIImage+RGBA255.swift in Sources */,
 				D33249A61BA7280F008F1F21 /* NowCastMapView.swift in Sources */,
 				D3438CA31BADB3C9009B5AB8 /* InternalConstants.swift in Sources */,
-				D3D3CCF71BB0326B0083B7FC /* NowCastMapViewController.swift in Sources */,
 				D3D3CCFB1BB6098A0083B7FC /* NowCastImage.swift in Sources */,
 				D37C3F061C72975300CEE631 /* Weak.swift in Sources */,
 			);
@@ -491,7 +486,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */,
-				D38D343B1CE724B100D77509 /* NowCastMapViewController.swift in Sources */,
 				D38D343C1CE724B100D77509 /* NowCastMapView.swift in Sources */,
 				D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */,
 				D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */,
