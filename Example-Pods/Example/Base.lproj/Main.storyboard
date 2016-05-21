@@ -35,7 +35,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="RMp-i9-cF7" id="GyW-00-jF7"/>
+                        <outlet property="mapView" destination="RMp-i9-cF7" id="MF9-sk-QkC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

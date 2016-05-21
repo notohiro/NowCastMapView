@@ -46,7 +46,7 @@ public class NowCastOverlayRenderer: MKOverlayRenderer {
 	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
 		mapView?.currentZoomScale = zoomScale
 
-		if let ncImages = mapView?.dataSource?.nowCastImages(inMapRect: mapRect, forZoomScale: zoomScale) {
+		if let ncImages = mapView?.nowCastImages(inMapRect: mapRect, forZoomScale: zoomScale) {
 			for ncImage in ncImages {
 				if let image = ncImage.image, imageReference = ncImage.image?.CGImage {
 					UIGraphicsBeginImageContext(image.size)
@@ -67,11 +67,6 @@ public class NowCastOverlayRenderer: MKOverlayRenderer {
 	}
 
 	override public func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
-		if let dataSource = mapView?.dataSource {
-			return dataSource.isServiceAvailable(mapRect)
-		}
-		else {
-			return false
-		}
+		return NowCastImageManager.sharedManager.isServiceAvailable(inMapRect: mapRect)
 	}
 }

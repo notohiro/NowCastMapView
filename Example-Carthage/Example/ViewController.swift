@@ -10,7 +10,18 @@ import UIKit
 import NowCastMapView
 import MapKit
 
-class ViewController: NowCastMapViewController {
+class ViewController: UIViewController, NowCastMapViewDataSource {
+	@IBOutlet weak var mapView: NowCastMapView! {
+		didSet { mapView.dataSource = self }
+	}
+
+	var baseTime: NowCastBaseTime? {
+		didSet { mapView.setNeedsDisplay() }
+	}
+	var baseTimeIndex: Int = 0 {
+		didSet { mapView.setNeedsDisplay() }
+	}
+
 	var annotation: MKPointAnnotation? {
 		didSet {
 			if let baseTime = baseTime, annotation = annotation {
@@ -32,19 +43,17 @@ class ViewController: NowCastMapViewController {
 		}
 	}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
 		// register notification
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: #selector(ViewController.baseTimeUpdated(_:)), name: NowCastBaseTimeManager.Notification.name, object: nil)
 
-		// restore last state
 		baseTime = NowCastBaseTimeManager.sharedManager.lastSavedBaseTime
-		baseTimeIndex = 0
-    }
+	}
 
-// MARK: - IBAction
+	// MARK: - IBAction
 
 	@IBAction func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
 		if (sender.state == .Began) {
@@ -62,23 +71,22 @@ class ViewController: NowCastMapViewController {
 		}
 	}
 
-// MARK: - UIGestureRecognizerDelegate
+	// MARK: - UIGestureRecognizerDelegate
 
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
 
-// MARK: - NowCastBaseTimeManager.Notification
+	// MARK: - NowCastBaseTimeManager.Notification
 
-    func baseTimeUpdated(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
+	func baseTimeUpdated(notification: NSNotification) {
+		if let userInfo = notification.userInfo {
 			if let object = userInfo[NowCastBaseTimeManager.Notification.object] as? NowCastBaseTimeManagerNotificationObject {
 				if object.fetchResult == .OrderedAscending {
 					baseTime = object.baseTime
-					baseTimeIndex = 0
 				}
 			}
-        }
-    }
+		}
+	}
 }
 
