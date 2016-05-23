@@ -9,17 +9,22 @@
 import Foundation
 import MapKit
 
+public protocol NowCastOverlayRendererDataSource {
+	func nowCastImages(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [NowCastImage]?
+}
+
 public class NowCastOverlayRenderer: MKOverlayRenderer {
 	static let DefaultBackgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
-	internal var mapView: NowCastMapView?
-	internal var backgroundColor = NowCastOverlayRenderer.DefaultBackgroundColor {
+	
+	public var dataSource: NowCastOverlayRendererDataSource?
+	public var backgroundColor = NowCastOverlayRenderer.DefaultBackgroundColor {
 		didSet {
-			backgroundImage = NowCastOverlayRenderer.makeImageFromColor(backgroundColor)
+			backgroundImage = NowCastOverlayRenderer.makeImage(fromUIColor: backgroundColor)
 		}
 	}
 	private var backgroundImage: UIImage
 
-	static private func makeImageFromColor(color: UIColor) -> UIImage {
+	static private func makeImage(fromUIColor color: UIColor) -> UIImage {
 		let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
 		UIGraphicsBeginImageContext(rect.size)
 		let bgContext = UIGraphicsGetCurrentContext()
@@ -33,20 +38,18 @@ public class NowCastOverlayRenderer: MKOverlayRenderer {
 		return image
 	}
 
-	override init(overlay: MKOverlay) {
-		backgroundImage = NowCastOverlayRenderer.makeImageFromColor(backgroundColor)
+	override public init(overlay: MKOverlay) {
+		backgroundImage = NowCastOverlayRenderer.makeImage(fromUIColor: backgroundColor)
 		super.init(overlay: overlay)
 	}
 
 	internal init(overlay: MKOverlay, backgroundColor: UIColor) {
-		backgroundImage = NowCastOverlayRenderer.makeImageFromColor(backgroundColor)
+		backgroundImage = NowCastOverlayRenderer.makeImage(fromUIColor: backgroundColor)
 		super.init(overlay: overlay)
 	}
 
 	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		mapView?.currentZoomScale = zoomScale
-
-		if let ncImages = mapView?.nowCastImages(inMapRect: mapRect, forZoomScale: zoomScale) {
+		if let ncImages = dataSource?.nowCastImages(inMapRect: mapRect, forZoomScale: zoomScale) {
 			for ncImage in ncImages {
 				if let image = ncImage.image, imageReference = ncImage.image?.CGImage {
 					UIGraphicsBeginImageContext(image.size)
@@ -64,9 +67,5 @@ public class NowCastOverlayRenderer: MKOverlayRenderer {
 				}
 			}
 		}
-	}
-
-	override public func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
-		return NowCastImageManager.sharedManager.isServiceAvailable(inMapRect: mapRect)
 	}
 }

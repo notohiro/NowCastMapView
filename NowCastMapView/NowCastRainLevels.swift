@@ -143,7 +143,7 @@ public class NowCastRainLevels: CustomStringConvertible {
 		nc.addObserver(self, selector: #selector(NowCastRainLevels.newImageFetched(_:)), name: NowCastImageManager.Notification.name, object: nil)
 
 		for index in baseTime.range() {
-			if let nowCastImage = imageManager.image(atCoordinate: coordinate, zoomScale: 0.0005, baseTime: baseTime, baseTimeIndex: index, priority: kNowCastDownloadPriorityHigh) {
+			if let nowCastImage = imageManager.image(atCoordinate: coordinate, zoomScale: 0.0005, baseTime: baseTime, baseTimeIndex: index, priority: NowCastDownloadPriorityHigh) {
 				nowCastImages[nowCastImage.imageURL.absoluteString] = nowCastImage
 			}
 			else { return nil }

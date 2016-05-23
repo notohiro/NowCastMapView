@@ -64,7 +64,7 @@ final public class NowCastBaseTimeManager {
 
 			self.fetching = false
 		}
-		task.priority = kNowCastDownloadPriorityBaseTime
+		task.priority = NSURLSessionTaskPriorityHigh
 		task.resume()
 	}
 

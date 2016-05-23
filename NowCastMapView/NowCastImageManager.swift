@@ -86,20 +86,20 @@ final public class NowCastImageManager {
 		// mapRect terminal Coordinate
 		let  terminal = MKCoordinateForMapPoint(MKMapPointMake(mapRect.origin.x + mapRect.size.width, mapRect.origin.y + mapRect.size.height));
 
-		if origin.latitude > kNowCastTerminalLatitude &&
-			terminal.latitude < kNowCastOriginLatitude &&
-			origin.longitude < kNowCastTerminalLongitude &&
-			terminal.longitude > kNowCastOriginLongitude {
+		if origin.latitude > NowCastTerminalLatitude &&
+			terminal.latitude < NowCastOriginLatitude &&
+			origin.longitude < NowCastTerminalLongitude &&
+			terminal.longitude > NowCastOriginLongitude {
 				return true
 		}
 		else { return false }
 	}
 
 	public func isServiceAvailable(atCoordinate coordinate: CLLocationCoordinate2D) -> Bool {
-		if coordinate.latitude > kNowCastTerminalLatitude &&
-			coordinate.latitude < kNowCastOriginLatitude &&
-			coordinate.longitude < kNowCastTerminalLongitude &&
-			coordinate.longitude > kNowCastOriginLongitude {
+		if coordinate.latitude > NowCastTerminalLatitude &&
+			coordinate.latitude < NowCastOriginLatitude &&
+			coordinate.longitude < NowCastTerminalLongitude &&
+			coordinate.longitude > NowCastOriginLongitude {
 				return true
 		}
 		else { return false }

@@ -15,7 +15,6 @@
 		D3112FA11BACA1EE00FE21CF /* NowCastBaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */; };
 		D332498A1BA727C9008F1F21 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33249911BA727C9008F1F21 /* NowCastMapView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249861BA727C9008F1F21 /* NowCastMapView.framework */; };
-		D33249A61BA7280F008F1F21 /* NowCastMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A01BA7280F008F1F21 /* NowCastMapView.swift */; };
 		D33249A91BA7280F008F1F21 /* NowCastOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */; };
 		D33249AA1BA7280F008F1F21 /* NowCastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */; };
 		D33249AD1BA72823008F1F21 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
@@ -24,8 +23,8 @@
 		D33249B31BA84A03008F1F21 /* NowCastBaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */; };
 		D33249B51BA86259008F1F21 /* NowCastBaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */; };
 		D335FBC21CBDEEF600960920 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D335FBC11CBDEEF600960920 /* tile2.png */; };
-		D3438CA31BADB3C9009B5AB8 /* InternalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */; };
-		D3438CA41BADB3F4009B5AB8 /* InternalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */; };
+		D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
+		D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D36EA7391CE533CB00DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D36EA73A1CE53CE900DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
@@ -34,7 +33,6 @@
 		D37C3F061C72975300CEE631 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
-		D38D343C1CE724B100D77509 /* NowCastMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A01BA7280F008F1F21 /* NowCastMapView.swift */; };
 		D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */; };
 		D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */; };
 		D38D343F1CE724B100D77509 /* NowCastBaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */; };
@@ -43,7 +41,7 @@
 		D38D34421CE724B100D77509 /* NowCastImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */; };
 		D38D34431CE724B100D77509 /* NowCastImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */; };
 		D38D34441CE724B100D77509 /* UIImage+RGBA255.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage+RGBA255.swift */; };
-		D38D34451CE724B100D77509 /* InternalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */; };
+		D38D34451CE724B100D77509 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D38D34461CE724B100D77509 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34491CE724E600D77509 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */; };
@@ -80,7 +78,6 @@
 		D332498B1BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D33249901BA727C9008F1F21 /* NowCastMapViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NowCastMapViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33249971BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D33249A01BA7280F008F1F21 /* NowCastMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastMapView.swift; sourceTree = "<group>"; };
 		D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastOverlayRenderer.swift; sourceTree = "<group>"; };
 		D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastOverlay.swift; sourceTree = "<group>"; };
 		D33249AC1BA72823008F1F21 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -89,7 +86,7 @@
 		D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeManager.swift; sourceTree = "<group>"; };
 		D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeParser.swift; sourceTree = "<group>"; };
 		D335FBC11CBDEEF600960920 /* tile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile2.png; sourceTree = "<group>"; };
-		D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalConstants.swift; sourceTree = "<group>"; };
+		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AwesomeCache.framework; path = Carthage/Build/iOS/AwesomeCache.framework; sourceTree = "<group>"; };
 		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
 		D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevels.swift; sourceTree = "<group>"; };
@@ -209,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				D33249891BA727C9008F1F21 /* NowCastMapView.h */,
-				D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */,
+				D3438CA21BADB3C9009B5AB8 /* Constants.swift */,
 				D37C3F051C72975300CEE631 /* Weak.swift */,
 				D332498B1BA727C9008F1F21 /* Info.plist */,
 			);
@@ -227,7 +224,6 @@
 		D3D3CCEE1BAE5A500083B7FC /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				D33249A01BA7280F008F1F21 /* NowCastMapView.swift */,
 				D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */,
 				D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */,
 			);
@@ -452,8 +448,7 @@
 				D33249AF1BA82E6C008F1F21 /* NowCastImageManager.swift in Sources */,
 				D33249B51BA86259008F1F21 /* NowCastBaseTimeParser.swift in Sources */,
 				D30341391C63864100F44630 /* UIImage+RGBA255.swift in Sources */,
-				D33249A61BA7280F008F1F21 /* NowCastMapView.swift in Sources */,
-				D3438CA31BADB3C9009B5AB8 /* InternalConstants.swift in Sources */,
+				D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */,
 				D3D3CCFB1BB6098A0083B7FC /* NowCastImage.swift in Sources */,
 				D37C3F061C72975300CEE631 /* Weak.swift in Sources */,
 			);
@@ -464,7 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D39FBB2E1CEB2A1400FE6769 /* Weak.swift in Sources */,
-				D3438CA41BADB3F4009B5AB8 /* InternalConstants.swift in Sources */,
+				D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */,
 				D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */,
 				D3D3CCF21BAE6BE70083B7FC /* NowCastBaseTimeTests.swift in Sources */,
 				D3FD42061C6B6A9C00EE1A65 /* NowCastImageTests.swift in Sources */,
@@ -486,7 +481,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */,
-				D38D343C1CE724B100D77509 /* NowCastMapView.swift in Sources */,
 				D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */,
 				D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */,
 				D38D343F1CE724B100D77509 /* NowCastBaseTimeManager.swift in Sources */,
@@ -495,7 +489,7 @@
 				D38D34421CE724B100D77509 /* NowCastImageManager.swift in Sources */,
 				D38D34431CE724B100D77509 /* NowCastImage.swift in Sources */,
 				D38D34441CE724B100D77509 /* UIImage+RGBA255.swift in Sources */,
-				D38D34451CE724B100D77509 /* InternalConstants.swift in Sources */,
+				D38D34451CE724B100D77509 /* Constants.swift in Sources */,
 				D38D34461CE724B100D77509 /* Weak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

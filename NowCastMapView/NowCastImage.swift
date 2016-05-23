@@ -47,24 +47,24 @@ public class NowCastImage: CustomStringConvertible {
 		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
 
 		// initialize mods
-		let latDoubleNumber = (coordinate.latitude - kNowCastOriginLatitude) / -deltas.latitudeDelta
+		let latDoubleNumber = (coordinate.latitude - NowCastOriginLatitude) / -deltas.latitudeDelta
 		let latitudeNumber = Int(floor(latDoubleNumber))
-		let lonDoubleNumber = (coordinate.longitude - kNowCastOriginLongitude) / deltas.longitudeDelta
+		let lonDoubleNumber = (coordinate.longitude - NowCastOriginLongitude) / deltas.longitudeDelta
 		let longitudeNumber = Int(floor(lonDoubleNumber))
 
 		return (latitudeNumber, longitudeNumber)
 	}
 
 	internal static func deltas(forZoomLevel zoomLevel: NCZoomLevel) -> (latitudeDelta: Double, longitudeDelta: Double) {
-		let latitudeDelta = Double(kNowCastOriginLatitude - kNowCastTerminalLatitude) / Double(zoomLevel.rawValue)
-		let longitudeDelta = Double(kNowCastTerminalLongitude - kNowCastOriginLongitude) / Double(zoomLevel.rawValue)
+		let latitudeDelta = Double(NowCastOriginLatitude - NowCastTerminalLatitude) / Double(zoomLevel.rawValue)
+		let longitudeDelta = Double(NowCastTerminalLongitude - NowCastOriginLongitude) / Double(zoomLevel.rawValue)
 		return (latitudeDelta, longitudeDelta)
 	}
 
 	internal static func coordinates(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
 		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
-		let originLatitude = kNowCastOriginLatitude - Double(latitudeNumber)*deltas.latitudeDelta
-		let originLongitude = kNowCastOriginLongitude + Double(longitudeNumber)*deltas.longitudeDelta
+		let originLatitude = NowCastOriginLatitude - Double(latitudeNumber)*deltas.latitudeDelta
+		let originLongitude = NowCastOriginLongitude + Double(longitudeNumber)*deltas.longitudeDelta
 		let terminalLatitude = originLatitude - deltas.latitudeDelta
 		let terminalLongitude = originLongitude + deltas.longitudeDelta
 
@@ -196,8 +196,8 @@ public class NowCastImage: CustomStringConvertible {
 	internal func position(atCoordinate coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
 		if isOnImage(forCoordinate: coordinate) == false { return nil }
 
-		let latitudeNumberAsDouble = (coordinate.latitude - kNowCastOriginLatitude) / -deltas.latitudeDelta
-		let longitudeNumberAsDouble = (coordinate.longitude - kNowCastOriginLongitude) / deltas.longitudeDelta
+		let latitudeNumberAsDouble = (coordinate.latitude - NowCastOriginLatitude) / -deltas.latitudeDelta
+		let longitudeNumberAsDouble = (coordinate.longitude - NowCastOriginLongitude) / deltas.longitudeDelta
 
 		let latitudePosition = latitudeNumberAsDouble - Double(latitudeNumber)
 		let longitudePosition = longitudeNumberAsDouble - Double(longitudeNumber)

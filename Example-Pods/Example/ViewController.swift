@@ -10,17 +10,27 @@ import UIKit
 import NowCastMapView
 import MapKit
 
-class ViewController: UIViewController, NowCastMapViewDataSource {
-	@IBOutlet weak var mapView: NowCastMapView! {
-		didSet { mapView.dataSource = self }
-	}
+class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendererDataSource {
+
+// MARK: - IBOutlets
+
+	@IBOutlet weak var mapView: MKMapView!
+
+// MARK: - NowCastMapViewDataSource
 
 	var baseTime: NowCastBaseTime? {
-		didSet { mapView.setNeedsDisplay() }
+		didSet { renderer.setNeedsDisplay() }
 	}
+
 	var baseTimeIndex: Int = 0 {
-		didSet { mapView.setNeedsDisplay() }
+		didSet { renderer.setNeedsDisplay() }
 	}
+
+// MARK: - Other Variables
+
+	var overlay = NowCastOverlay()
+	var renderer: NowCastOverlayRenderer!
+	private let imageManager = NowCastImageManager.sharedManager
 
 	var annotation: MKPointAnnotation? {
 		didSet {
@@ -43,13 +53,25 @@ class ViewController: UIViewController, NowCastMapViewDataSource {
 		}
 	}
 
+// MARK: - Application Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		// Initialize mapView
+		mapView.delegate = self
+
+		// Initialize Overlay and Renderer
+		renderer = NowCastOverlayRenderer(overlay: overlay)
+		renderer.dataSource = self
+		mapView.addOverlay(overlay)
 
 		// register notification
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: #selector(ViewController.baseTimeUpdated(_:)), name: NowCastBaseTimeManager.Notification.name, object: nil)
+		nc.addObserver(self, selector: #selector(ViewController.imageFetched(_:)), name: NowCastImageManager.Notification.name, object: nil)
 
+		// restore last baseTime
 		baseTime = NowCastBaseTimeManager.sharedManager.lastSavedBaseTime
     }
 
@@ -57,7 +79,7 @@ class ViewController: UIViewController, NowCastMapViewDataSource {
 
 	@IBAction func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
 		if (sender.state == .Began) {
-			// remove specified annotations
+			// remove existing annotations
 			mapView.removeAnnotations(mapView.annotations)
 
 			// add annotation
@@ -69,6 +91,20 @@ class ViewController: UIViewController, NowCastMapViewDataSource {
 			annotation = anno
 			mapView.addAnnotation(anno)
 		}
+	}
+
+// MARK: - MKMapViewDelegate
+
+	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+		return renderer
+	}
+
+	func nowCastImages(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [NowCastImage]? {
+		if let baseTime = self.baseTime {
+			let images = imageManager.images(forMapRect: mapRect, zoomScale: zoomScale, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: NowCastDownloadPriorityHigh)
+			return images
+		}
+		else { return nil }
 	}
 
 // MARK: - UIGestureRecognizerDelegate
@@ -88,5 +124,21 @@ class ViewController: UIViewController, NowCastMapViewDataSource {
 			}
         }
     }
+
+// MARK: - NowCastImageManagerNotification
+
+	dynamic func imageFetched(notification: NSNotification) {
+		if let userInfo = notification.userInfo {
+			if let image = userInfo[NowCastImageManager.Notification.object] as? NowCastImage {
+				if baseTime?.compare(image.baseTime) != .OrderedSame { return }
+				if image.baseTimeIndex != baseTimeIndex { return }
+
+				// check region of MapView
+				// issue #3
+
+				renderer.setNeedsDisplay()
+			}
+		}
+	}
 }
 
