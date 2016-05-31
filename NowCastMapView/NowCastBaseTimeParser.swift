@@ -8,27 +8,27 @@
 
 import Foundation
 
-internal class NowCastBaseTimeParser: NSObject, NSXMLParserDelegate {
-	internal var parsedArr = [String]()
+class NowCastBaseTimeParser: NSObject, NSXMLParserDelegate {
+	var parsedArr = [String]()
 	private var isBaseTimeElement: Bool = false
 
-	internal func parserDidStartDocument(parser: NSXMLParser) {
+	func parserDidStartDocument(parser: NSXMLParser) {
 		self.isBaseTimeElement = false
 	}
 
-	internal func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+	func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
 		if elementName == "basetime" {
 			self.isBaseTimeElement = true
 		}
 	}
 
-	internal func parser(parser: NSXMLParser, foundCharacters string: String) {
+	func parser(parser: NSXMLParser, foundCharacters string: String) {
 		if self.isBaseTimeElement {
 			self.parsedArr.append(string)
 		}
 	}
 
-	internal func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+	func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 		self.isBaseTimeElement = false
 	}
 }

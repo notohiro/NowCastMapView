@@ -11,7 +11,7 @@ import MapKit
 
 public class NowCastImage: CustomStringConvertible {
 // MARK: - Static Functions
-	internal static func imageURL(forLatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel, baseTime: NowCastBaseTime, baseTimeIndex: Int) -> NSURL? {
+	static func imageURL(forLatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel, baseTime: NowCastBaseTime, baseTimeIndex: Int) -> NSURL? {
 		var forecastTimeString: String
 		var viewTimeString: String
 
@@ -43,7 +43,7 @@ public class NowCastImage: CustomStringConvertible {
 		return NSURL(string: retStr)
 	}
 
-	internal static func imageNumbers(forCoordinate coordinate: CLLocationCoordinate2D, zoomLevel: NCZoomLevel) -> (latitudeNumber: Int, longitudeNumber: Int) {
+	static func imageNumbers(forCoordinate coordinate: CLLocationCoordinate2D, zoomLevel: NCZoomLevel) -> (latitudeNumber: Int, longitudeNumber: Int) {
 		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
 
 		// initialize mods
@@ -55,13 +55,13 @@ public class NowCastImage: CustomStringConvertible {
 		return (latitudeNumber, longitudeNumber)
 	}
 
-	internal static func deltas(forZoomLevel zoomLevel: NCZoomLevel) -> (latitudeDelta: Double, longitudeDelta: Double) {
+	static func deltas(forZoomLevel zoomLevel: NCZoomLevel) -> (latitudeDelta: Double, longitudeDelta: Double) {
 		let latitudeDelta = Double(NowCastOriginLatitude - NowCastTerminalLatitude) / Double(zoomLevel.rawValue)
 		let longitudeDelta = Double(NowCastTerminalLongitude - NowCastOriginLongitude) / Double(zoomLevel.rawValue)
 		return (latitudeDelta, longitudeDelta)
 	}
 
-	internal static func coordinates(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
+	static func coordinates(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
 		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
 		let originLatitude = NowCastOriginLatitude - Double(latitudeNumber)*deltas.latitudeDelta
 		let originLongitude = NowCastOriginLongitude + Double(longitudeNumber)*deltas.longitudeDelta
@@ -74,7 +74,7 @@ public class NowCastImage: CustomStringConvertible {
 		return (originCoordinate, terminalCoordinate)
 	}
 
-	internal static func mapRect(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> MKMapRect {
+	static func mapRect(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> MKMapRect {
 		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
 		// make mapRect
 		// top left coordinate of image
@@ -97,27 +97,31 @@ public class NowCastImage: CustomStringConvertible {
 	public var image: UIImage?
 	public let baseTime: NowCastBaseTime, baseTimeIndex: Int
 	public let imageURL: NSURL
-	public var priority: Float
-//	private var observer: NSObjectProtocol?
+	public var priority: Float {
+		didSet {
+			if let dataTask = self.dataTask { dataTask.priority = priority }
+		}
+	}
+	var dataTask: NSURLSessionDataTask?
 
 // MARK: - Calculated Property
 	public var description: String {
 		return imageURL.absoluteString
 	}
-	internal var deltas: (latitudeDelta: Double, longitudeDelta: Double) {
+	var deltas: (latitudeDelta: Double, longitudeDelta: Double) {
 		return NowCastImage.deltas(forZoomLevel: zoomLevel)
 	}
-	internal var rectCoordinates: (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
+	var rectCoordinates: (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
 		return NowCastImage.coordinates(
 			forlatitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel)
 	}
-	internal var mapRect: MKMapRect {
+	var mapRect: MKMapRect {
 		return NowCastImage.mapRect(
 			forlatitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel)
 	}
 
 // MARK: - Functions
-	internal init?(latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: Float) {
+	init?(latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: Float) {
 		self.zoomLevel = zoomLevel
 		self.baseTime = baseTime
 		self.baseTimeIndex = baseTimeIndex
@@ -162,7 +166,7 @@ public class NowCastImage: CustomStringConvertible {
 		NowCastImageManager.sharedManager.imagePool.removeValueForKey(imageURL.absoluteString)
 	}
 
-	internal func isOnImage(forCoordinate coordinate: CLLocationCoordinate2D) -> Bool {
+	func isOnImage(forCoordinate coordinate: CLLocationCoordinate2D) -> Bool {
 		let origin = rectCoordinates.origin
 		let terminal = rectCoordinates.terminal
 
@@ -172,7 +176,7 @@ public class NowCastImage: CustomStringConvertible {
 		else { return false }
 	}
 
-	internal func color(atCoordinate coordinate: CLLocationCoordinate2D) -> RGBA255? {
+	func color(atCoordinate coordinate: CLLocationCoordinate2D) -> RGBA255? {
 		if isOnImage(forCoordinate: coordinate) == false { return nil }
 
 		if let point = point(atCoordinate: coordinate) {
@@ -181,7 +185,7 @@ public class NowCastImage: CustomStringConvertible {
 		else { return nil }
 	}
 
-	internal func point(atCoordinate coordinate: CLLocationCoordinate2D) -> CGPoint? {
+	func point(atCoordinate coordinate: CLLocationCoordinate2D) -> CGPoint? {
 		if isOnImage(forCoordinate: coordinate) == false { return nil }
 
 		if let image = self.image, position = position(atCoordinate: coordinate) {
@@ -193,7 +197,7 @@ public class NowCastImage: CustomStringConvertible {
 		else { return nil }
 	}
 
-	internal func position(atCoordinate coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
+	func position(atCoordinate coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
 		if isOnImage(forCoordinate: coordinate) == false { return nil }
 
 		let latitudeNumberAsDouble = (coordinate.latitude - NowCastOriginLatitude) / -deltas.latitudeDelta
@@ -205,7 +209,7 @@ public class NowCastImage: CustomStringConvertible {
 		return (latitudePosition, longitudePosition)
 	}
 
-	internal func coordinate(atPoint point: CGPoint) -> CLLocationCoordinate2D? {
+	func coordinate(atPoint point: CGPoint) -> CLLocationCoordinate2D? {
 		if let image = self.image {
 			// return nil if it's point is not on image
 			if point.x < 0 || point.y < 0 || point.x >= image.size.width || point.y >= image.size.height {
@@ -227,11 +231,11 @@ public class NowCastImage: CustomStringConvertible {
 	}
 
 	private func downloadImage() {
-		let task = defaultSession.dataTaskWithURL(imageURL) { [unowned self] data, response, error in
+		dataTask = defaultSession.dataTaskWithURL(imageURL) { [unowned self] data, response, error in
 			self.downloadFinished(data, response: response, error: error)
 		}
-		task.priority = priority
-		task.resume()
+		dataTask?.priority = priority
+		dataTask?.resume()
 	}
 
 	public func downloadFinished(data: NSData?, response: NSURLResponse?, error: NSError?) {

@@ -40,17 +40,17 @@ public enum NCZoomLevel: Int {
 	}
 }
 
-internal class SynchronizedDictionary<S: Hashable, T> {
+class SynchronizedDictionary<S: Hashable, T> {
 	private var _dictionary = [S : T]()
 	private let accessQueue = dispatch_queue_create("SynchronizedDictionaryAccess", DISPATCH_QUEUE_SERIAL)
 
-	internal func setValue(value: T, forKey key: S) {
+	func setValue(value: T, forKey key: S) {
 		dispatch_async(accessQueue) {
 			self._dictionary[key] = value
 		}
 	}
 
-	internal func valueForKey(key: S) -> T? {
+	func valueForKey(key: S) -> T? {
 		var value: T?
 		dispatch_sync(accessQueue) {
 			value = self._dictionary[key]
@@ -58,7 +58,7 @@ internal class SynchronizedDictionary<S: Hashable, T> {
 		return value
 	}
 
-	internal func removeValueForKey(key: S) {
+	func removeValueForKey(key: S) {
 		dispatch_async(accessQueue) {
 			self._dictionary.removeValueForKey(key)
 		}
@@ -74,9 +74,9 @@ final public class NowCastImageManager {
 		public static let error = "error"
 	}
 
-	internal let sharedImageCache = try! Cache<UIImage>(name: "NowCastImageCache")
-	internal var imagePool = SynchronizedDictionary<String, Weak<NowCastImage>>()
-	internal var processingImages = SynchronizedDictionary<String, NowCastImage>()
+	let sharedImageCache = try! Cache<UIImage>(name: "NowCastImageCache")
+	var imagePool = SynchronizedDictionary<String, Weak<NowCastImage>>()
+	var processingImages = SynchronizedDictionary<String, NowCastImage>()
 	
 	private init() { }
 

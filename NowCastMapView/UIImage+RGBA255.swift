@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-internal struct RGBA255: Equatable {
+struct RGBA255: Equatable {
 	let red: Int
 	let green: Int
 	let blue: Int
@@ -29,7 +29,7 @@ internal struct RGBA255: Equatable {
 	}
 }
 
-internal func ==(lhs: RGBA255, rhs: RGBA255) -> Bool {
+func ==(lhs: RGBA255, rhs: RGBA255) -> Bool {
 	return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha ? true : false
 }
 

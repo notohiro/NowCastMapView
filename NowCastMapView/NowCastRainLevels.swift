@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-internal struct NowCastRainLevelColor {
+struct NowCastRainLevelColor {
 	let level: Int
 	let color: RGBA255
 
@@ -30,7 +30,7 @@ var NowCastRainLevelColor6 = NowCastRainLevelColor(level: 6, color: RGBA255(red:
 var NowCastRainLevelColor7 = NowCastRainLevelColor(level: 7, color: RGBA255(red: 255, green:  40, blue:   0, alpha: 255))
 var NowCastRainLevelColor8 = NowCastRainLevelColor(level: 8, color: RGBA255(red: 180, green:   0, blue: 104, alpha: 255))
 
-internal let NowCastRainLevelColors = [NowCastRainLevelColor00, NowCastRainLevelColor01, NowCastRainLevelColor1,
+let NowCastRainLevelColors = [NowCastRainLevelColor00, NowCastRainLevelColor01, NowCastRainLevelColor1,
                                        NowCastRainLevelColor2,  NowCastRainLevelColor3,  NowCastRainLevelColor4,
                                        NowCastRainLevelColor5,  NowCastRainLevelColor6,  NowCastRainLevelColor7, NowCastRainLevelColor8]
 
@@ -38,7 +38,7 @@ public class NowCastRainLevel {
 	public var level: Int?
 	private var _color: RGBA255
 
-	internal init(color: RGBA255) {
+	init(color: RGBA255) {
 		self._color = color
 
 		for rainLevel in NowCastRainLevelColors {
@@ -51,7 +51,7 @@ public class NowCastRainLevel {
 		}
 	}
 
-	internal func toRGBA255() -> RGBA255? {
+	func toRGBA255() -> RGBA255? {
 		if let level = self.level {
 			if level == 0 { return NowCastRainLevelColor00.color }
 			for rainLevel in NowCastRainLevelColors {

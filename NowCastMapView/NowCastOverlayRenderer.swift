@@ -43,7 +43,7 @@ public class NowCastOverlayRenderer: MKOverlayRenderer {
 		super.init(overlay: overlay)
 	}
 
-	internal init(overlay: MKOverlay, backgroundColor: UIColor) {
+	init(overlay: MKOverlay, backgroundColor: UIColor) {
 		backgroundImage = NowCastOverlayRenderer.makeImage(fromUIColor: backgroundColor)
 		super.init(overlay: overlay)
 	}

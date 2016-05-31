@@ -88,7 +88,7 @@ class NowCastImageTests: AmeBaseTestCase {
 					return true
 				}
 
-				let nowCastImage = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: aBaseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent)
+				let nowCastImage = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: aBaseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent)
 				weakImage = nowCastImage
 				XCTAssertNil(nowCastImage!.image)
 			}
@@ -103,7 +103,7 @@ class NowCastImageTests: AmeBaseTestCase {
 	func testMapRect() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			XCTAssertNotNil(setImageCache("tile", forBaseTime: baseTime))
-			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent) {
+			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent) {
 				let mapRect = image.mapRect
 				let origin = MKCoordinateForMapPoint(mapRect.origin)
 				XCTAssertEqual(origin.latitude, 61)
@@ -128,7 +128,7 @@ class NowCastImageTests: AmeBaseTestCase {
 	func testIsOnImage() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			XCTAssertNotNil(setImageCache("tile", forBaseTime: baseTime))
-			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent) {
+			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent) {
 				let coordinates = image.rectCoordinates
 				XCTAssertTrue(image.isOnImage(forCoordinate: coordinates.origin))
 				XCTAssertFalse(image.isOnImage(forCoordinate: CLLocationCoordinate2DMake(coordinates.origin.latitude, coordinates.terminal.longitude)))
@@ -143,7 +143,7 @@ class NowCastImageTests: AmeBaseTestCase {
 	func testColorAtCoordinate() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			XCTAssertNotNil(setImageCache("tile", forBaseTime: baseTime))
-			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent) {
+			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent) {
 				if let color = image.color(atCoordinate: image.rectCoordinates.origin) {
 					XCTAssertEqual(color.red, NowCastRainLevelColor1.color.red)
 					XCTAssertEqual(color.green, NowCastRainLevelColor1.color.green)
@@ -162,7 +162,7 @@ class NowCastImageTests: AmeBaseTestCase {
 	func testPointAtCoordinate() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			XCTAssertNotNil(setImageCache("tile", forBaseTime: baseTime))
-			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent) {
+			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent) {
 				if let originPoint = image.point(atCoordinate: image.rectCoordinates.origin) {
 					XCTAssertEqual(originPoint, CGPointMake(0, 0))
 				}
@@ -188,7 +188,7 @@ class NowCastImageTests: AmeBaseTestCase {
 	func testPositionAtCoordinate() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			XCTAssertNotNil(setImageCache("tile", forBaseTime: baseTime))
-			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent) {
+			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent) {
 				if let originPosition = image.position(atCoordinate: image.rectCoordinates.origin) {
 					XCTAssertEqual(originPosition.latitudePosition, 0.0)
 					XCTAssertEqual(originPosition.longitudePosition, 0.0)
@@ -214,7 +214,7 @@ class NowCastImageTests: AmeBaseTestCase {
 	func testCoordinateAtPoint() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			XCTAssertNotNil(setImageCache("tile", forBaseTime: baseTime))
-			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: kNowCastDownloadPriorityUrgent) {
+			if let image = NowCastImage(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: 0, priority: NowCastDownloadPriorityUrgent) {
 				if let originCoordinate = image.coordinate(atPoint: CGPointMake(0, 0)) {
 					if let originPoint = image.point(atCoordinate: originCoordinate) {
 						XCTAssertEqual(originPoint, CGPointMake(0, 0))

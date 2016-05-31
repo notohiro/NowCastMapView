@@ -86,7 +86,7 @@ final public class NowCastBaseTimeManager {
 	}
 
 	// for calling from test methods
-	internal func saveBaseTime(baseTime: NowCastBaseTime) {
+	func saveBaseTime(baseTime: NowCastBaseTime) {
 		sharedCache.setObject(baseTime, forKey: kLastSavedBaseTimeKey)
 	}
 }

@@ -25,6 +25,6 @@ public let NowCastDownloadPriorityLow: Float =		0.4
 let NowCastDownloadPriorityPrefetchForward: Float =		0.2
 let NowCastDownloadPriorityPrefetchBackward: Float =	0.1
 
-internal let NowCastDownloadPriorityBaseTime =  NowCastDownloadPriorityUrgent
+let NowCastDownloadPriorityBaseTime =  NowCastDownloadPriorityUrgent
 
 let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())

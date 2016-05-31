@@ -30,7 +30,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 
 	var overlay = NowCastOverlay()
 	var renderer: NowCastOverlayRenderer!
-	private let imageManager = NowCastImageManager.sharedManager
+	let imageManager = NowCastImageManager.sharedManager
 
 	var annotation: MKPointAnnotation? {
 		didSet {
@@ -98,6 +98,8 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
 		return renderer
 	}
+
+// MARK: - NowCastOverlayRendererDataSource
 
 	func nowCastImages(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [NowCastImage]? {
 		if let baseTime = self.baseTime {
