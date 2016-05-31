@@ -103,8 +103,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 
 	func nowCastImages(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [NowCastImage]? {
 		if let baseTime = self.baseTime {
-			let images = imageManager.images(forMapRect: mapRect, zoomScale: zoomScale, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: NowCastDownloadPriorityHigh)
-			return images
+			return imageManager.images(forMapRect: mapRect, zoomScale: zoomScale, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: NowCastDownloadPriorityHigh)
 		}
 		else { return nil }
 	}

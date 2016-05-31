@@ -27,4 +27,5 @@ let NowCastDownloadPriorityPrefetchBackward: Float =	0.1
 
 let NowCastDownloadPriorityBaseTime =  NowCastDownloadPriorityUrgent
 
-let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+let imageSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+let baseTimeSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())

@@ -155,6 +155,10 @@ final public class NowCastImageManager {
 		return images(forMapRect: mapRect, zoomScale: zoomScale, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: priority).first
 	}
 
+	public func cancelImageRequest() {
+		
+	}
+
 	public func removeExpiredCache() {
 		sharedImageCache.removeExpiredObjects()
 	}

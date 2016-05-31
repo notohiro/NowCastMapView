@@ -231,7 +231,7 @@ public class NowCastImage: CustomStringConvertible {
 	}
 
 	private func downloadImage() {
-		dataTask = defaultSession.dataTaskWithURL(imageURL) { [unowned self] data, response, error in
+		dataTask = imageSession.dataTaskWithURL(imageURL) { [unowned self] data, response, error in
 			self.downloadFinished(data, response: response, error: error)
 		}
 		dataTask?.priority = priority

@@ -58,7 +58,7 @@ final public class NowCastBaseTimeManager {
 		else { fetching = true }
 		objc_sync_exit(self)
 
-		let task = defaultSession.dataTaskWithURL(kBaseTimeURL) { [unowned self] data, response, error in
+		let task = baseTimeSession.dataTaskWithURL(kBaseTimeURL) { [unowned self] data, response, error in
 			if let _ = error {	} // do something?
 			else { let _ = data.flatMap{ NowCastBaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) } }
 
