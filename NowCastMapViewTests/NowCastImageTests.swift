@@ -9,7 +9,7 @@
 import XCTest
 import MapKit
 
-class NowCastImageTests: AmeBaseTestCase {
+class NowCastImageTests: NowCastBaseTestCase {
 	override func setUp() {
 		super.setUp()
 		removeImageCache()

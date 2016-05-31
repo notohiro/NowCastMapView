@@ -26,7 +26,7 @@ class NowCastRainLevelTest: XCTestCase {
 	}
 }
 
-class NowCastRainLevelsTest: AmeBaseTestCase {
+class NowCastRainLevelsTest: NowCastBaseTestCase {
 	override func setUp() {
 		super.setUp()
 		NowCastImageManager.sharedManager.sharedImageCache.removeAllObjects()

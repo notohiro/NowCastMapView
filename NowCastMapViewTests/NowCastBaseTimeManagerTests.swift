@@ -8,7 +8,7 @@
 
 import XCTest
 
-class NowCastBaseTimeManagersTests: AmeBaseTestCase {
+class NowCastBaseTimeManagersTests: NowCastBaseTestCase {
 	let baseTimeManager = NowCastBaseTimeManager.sharedManager
 	private var isFinished = false
 	private var expectedResult: NSComparisonResult? = nil

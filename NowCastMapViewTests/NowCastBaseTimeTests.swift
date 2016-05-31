@@ -9,7 +9,7 @@
 import XCTest
 import AwesomeCache
 
-class NowCastBaseTimeTests: AmeBaseTestCase {
+class NowCastBaseTimeTests: NowCastBaseTestCase {
 	func testInitWithXML() {
 		if let baseTime = getBaseTimeFrom("OldBaseTime") {
 			// test .count()

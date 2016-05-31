@@ -9,7 +9,7 @@
 import XCTest
 import MapKit
 
-class NowCastImageManagerTests: XCTestCase {
+class NowCastImageManagerTests: NowCastBaseTestCase {
 	let imageManager = NowCastImageManager.sharedManager
 
 	func testNCZoomLevel() {

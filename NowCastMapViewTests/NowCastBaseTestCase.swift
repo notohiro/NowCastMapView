@@ -1,5 +1,5 @@
 //
-//  AmeBaseTestCase.swift
+//  NowCastBaseTestCase.swift
 //  NowCastMapView
 //
 //  Created by Hiroshi Noto on 5/14/16.
@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 
-class AmeBaseTestCase: XCTestCase {
+class NowCastBaseTestCase: XCTestCase {
 	let SecondsForTimeout = 3.0
 
 	func getBaseTimeFrom(fileName: String) -> NowCastBaseTime? {
