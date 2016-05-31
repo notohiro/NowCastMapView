@@ -155,8 +155,12 @@ final public class NowCastImageManager {
 		return images(forMapRect: mapRect, zoomScale: zoomScale, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: priority).first
 	}
 
-	public func cancelImageRequest() {
-		
+	public func cancelImageRequestsPriorityLessThan(priority: Float) {
+		imageSession.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
+			for task in dataTasks {
+				if task.priority < priority { task.cancel() }
+			}
+		}
 	}
 
 	public func removeExpiredCache() {
