@@ -171,7 +171,8 @@ public class NowCastRainLevels: CustomStringConvertible {
 	}
 
 	private func checkAllImagesFetched() {
-		NSOperationQueue().addOperationWithBlock() { //[weak self] () -> Void in
+		NSOperationQueue().addOperationWithBlock() {
+			if self.state == .initializing { return }
 			for (_, nowCastImage) in self.nowCastImages { if nowCastImage.image == nil { self.state = .isFetchingImages; return } }
 			self.state = .allImagesFetched
 		}
