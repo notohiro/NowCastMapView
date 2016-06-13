@@ -30,6 +30,7 @@
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
 		D374E88E1C5ED75F001837E3 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
 		D375D5C41D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift */; };
+		D375D5C51D0E5F1600A55405 /* NowCastBaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift */; };
 		D3762E2D1CE755DA006D0979 /* NowCastBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3762E2C1CE755DA006D0979 /* NowCastBaseTestCase.swift */; };
 		D37C3F061C72975300CEE631 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -484,6 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D375D5C51D0E5F1600A55405 /* NowCastBaseTime+Comparable.swift in Sources */,
 				D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */,
 				D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */,
 				D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */,
