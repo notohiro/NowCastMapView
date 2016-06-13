@@ -29,6 +29,7 @@
 		D36EA73A1CE53CE900DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
 		D374E88E1C5ED75F001837E3 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
+		D375D5C41D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift */; };
 		D3762E2D1CE755DA006D0979 /* NowCastBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3762E2C1CE755DA006D0979 /* NowCastBaseTestCase.swift */; };
 		D37C3F061C72975300CEE631 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -90,6 +91,7 @@
 		D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AwesomeCache.framework; path = Carthage/Build/iOS/AwesomeCache.framework; sourceTree = "<group>"; };
 		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
 		D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevels.swift; sourceTree = "<group>"; };
+		D375D5C31D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NowCastBaseTime+Comparable.swift"; sourceTree = "<group>"; };
 		D3762E2C1CE755DA006D0979 /* NowCastBaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTestCase.swift; sourceTree = "<group>"; };
 		D37C3F051C72975300CEE631 /* Weak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		D38D34311CE7204F00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				D33249B01BA842F2008F1F21 /* NowCastBaseTime.swift */,
+				D375D5C31D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift */,
 				D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */,
 				D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */,
 			);
@@ -442,6 +445,7 @@
 			files = (
 				D33249B31BA84A03008F1F21 /* NowCastBaseTimeManager.swift in Sources */,
 				D374E88E1C5ED75F001837E3 /* NowCastRainLevels.swift in Sources */,
+				D375D5C41D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift in Sources */,
 				D33249B11BA842F2008F1F21 /* NowCastBaseTime.swift in Sources */,
 				D33249A91BA7280F008F1F21 /* NowCastOverlayRenderer.swift in Sources */,
 				D33249AA1BA7280F008F1F21 /* NowCastOverlay.swift in Sources */,
