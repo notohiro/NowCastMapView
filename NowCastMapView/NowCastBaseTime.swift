@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class NowCastBaseTime: NSObject, NSCoding {
+public class NowCastBaseTime: NSObject, NSCoding, Comparable {
 	private let kForecastPeriod = 12
 	private var baseTimeArr = [String]()
 
@@ -97,4 +97,20 @@ public class NowCastBaseTime: NSObject, NSCoding {
 		// this api should return not optional value. and index: 0 must success.
 		return self.baseTimeDate(atIndex: 0)!.compare(other.baseTimeDate(atIndex: 0)!)
 	}
+}
+
+public func ==(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
+	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
+
+	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedSame { return true }
+	else { return false }
+}
+
+public func <(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
+	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
+
+	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedAscending { return true }
+	else { return false }
 }
