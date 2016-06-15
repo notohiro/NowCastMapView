@@ -35,6 +35,33 @@ public func ==(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
 	return lhs == rhs
 }
 
+public func !=(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return true }
+	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return true }
+
+	if lhsBaseTimeDate.compare(rhsBaseTimeDate) != .OrderedSame { return true }
+	else { return false }
+}
+
+public func !=(lhs: NowCastBaseTime?, rhs: NowCastBaseTime) -> Bool {
+	guard let lhs = lhs else { return true }
+
+	return lhs != rhs
+}
+
+public func !=(lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
+	guard let rhs = rhs else { return true }
+
+	return lhs != rhs
+}
+
+public func !=(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
+	guard let lhs = lhs else { return true }
+	guard let rhs = rhs else { return true }
+
+	return lhs != rhs
+}
+
 public func <(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
 	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
 	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
