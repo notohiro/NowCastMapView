@@ -86,4 +86,75 @@ class NowCastBaseTimeTests: NowCastBaseTestCase {
 		}
 		else { XCTFail() }
 	}
+
+	func testEquatable() {
+		guard let oldBaseTime = getBaseTimeFrom("OldBaseTime"), newBaseTime = getBaseTimeFrom("NewBaseTime") else { XCTFail(); return }
+		let optionalOldBaseTime: NowCastBaseTime? = oldBaseTime
+		let optionalOldBaseTime2 = getBaseTimeFrom("OldBaseTime")
+		let optionalNewBaseTime = getBaseTimeFrom("NewBaseTime")
+		let optionalBaseTime: NowCastBaseTime? = nil
+
+		// compare between Not Optionals
+		// same objects
+		XCTAssertTrue(oldBaseTime == oldBaseTime)
+		XCTAssertFalse(oldBaseTime != oldBaseTime)
+		// different objects
+		XCTAssertFalse(oldBaseTime == newBaseTime)
+		XCTAssertTrue(oldBaseTime != newBaseTime)
+
+		// compare between Not Optional and Optional
+		// same objects
+		XCTAssertTrue(oldBaseTime == optionalOldBaseTime)
+		XCTAssertTrue(optionalOldBaseTime == oldBaseTime)
+		XCTAssertFalse(oldBaseTime != optionalOldBaseTime)
+		XCTAssertFalse(optionalOldBaseTime != oldBaseTime)
+		// same baseTime
+		XCTAssertTrue(oldBaseTime == optionalOldBaseTime2)
+		XCTAssertTrue(optionalOldBaseTime2 == oldBaseTime)
+		XCTAssertFalse(oldBaseTime != optionalOldBaseTime2)
+		XCTAssertFalse(optionalOldBaseTime2 != oldBaseTime)
+		// different baseTime
+		XCTAssertFalse(oldBaseTime == optionalNewBaseTime)
+		XCTAssertFalse(optionalNewBaseTime == oldBaseTime)
+		XCTAssertTrue(oldBaseTime != optionalNewBaseTime)
+		XCTAssertTrue(optionalNewBaseTime != oldBaseTime)
+		// Optional(nil)
+		XCTAssertFalse(oldBaseTime == optionalBaseTime)
+		XCTAssertFalse(optionalBaseTime == oldBaseTime)
+		XCTAssertTrue(oldBaseTime != optionalBaseTime)
+		XCTAssertTrue(optionalBaseTime != oldBaseTime)
+		// nil
+		XCTAssertFalse(oldBaseTime == nil)
+		XCTAssertFalse(nil == oldBaseTime)
+		XCTAssertTrue(oldBaseTime != nil)
+		XCTAssertTrue(nil != oldBaseTime)
+
+		// compare between Optionals
+		// same objects
+		XCTAssertTrue(optionalOldBaseTime == optionalOldBaseTime)
+		XCTAssertFalse(optionalOldBaseTime != optionalOldBaseTime)
+		// same baseTime
+		XCTAssertTrue(optionalOldBaseTime == optionalOldBaseTime2)
+		XCTAssertTrue(optionalOldBaseTime2 == optionalOldBaseTime)
+		XCTAssertFalse(optionalOldBaseTime != optionalOldBaseTime2)
+		XCTAssertFalse(optionalOldBaseTime2 != optionalOldBaseTime)
+		// different baseTime
+		XCTAssertFalse(optionalOldBaseTime == optionalNewBaseTime)
+		XCTAssertFalse(optionalNewBaseTime == optionalOldBaseTime)
+		XCTAssertTrue(optionalOldBaseTime != optionalNewBaseTime)
+		XCTAssertTrue(optionalNewBaseTime != optionalOldBaseTime)
+		// Optional(nil)
+		XCTAssertTrue(optionalBaseTime == optionalBaseTime)
+		XCTAssertFalse(optionalBaseTime != optionalBaseTime)
+		// nil
+		XCTAssertFalse(optionalOldBaseTime == nil)
+		XCTAssertFalse(nil == optionalOldBaseTime)
+		XCTAssertTrue(optionalOldBaseTime != nil)
+		XCTAssertTrue(nil != optionalOldBaseTime)
+		// Optional(nil) and nil
+		XCTAssertTrue(optionalBaseTime == nil)
+		XCTAssertTrue(nil == optionalBaseTime)
+		XCTAssertFalse(optionalBaseTime != nil)
+		XCTAssertFalse(nil != optionalBaseTime)
+	}
 }

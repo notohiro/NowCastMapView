@@ -9,6 +9,8 @@
 import Foundation
 
 public func ==(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+	if lhs === rhs { return true }
+
 	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
 	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
 
@@ -29,6 +31,9 @@ public func ==(lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
 }
 
 public func ==(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
+	// for in case of nil == nil
+	if lhs === rhs { return true }
+
 	guard let lhs = lhs else { return false }
 	guard let rhs = rhs else { return false }
 
@@ -36,6 +41,8 @@ public func ==(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
 }
 
 public func !=(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+	if lhs === rhs { return false }
+
 	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return true }
 	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return true }
 
@@ -56,6 +63,9 @@ public func !=(lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
 }
 
 public func !=(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
+	// for in case of nil == nil
+	if lhs === rhs { return false }
+
 	guard let lhs = lhs else { return true }
 	guard let rhs = rhs else { return true }
 

@@ -48,6 +48,7 @@
 		D38D34491CE724E600D77509 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */; };
 		D39FBB2E1CEB2A1400FE6769 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
+		D3A5E4201D12221E005B47D4 /* NowCastBaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* NowCastBaseTime+Comparable.swift */; };
 		D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C7EFE01C952744007A7867 /* NowCastImageManagerTests.swift */; };
 		D3D3CCF01BAE60D00083B7FC /* OldBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */; };
 		D3D3CCF21BAE6BE70083B7FC /* NowCastBaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */; };
@@ -463,6 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A5E4201D12221E005B47D4 /* NowCastBaseTime+Comparable.swift in Sources */,
 				D39FBB2E1CEB2A1400FE6769 /* Weak.swift in Sources */,
 				D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */,
 				D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */,
