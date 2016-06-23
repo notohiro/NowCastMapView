@@ -11,7 +11,9 @@ import MapKit
 
 public class Overlay: NSObject, MKOverlay {
 	public var coordinate: CLLocationCoordinate2D {
-		return CLLocationCoordinate2DMake((Constants.originLatitude + Constants.terminalLatitude)/2, (Constants.originLongitude + Constants.terminalLongitude)/2)
+		let latitude = (Constants.originLatitude + Constants.terminalLatitude)/2
+		let longitude = (Constants.originLongitude + Constants.terminalLongitude)/2
+		return CLLocationCoordinate2DMake(latitude, longitude)
 	}
 
 	public var boundingMapRect: MKMapRect {
@@ -19,6 +21,6 @@ public class Overlay: NSObject, MKOverlay {
 		let end = MKMapPointForCoordinate(CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude))
 		let size = MKMapSizeMake(end.x - origin.x, end.y - origin.y)
 
-		return MKMapRectMake(origin.x, origin.y, size.width, size.height);
+		return MKMapRectMake(origin.x, origin.y, size.width, size.height)
 	}
 }

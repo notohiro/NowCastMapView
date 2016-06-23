@@ -15,7 +15,7 @@ public protocol OverlayRendererDataSource {
 
 public class OverlayRenderer: MKOverlayRenderer {
 	static let DefaultBackgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
-	
+
 	public var dataSource: OverlayRendererDataSource?
 	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor {
 		didSet {
@@ -25,7 +25,7 @@ public class OverlayRenderer: MKOverlayRenderer {
 	private var backgroundImage: UIImage
 
 	static private func makeImage(fromUIColor color: UIColor) -> UIImage {
-		let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+		let rect = CGRect.init(x: 0, y: 0, width: 1.0, height: 1.0)
 		UIGraphicsBeginImageContext(rect.size)
 		let bgContext = UIGraphicsGetCurrentContext()
 
@@ -54,15 +54,14 @@ public class OverlayRenderer: MKOverlayRenderer {
 				if let imageData = image.imageData, imageReference = image.imageData?.CGImage {
 					UIGraphicsBeginImageContext(imageData.size)
 					let imageContext = UIGraphicsGetCurrentContext()
-					CGContextDrawImage(imageContext, CGRectMake( 0, 0, imageData.size.width, imageData.size.height), imageReference)
+					CGContextDrawImage(imageContext, CGRect.init(x: 0, y: 0, width: imageData.size.width, height: imageData.size.height), imageReference)
 					let revertedImg = UIGraphicsGetImageFromCurrentImageContext()
 					UIGraphicsEndImageContext()
 
 					CGContextClearRect(context, rectForMapRect(image.mapRect))
-					CGContextSetAlpha(context, 0.6);
+					CGContextSetAlpha(context, 0.6)
 					CGContextDrawImage(context, rectForMapRect(image.mapRect), revertedImg.CGImage)
-				}
-				else {
+				} else {
 					CGContextDrawImage(context, rectForMapRect(image.mapRect), backgroundImage.CGImage)
 				}
 			}

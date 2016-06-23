@@ -23,6 +23,15 @@
 		D33249B31BA84A03008F1F21 /* BaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */; };
 		D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* BaseTimeParser.swift */; };
 		D335FBC21CBDEEF600960920 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D335FBC11CBDEEF600960920 /* tile2.png */; };
+		D33F56341D1BDB560088E547 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
+		D33F56351D1BDB560088E547 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
+		D33F56361D1BDB560088E547 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
+		D33F56381D1BDBB70088E547 /* RainLevelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56371D1BDBB70088E547 /* RainLevelColor.swift */; };
+		D33F56391D1BDBB70088E547 /* RainLevelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56371D1BDBB70088E547 /* RainLevelColor.swift */; };
+		D33F563A1D1BDBB70088E547 /* RainLevelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56371D1BDBB70088E547 /* RainLevelColor.swift */; };
+		D33F563C1D1C0F840088E547 /* RainLevelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */; };
+		D33F563D1D1C0F840088E547 /* RainLevelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */; };
+		D33F563E1D1C0F840088E547 /* RainLevelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */; };
 		D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
@@ -96,6 +105,9 @@
 		D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeManager.swift; sourceTree = "<group>"; };
 		D33249B41BA86259008F1F21 /* BaseTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeParser.swift; sourceTree = "<group>"; };
 		D335FBC11CBDEEF600960920 /* tile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile2.png; sourceTree = "<group>"; };
+		D33F56331D1BDB560088E547 /* RainLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevel.swift; sourceTree = "<group>"; };
+		D33F56371D1BDBB70088E547 /* RainLevelColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelColor.swift; sourceTree = "<group>"; };
+		D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsManager.swift; sourceTree = "<group>"; };
 		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevel.swift; sourceTree = "<group>"; };
 		D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
@@ -183,7 +195,7 @@
 		D33249881BA727C9008F1F21 /* NowCastMapView */ = {
 			isa = PBXGroup;
 			children = (
-				D374E88C1C5E083A001837E3 /* RainLevel */,
+				D374E88C1C5E083A001837E3 /* RainLevels */,
 				D3D3CCEE1BAE5A500083B7FC /* MapView */,
 				D3438CA01BADB09F009B5AB8 /* BaseTime */,
 				D3FDA9CA1BB7708F00BD5F45 /* Image */,
@@ -229,12 +241,15 @@
 			name = etc;
 			sourceTree = "<group>";
 		};
-		D374E88C1C5E083A001837E3 /* RainLevel */ = {
+		D374E88C1C5E083A001837E3 /* RainLevels */ = {
 			isa = PBXGroup;
 			children = (
+				D33F56331D1BDB560088E547 /* RainLevel.swift */,
+				D33F56371D1BDBB70088E547 /* RainLevelColor.swift */,
 				D374E88D1C5ED75F001837E3 /* RainLevels.swift */,
+				D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */,
 			);
-			name = RainLevel;
+			name = RainLevels;
 			sourceTree = "<group>";
 		};
 		D3D3CCEE1BAE5A500083B7FC /* MapView */ = {
@@ -472,6 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33F56381D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeManager.swift in Sources */,
 				D36DB3111D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
 				D374E88E1C5ED75F001837E3 /* RainLevels.swift in Sources */,
@@ -479,10 +495,12 @@
 				D33249B11BA842F2008F1F21 /* BaseTime.swift in Sources */,
 				D33249A91BA7280F008F1F21 /* OverlayRenderer.swift in Sources */,
 				D33249AA1BA7280F008F1F21 /* Overlay.swift in Sources */,
+				D33F563C1D1C0F840088E547 /* RainLevelsManager.swift in Sources */,
 				D33249AF1BA82E6C008F1F21 /* ImageManager.swift in Sources */,
 				D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */,
 				D30341391C63864100F44630 /* UIImage+RGBA255.swift in Sources */,
 				D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */,
+				D33F56341D1BDB560088E547 /* RainLevel.swift in Sources */,
 				D3D3CCFB1BB6098A0083B7FC /* Image.swift in Sources */,
 				D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */,
 				D37C3F061C72975300CEE631 /* Weak.swift in Sources */,
@@ -498,6 +516,7 @@
 				D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */,
 				D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */,
 				D3D3CCF21BAE6BE70083B7FC /* NowCastBaseTimeTests.swift in Sources */,
+				D33F56361D1BDB560088E547 /* RainLevel.swift in Sources */,
 				D3FD42061C6B6A9C00EE1A65 /* NowCastImageTests.swift in Sources */,
 				D3FD42021C6815F100EE1A65 /* RainLevels.swift in Sources */,
 				D3FD41FB1C67891A00EE1A65 /* NowCastRainLevelsTest.swift in Sources */,
@@ -508,6 +527,8 @@
 				D3FD41FF1C6815DA00EE1A65 /* UIImage+RGBA255.swift in Sources */,
 				D3112FA01BACA1EA00FE21CF /* BaseTime.swift in Sources */,
 				D3FD42001C6815E000EE1A65 /* ImageManager.swift in Sources */,
+				D33F563E1D1C0F840088E547 /* RainLevelsManager.swift in Sources */,
+				D33F563A1D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D3FD41FE1C6815D600EE1A65 /* Image.swift in Sources */,
 				D3112F9F1BACA1E700FE21CF /* BaseTimeManager.swift in Sources */,
 				D3112F9E1BACA14F00FE21CF /* NowCastBaseTimeManagerTests.swift in Sources */,
@@ -518,6 +539,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33F56391D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
 				D36DB3121D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
 				D38D343A1CE724B100D77509 /* RainLevels.swift in Sources */,
@@ -525,10 +547,12 @@
 				D38D343E1CE724B100D77509 /* Overlay.swift in Sources */,
 				D38D343F1CE724B100D77509 /* BaseTimeManager.swift in Sources */,
 				D38D34401CE724B100D77509 /* BaseTime.swift in Sources */,
+				D33F563D1D1C0F840088E547 /* RainLevelsManager.swift in Sources */,
 				D38D34411CE724B100D77509 /* BaseTimeParser.swift in Sources */,
 				D38D34421CE724B100D77509 /* ImageManager.swift in Sources */,
 				D38D34431CE724B100D77509 /* Image.swift in Sources */,
 				D38D34441CE724B100D77509 /* UIImage+RGBA255.swift in Sources */,
+				D33F56351D1BDB560088E547 /* RainLevel.swift in Sources */,
 				D38D34451CE724B100D77509 /* Constants.swift in Sources */,
 				D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */,
 				D38D34461CE724B100D77509 /* Weak.swift in Sources */,
