@@ -10,36 +10,6 @@ import Foundation
 import MapKit
 import AwesomeCache
 
-public enum NCZoomLevel: Int {
-	static let MKZoomScaleAsNCZoomLevel4: CGFloat = 0.000488
-	static let MKZoomScaleAsNCZoomLevel2: CGFloat = 0.000122
-
-	case NCZoomLevel2 = 4
-	case NCZoomLevel4 = 16
-	case NCZoomLevel6 = 64
-
-	init(zoomScale: MKZoomScale) {
-		if zoomScale > NCZoomLevel.MKZoomScaleAsNCZoomLevel4 {
-			self = .NCZoomLevel6
-		}
-		else if zoomScale > NCZoomLevel.MKZoomScaleAsNCZoomLevel2 {
-			self = .NCZoomLevel4
-		}
-		else { self = .NCZoomLevel2 }
-	}
-
-	func toURLPrefix() -> String {
-		switch self {
-		case .NCZoomLevel2:
-			return "zoom2"
-		case .NCZoomLevel4:
-			return "zoom4"
-		case .NCZoomLevel6:
-			return "zoom6"
-		}
-	}
-}
-
 class SynchronizedDictionary<S: Hashable, T> {
 	private var _dictionary = [S : T]()
 	private let accessQueue = dispatch_queue_create("SynchronizedDictionaryAccess", DISPATCH_QUEUE_SERIAL)
@@ -86,26 +56,26 @@ final public class NowCastImageManager {
 		// mapRect terminal Coordinate
 		let  terminal = MKCoordinateForMapPoint(MKMapPointMake(mapRect.origin.x + mapRect.size.width, mapRect.origin.y + mapRect.size.height));
 
-		if origin.latitude > NowCastTerminalLatitude &&
-			terminal.latitude < NowCastOriginLatitude &&
-			origin.longitude < NowCastTerminalLongitude &&
-			terminal.longitude > NowCastOriginLongitude {
+		if origin.latitude > Constants.terminalLatitude &&
+			terminal.latitude < Constants.originLatitude &&
+			origin.longitude < Constants.terminalLongitude &&
+			terminal.longitude > Constants.originLongitude {
 				return true
 		}
 		else { return false }
 	}
 
 	public func isServiceAvailable(atCoordinate coordinate: CLLocationCoordinate2D) -> Bool {
-		if coordinate.latitude > NowCastTerminalLatitude &&
-			coordinate.latitude < NowCastOriginLatitude &&
-			coordinate.longitude < NowCastTerminalLongitude &&
-			coordinate.longitude > NowCastOriginLongitude {
+		if coordinate.latitude > Constants.terminalLatitude &&
+			coordinate.latitude < Constants.originLatitude &&
+			coordinate.longitude < Constants.terminalLongitude &&
+			coordinate.longitude > Constants.originLongitude {
 				return true
 		}
 		else { return false }
 	}
 
-	public func images(forMapRect mapRect: MKMapRect, zoomScale: MKZoomScale, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: Float) -> [NowCastImage] {
+	public func images(forMapRect mapRect: MKMapRect, zoomScale: MKZoomScale, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: NowCastDownloadPriority) -> [NowCastImage] {
 		var retArr = [NowCastImage]()
 		if isServiceAvailable(inMapRect: mapRect) == false { return retArr }
 
@@ -117,25 +87,27 @@ final public class NowCastImageManager {
 
 
 		// convert from MKZoomScale to NCZoomLevel
-		let zoomLevel = NCZoomLevel(zoomScale: zoomScale)
+		let zoomLevel = NowCastZoomLevel(zoomScale: zoomScale)
 		
 		// get image numbers
-		let originNumbers = NowCastImage.imageNumbers(forCoordinate: originCoordinate, zoomLevel: zoomLevel)
-		let terminalNumbers = NowCastImage.imageNumbers(forCoordinate: terminalCoordinate, zoomLevel: zoomLevel)
+		let originNumbers = NowCastImage.numbers(forCoordinate: originCoordinate, zoomLevel: zoomLevel)
+		let terminalNumbers = NowCastImage.numbers(forCoordinate: terminalCoordinate, zoomLevel: zoomLevel)
 
 		// loop from origin to terminal
 		for latNumber in originNumbers.latitudeNumber ... terminalNumbers.latitudeNumber {
 			for lonNumber in originNumbers.longitudeNumber ... terminalNumbers.longitudeNumber {
 				// get URL of image
-				if let aURL = NowCastImage.imageURL(forLatitudeNumber: latNumber, longitudeNumber: lonNumber, zoomLevel: zoomLevel, baseTime: baseTime, baseTimeIndex: baseTimeIndex) {
+				let imageContext = NowCastImageContext(latitudeNumber: latNumber, longitudeNumber: lonNumber, zoomLevel: zoomLevel)
+				let baseTimeContext = NowCastBaseTimeContext(baseTime: baseTime, index: baseTimeIndex)
+				if let aURL = NowCastImage.url(forImageContext: imageContext, baseTimeContext: baseTimeContext) {
 
 					objc_sync_enter(self)
 					if let ncImage = imagePool.valueForKey(aURL.absoluteString)?.value() {
-						if ncImage.priority < priority { ncImage.priority = priority }
+						if ncImage.priority.rawValue < priority.rawValue { ncImage.priority = priority }
 						retArr.append(ncImage)
 					}
 					else {
-						if let nowCastImage = NowCastImage(latitudeNumber: latNumber, longitudeNumber: lonNumber, zoomLevel: zoomLevel, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: priority) {
+						if let nowCastImage = NowCastImage(forImageContext: imageContext, baseTimeContext: baseTimeContext, priority: priority) {
 							retArr.append(nowCastImage)
 						}
 					}
@@ -146,7 +118,7 @@ final public class NowCastImageManager {
 		return retArr
 	}
 
-	public func image(atCoordinate coordinate: CLLocationCoordinate2D, zoomScale: MKZoomScale, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: Float) -> NowCastImage? {
+	public func image(atCoordinate coordinate: CLLocationCoordinate2D, zoomScale: MKZoomScale, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: NowCastDownloadPriority) -> NowCastImage? {
 		if isServiceAvailable(atCoordinate: coordinate) == false { return nil }
 
 		let mapPoint = MKMapPointForCoordinate(coordinate)

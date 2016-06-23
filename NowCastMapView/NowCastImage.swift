@@ -9,62 +9,66 @@
 import Foundation
 import MapKit
 
+public struct NowCastImageContext {
+	// longitudeNumber_latitudeNumber.png
+	public var latitudeNumber: Int
+	public var longitudeNumber: Int
+	public var zoomLevel: NowCastZoomLevel
+}
+
 public class NowCastImage: CustomStringConvertible {
+
 // MARK: - Static Functions
-	static func imageURL(forLatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel, baseTime: NowCastBaseTime, baseTimeIndex: Int) -> NSURL? {
+
+	static func url(forImageContext imageContext: NowCastImageContext, baseTimeContext: NowCastBaseTimeContext) -> NSURL? {
 		var forecastTimeString: String
 		var viewTimeString: String
 
 		// will view past data
-		if baseTimeIndex < 0 {
-			if let aForecastTimeString = baseTime.baseTimeString(atIndex: baseTimeIndex) {
-				forecastTimeString = aForecastTimeString
-				viewTimeString = forecastTimeString
-			}
-			else { return nil }
-		}
-			// will view future data
-		else {
-			if let aForecastTimeString = baseTime.baseTimeString(atIndex: 0) {
-				forecastTimeString = aForecastTimeString
-			}
-			else { return nil }
-			if let aViewTimeString = baseTime.baseTimeString(atIndex: baseTimeIndex) {
-				viewTimeString = aViewTimeString
-			}
-			else { return nil }
+		if baseTimeContext.index < 0 {
+			guard let aForecastTimeString = baseTimeContext.baseTime.baseTimeString(atIndex: baseTimeContext.index) else { return nil }
+
+			forecastTimeString = aForecastTimeString
+			viewTimeString = forecastTimeString
+		// will view future datad
+		} else {
+			guard let aForecastTimeString = baseTimeContext.baseTime.baseTimeString(atIndex: 0) else { return nil }
+			guard let aViewTimeString = baseTimeContext.baseTime.baseTimeString(atIndex: baseTimeContext.index) else { return nil }
+
+			forecastTimeString = aForecastTimeString
+			viewTimeString = aViewTimeString
 		}
 
 		let retStr = String(format: "%@%@%@%@%@%@%@%ld%@%ld%@",
 			"http://www.jma.go.jp/jp/highresorad/highresorad_tile/HRKSNC/",
-			forecastTimeString, "/", viewTimeString, "/", zoomLevel.toURLPrefix(), "/",
-			longitudeNumber, "_", latitudeNumber, ".png")
+			forecastTimeString, "/", viewTimeString, "/", imageContext.zoomLevel.toURLPrefix(), "/",
+			imageContext.longitudeNumber, "_", imageContext.latitudeNumber, ".png")
 
 		return NSURL(string: retStr)
 	}
 
-	static func imageNumbers(forCoordinate coordinate: CLLocationCoordinate2D, zoomLevel: NCZoomLevel) -> (latitudeNumber: Int, longitudeNumber: Int) {
+	static func numbers(forCoordinate coordinate: CLLocationCoordinate2D, zoomLevel: NowCastZoomLevel) -> NowCastImageContext {
 		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
 
 		// initialize mods
-		let latDoubleNumber = (coordinate.latitude - NowCastOriginLatitude) / -deltas.latitudeDelta
+		let latDoubleNumber = (coordinate.latitude - Constants.originLatitude) / -deltas.latitudeDelta
 		let latitudeNumber = Int(floor(latDoubleNumber))
-		let lonDoubleNumber = (coordinate.longitude - NowCastOriginLongitude) / deltas.longitudeDelta
+		let lonDoubleNumber = (coordinate.longitude - Constants.originLongitude) / deltas.longitudeDelta
 		let longitudeNumber = Int(floor(lonDoubleNumber))
 
-		return (latitudeNumber, longitudeNumber)
+		return NowCastImageContext(latitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel)
 	}
 
-	static func deltas(forZoomLevel zoomLevel: NCZoomLevel) -> (latitudeDelta: Double, longitudeDelta: Double) {
-		let latitudeDelta = Double(NowCastOriginLatitude - NowCastTerminalLatitude) / Double(zoomLevel.rawValue)
-		let longitudeDelta = Double(NowCastTerminalLongitude - NowCastOriginLongitude) / Double(zoomLevel.rawValue)
+	static func deltas(forZoomLevel zoomLevel: NowCastZoomLevel) -> (latitudeDelta: Double, longitudeDelta: Double) {
+		let latitudeDelta = Double(Constants.originLatitude - Constants.terminalLatitude) / Double(zoomLevel.rawValue)
+		let longitudeDelta = Double(Constants.terminalLongitude - Constants.originLongitude) / Double(zoomLevel.rawValue)
 		return (latitudeDelta, longitudeDelta)
 	}
 
-	static func coordinates(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
-		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
-		let originLatitude = NowCastOriginLatitude - Double(latitudeNumber)*deltas.latitudeDelta
-		let originLongitude = NowCastOriginLongitude + Double(longitudeNumber)*deltas.longitudeDelta
+	static func coordinates(forImageContext context: NowCastImageContext) -> (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
+		let deltas = NowCastImage.deltas(forZoomLevel: context.zoomLevel)
+		let originLatitude = Constants.originLatitude - Double(context.latitudeNumber)*deltas.latitudeDelta
+		let originLongitude = Constants.originLongitude + Double(context.longitudeNumber)*deltas.longitudeDelta
 		let terminalLatitude = originLatitude - deltas.latitudeDelta
 		let terminalLongitude = originLongitude + deltas.longitudeDelta
 
@@ -74,11 +78,11 @@ public class NowCastImage: CustomStringConvertible {
 		return (originCoordinate, terminalCoordinate)
 	}
 
-	static func mapRect(forlatitudeNumber latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel) -> MKMapRect {
-		let deltas = NowCastImage.deltas(forZoomLevel: zoomLevel)
+	static func mapRect(forImageContext context: NowCastImageContext) -> MKMapRect {
+		let deltas = NowCastImage.deltas(forZoomLevel: context.zoomLevel)
 		// make mapRect
 		// top left coordinate of image
-		let coordinates = NowCastImage.coordinates(forlatitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel)
+		let coordinates = NowCastImage.coordinates(forImageContext: context)
 		let originLatitude = coordinates.origin.latitude
 		let originLongitude = coordinates.origin.longitude
 
@@ -92,154 +96,141 @@ public class NowCastImage: CustomStringConvertible {
 	}
 
 // MARK: - Variables
-	public let latitudeNumber: Int, longitudeNumber: Int // longitudeNumber_latitudeNumber.png
-	public let zoomLevel: NCZoomLevel
+	public let imageContext: NowCastImageContext
+	public let baseTimeContext: NowCastBaseTimeContext
+	public let url: NSURL
 	public var image: UIImage?
-	public let baseTime: NowCastBaseTime, baseTimeIndex: Int
-	public let imageURL: NSURL
-	public var priority: Float {
+	public var priority: NowCastDownloadPriority {
 		didSet {
-			if let dataTask = self.dataTask { dataTask.priority = priority }
+			if let dataTask = self.dataTask { dataTask.priority = priority.rawValue }
 		}
 	}
 	var dataTask: NSURLSessionDataTask?
 
 // MARK: - Calculated Property
 	public var description: String {
-		return imageURL.absoluteString
+		return url.absoluteString
 	}
 	var deltas: (latitudeDelta: Double, longitudeDelta: Double) {
-		return NowCastImage.deltas(forZoomLevel: zoomLevel)
+		return NowCastImage.deltas(forZoomLevel: imageContext.zoomLevel)
 	}
 	var rectCoordinates: (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
-		return NowCastImage.coordinates(
-			forlatitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel)
+		return NowCastImage.coordinates(forImageContext: imageContext)
 	}
 	var mapRect: MKMapRect {
-		return NowCastImage.mapRect(
-			forlatitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel)
+		return NowCastImage.mapRect(forImageContext: imageContext)
 	}
 
 // MARK: - Functions
-	init?(latitudeNumber: Int, longitudeNumber: Int, zoomLevel: NCZoomLevel, baseTime: NowCastBaseTime, baseTimeIndex: Int, priority: Float) {
-		self.zoomLevel = zoomLevel
-		self.baseTime = baseTime
-		self.baseTimeIndex = baseTimeIndex
-		self.latitudeNumber = latitudeNumber
-		self.longitudeNumber = longitudeNumber
+	init?(forImageContext imageContext: NowCastImageContext, baseTimeContext: NowCastBaseTimeContext, priority: NowCastDownloadPriority) {
+		self.imageContext = imageContext
+		self.baseTimeContext = baseTimeContext
 		self.priority = priority
 
-		if let aURL = NowCastImage.imageURL(forLatitudeNumber: latitudeNumber, longitudeNumber: longitudeNumber, zoomLevel: zoomLevel, baseTime: baseTime, baseTimeIndex: baseTimeIndex) {
-			self.imageURL = aURL
-		}
-		else {
-			self.imageURL = NSURL()
-			self.image = UIImage()
-			return nil
-		}
+		guard let url = NowCastImage.url(forImageContext: imageContext, baseTimeContext: baseTimeContext) else { return nil }
+		self.url = url
 
 		// check cache exists
 		var needsDownload = false
-		if let image = NowCastImageManager.sharedManager.sharedImageCache.objectForKey(imageURL.absoluteString) {
+		if let image = NowCastImageManager.sharedManager.sharedImageCache.objectForKey(url.absoluteString) {
 			// if exists
 			self.image = image
-		}
-		else {
+		} else {
 			// if not exists
 			// to start download after all initialization finished
 			needsDownload = true
 		}
 
 		// initialize mods
-		if latitudeNumber < 0 { return nil }
-		else if latitudeNumber > zoomLevel.rawValue - 1 { return nil }
+		if imageContext.latitudeNumber < 0 { return nil }
+		if imageContext.latitudeNumber > imageContext.zoomLevel.rawValue - 1 { return nil }
 
-		if longitudeNumber < 0 { return nil }
-		else if longitudeNumber > zoomLevel.rawValue - 1 { return nil }
+		if imageContext.longitudeNumber < 0 { return nil }
+		if imageContext.longitudeNumber > imageContext.zoomLevel.rawValue - 1 { return nil }
 
-		NowCastImageManager.sharedManager.imagePool.setValue(Weak(value: self), forKey: imageURL.absoluteString)
-		NowCastImageManager.sharedManager.processingImages.setValue(self, forKey: imageURL.absoluteString)
+		NowCastImageManager.sharedManager.imagePool.setValue(Weak(value: self), forKey: url.absoluteString)
+		NowCastImageManager.sharedManager.processingImages.setValue(self, forKey: url.absoluteString)
 		if needsDownload { downloadImage() }
 	}
 
 	deinit {
-		NowCastImageManager.sharedManager.imagePool.removeValueForKey(imageURL.absoluteString)
+		NowCastImageManager.sharedManager.imagePool.removeValueForKey(url.absoluteString)
 	}
 
-	func isOnImage(forCoordinate coordinate: CLLocationCoordinate2D) -> Bool {
+	func contains(coordinate: CLLocationCoordinate2D) -> Bool {
 		let origin = rectCoordinates.origin
 		let terminal = rectCoordinates.terminal
 
 		// dont include right & bottom border
 		if origin.latitude >= coordinate.latitude && coordinate.latitude > terminal.latitude &&
-			origin.longitude <= coordinate.longitude && coordinate.longitude < terminal.longitude { return true }
-		else { return false }
+			origin.longitude <= coordinate.longitude && coordinate.longitude < terminal.longitude {
+			return true
+		} else {
+			return false
+		}
 	}
 
 	func color(atCoordinate coordinate: CLLocationCoordinate2D) -> RGBA255? {
-		if isOnImage(forCoordinate: coordinate) == false { return nil }
+		if contains(coordinate) == false { return nil }
 
-		if let point = point(atCoordinate: coordinate) {
-			return image?.color(atPoint: point)
-		}
-		else { return nil }
+		guard let point = point(atCoordinate: coordinate) else { return nil }
+
+		return image?.color(atPoint: point)
 	}
 
 	func point(atCoordinate coordinate: CLLocationCoordinate2D) -> CGPoint? {
-		if isOnImage(forCoordinate: coordinate) == false { return nil }
+		if contains(coordinate) == false { return nil }
 
-		if let image = self.image, position = position(atCoordinate: coordinate) {
-			let x = floor(image.size.width * CGFloat(position.longitudePosition))
-			let y = floor(image.size.height * CGFloat(position.latitudePosition))
+		guard let image = self.image, position = position(atCoordinate: coordinate) else { return nil }
 
-			return CGPointMake(x, y)
-		}
-		else { return nil }
+		let x = floor(image.size.width * CGFloat(position.longitudePosition))
+		let y = floor(image.size.height * CGFloat(position.latitudePosition))
+
+		return CGPoint.init(x: x, y: y)
 	}
 
 	func position(atCoordinate coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
-		if isOnImage(forCoordinate: coordinate) == false { return nil }
+		if contains(coordinate) == false { return nil }
 
-		let latitudeNumberAsDouble = (coordinate.latitude - NowCastOriginLatitude) / -deltas.latitudeDelta
-		let longitudeNumberAsDouble = (coordinate.longitude - NowCastOriginLongitude) / deltas.longitudeDelta
+		let latitudeNumberAsDouble = (coordinate.latitude - Constants.originLatitude) / -deltas.latitudeDelta
+		let longitudeNumberAsDouble = (coordinate.longitude - Constants.originLongitude) / deltas.longitudeDelta
 
-		let latitudePosition = latitudeNumberAsDouble - Double(latitudeNumber)
-		let longitudePosition = longitudeNumberAsDouble - Double(longitudeNumber)
+		let latitudePosition = latitudeNumberAsDouble - Double(imageContext.latitudeNumber)
+		let longitudePosition = longitudeNumberAsDouble - Double(imageContext.longitudeNumber)
 
 		return (latitudePosition, longitudePosition)
 	}
 
 	func coordinate(atPoint point: CGPoint) -> CLLocationCoordinate2D? {
-		if let image = self.image {
-			// return nil if it's point is not on image
-			if point.x < 0 || point.y < 0 || point.x >= image.size.width || point.y >= image.size.height {
-				return nil
-			}
+		guard let image = self.image else { return nil }
 
-			let latitudePosition = Double(point.y / image.size.height)
-			let longitudePosition = Double(point.x / image.size.width)
-
-			let latitudeDeltaPerPixel = deltas.latitudeDelta / Double(image.size.height)
-			let longitudeDeltaPerPixel = deltas.longitudeDelta / Double(image.size.width)
-
-			let latitude = Double(rectCoordinates.origin.latitude) - Double(deltas.latitudeDelta * latitudePosition) - (latitudeDeltaPerPixel / 2)
-			let longitude = Double(rectCoordinates.origin.longitude) + Double(deltas.longitudeDelta * longitudePosition) + (longitudeDeltaPerPixel / 2)
-
-			return CLLocationCoordinate2DMake(latitude, longitude)
+		// return nil if it's point is not on image
+		if point.x < 0 || point.y < 0 || point.x >= image.size.width || point.y >= image.size.height {
+			return nil
 		}
-		else { return nil }
+
+		let latitudePosition = Double(point.y / image.size.height)
+		let longitudePosition = Double(point.x / image.size.width)
+
+		let latitudeDeltaPerPixel = deltas.latitudeDelta / Double(image.size.height)
+		let longitudeDeltaPerPixel = deltas.longitudeDelta / Double(image.size.width)
+
+		let latitude = Double(rectCoordinates.origin.latitude) - Double(deltas.latitudeDelta * latitudePosition) - (latitudeDeltaPerPixel / 2)
+		let longitude = Double(rectCoordinates.origin.longitude) + Double(deltas.longitudeDelta * longitudePosition) + (longitudeDeltaPerPixel / 2)
+
+		return CLLocationCoordinate2DMake(latitude, longitude)
 	}
 
 	private func downloadImage() {
-		dataTask = imageSession.dataTaskWithURL(imageURL) { [unowned self] data, response, error in
+		dataTask = imageSession.dataTaskWithURL(url) { [unowned self] data, response, error in
 			self.downloadFinished(data, response: response, error: error)
 		}
-		dataTask?.priority = priority
+		dataTask?.priority = priority.rawValue
 		dataTask?.resume()
 	}
 
 	public func downloadFinished(data: NSData?, response: NSURLResponse?, error: NSError?) {
-		NowCastImageManager.sharedManager.processingImages.removeValueForKey(imageURL.absoluteString)
+		NowCastImageManager.sharedManager.processingImages.removeValueForKey(url.absoluteString)
 
 		var notifyObject = [NSObject : AnyObject]()
 		notifyObject[NowCastImageManager.Notification.object] = self
@@ -247,8 +238,10 @@ public class NowCastImage: CustomStringConvertible {
 
 		if let httpResponse = response as? NSHTTPURLResponse {
 			if httpResponse.statusCode != 200 {
-				let httpError = NSError(domain: "NSURLErrorDomain", code: httpResponse.statusCode, userInfo: nil)
-				if error == nil { notifyObject[NowCastImageManager.Notification.error] = httpError }
+				if error == nil {
+					let httpError = NSError(domain: "NSURLErrorDomain", code: httpResponse.statusCode, userInfo: nil)
+					notifyObject[NowCastImageManager.Notification.error] = httpError
+				}
 			}
 		}
 
@@ -256,7 +249,7 @@ public class NowCastImage: CustomStringConvertible {
 		if let aImage =  image {
 			self.image = aImage
 			let imageCache = NowCastImageManager.sharedManager.sharedImageCache
-			imageCache.setObject(aImage, forKey: imageURL.absoluteString, expires: .Date(NSDate(timeIntervalSinceNow: 60*60*24*5)))
+			imageCache.setObject(aImage, forKey: url.absoluteString, expires: .Date(NSDate(timeIntervalSinceNow: 60*60*24*5)))
 		}
 
 		let nc = NSNotificationCenter.defaultCenter()

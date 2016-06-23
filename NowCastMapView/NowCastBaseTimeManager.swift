@@ -21,8 +21,6 @@ public class NowCastBaseTimeManagerNotificationObject {
 	}
 }
 
-let NowCastBaseTimeCacheName = "NowCastBaseTimeCache"
-
 final public class NowCastBaseTimeManager {
 	public static let sharedManager = NowCastBaseTimeManager()
 
@@ -30,16 +28,20 @@ final public class NowCastBaseTimeManager {
 		public static let name = "NowCastBaseTimeManagerNotification"
 		public static let object = "object"
 	}
-	
+
 	private var fetching = false
 	private var timer: NSTimer?
-	private let sharedCache = try! Cache<NowCastBaseTime>(name: NowCastBaseTimeCacheName)
+	private let sharedCache = try! Cache<NowCastBaseTime>(name: "NowCastBaseTimeCache") // swiftlint:disable:this force_try
 
 	public var fetchInterval: NSTimeInterval = 0 { // 0 means never check automatically
 		didSet {
 			timer?.invalidate()
 			if self.fetchInterval != 0 {
-				timer = NSTimer.scheduledTimerWithTimeInterval(fetchInterval, target: self, selector: #selector(NowCastBaseTimeManager.fetch(_:)), userInfo: nil, repeats: true)
+				timer = NSTimer.scheduledTimerWithTimeInterval(fetchInterval,
+				                                               target: self,
+				                                               selector: #selector(NowCastBaseTimeManager.fetch(_:)),
+				                                               userInfo: nil,
+				                                               repeats: true)
 			}
 		}
 	}
@@ -54,13 +56,16 @@ final public class NowCastBaseTimeManager {
 
 	public func fetch() {
 		objc_sync_enter(self)
-		if (fetching) { return }
-		else { fetching = true }
+		if fetching {
+			return
+		} else {
+			fetching = true
+		}
 		objc_sync_exit(self)
 
 		let task = baseTimeSession.dataTaskWithURL(kBaseTimeURL) { [unowned self] data, response, error in
 			if let _ = error {	} // do something?
-			else { let _ = data.flatMap{ NowCastBaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) } }
+			else { let _ = data.flatMap { NowCastBaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) } }
 
 			self.fetching = false
 		}

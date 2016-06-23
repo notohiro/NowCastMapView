@@ -143,8 +143,8 @@ public class NowCastRainLevels: CustomStringConvertible {
 		nc.addObserver(self, selector: #selector(NowCastRainLevels.newImageFetched(_:)), name: NowCastImageManager.Notification.name, object: nil)
 
 		for index in baseTime.range() {
-			if let nowCastImage = imageManager.image(atCoordinate: coordinate, zoomScale: 0.0005, baseTime: baseTime, baseTimeIndex: index, priority: NowCastDownloadPriorityHigh) {
-				nowCastImages[nowCastImage.imageURL.absoluteString] = nowCastImage
+			if let nowCastImage = imageManager.image(atCoordinate: coordinate, zoomScale: 0.0005, baseTime: baseTime, baseTimeIndex: index, priority: .High) {
+				nowCastImages[nowCastImage.url.absoluteString] = nowCastImage
 			}
 			else { return nil }
 		}
@@ -157,7 +157,7 @@ public class NowCastRainLevels: CustomStringConvertible {
 		if allImagesFetched() == false { return nil }
 
 		for (key, nowCastImage) in nowCastImages {
-			if nowCastImage.baseTimeIndex == baseTimeIndex {
+			if nowCastImage.baseTimeContext.index == baseTimeIndex {
 				return rainLevels[key]
 			}
 		}
@@ -198,7 +198,7 @@ public class NowCastRainLevels: CustomStringConvertible {
 			////////// impl multi threadings
 			if let color = nowCastImage.color(atCoordinate: coordinate) {
 				let rainLevel = NowCastRainLevel(color: color)
-				rainLevels[nowCastImage.imageURL.absoluteString] = rainLevel
+				rainLevels[nowCastImage.url.absoluteString] = rainLevel
 			}
 		}
 
@@ -227,7 +227,7 @@ public class NowCastRainLevels: CustomStringConvertible {
 		if let userInfo = notification.userInfo {
 			if let image = userInfo[NowCastImageManager.Notification.object] as? NowCastImage {
 				// check this notification is for this object
-				if nowCastImages[image.imageURL.absoluteString] != nil {
+				if nowCastImages[image.url.absoluteString] != nil {
 					if let error = userInfo[NowCastImageManager.Notification.error] as? NSError {
 						self.error = error
 						state = .completedWithError

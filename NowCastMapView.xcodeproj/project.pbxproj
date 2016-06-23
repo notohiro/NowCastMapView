@@ -25,6 +25,10 @@
 		D335FBC21CBDEEF600960920 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D335FBC11CBDEEF600960920 /* tile2.png */; };
 		D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
+		D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
+		D36DB30D1D1B58050003DD7F /* NowCastZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* NowCastZoomLevel.swift */; };
+		D36DB30E1D1B58050003DD7F /* NowCastZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* NowCastZoomLevel.swift */; };
+		D36DB30F1D1B59F90003DD7F /* NowCastZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* NowCastZoomLevel.swift */; };
 		D36EA7391CE533CB00DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D36EA73A1CE53CE900DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
@@ -90,6 +94,7 @@
 		D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeParser.swift; sourceTree = "<group>"; };
 		D335FBC11CBDEEF600960920 /* tile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile2.png; sourceTree = "<group>"; };
 		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D36DB30C1D1B58050003DD7F /* NowCastZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastZoomLevel.swift; sourceTree = "<group>"; };
 		D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AwesomeCache.framework; path = Carthage/Build/iOS/AwesomeCache.framework; sourceTree = "<group>"; };
 		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
 		D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevels.swift; sourceTree = "<group>"; };
@@ -132,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */,
 				D38D34491CE724E600D77509 /* AwesomeCache.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */,
+				D36DB30C1D1B58050003DD7F /* NowCastZoomLevel.swift */,
 				D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */,
 				D30341381C63864100F44630 /* UIImage+RGBA255.swift */,
 			);
@@ -290,6 +297,7 @@
 				D33249831BA727C9008F1F21 /* Headers */,
 				D33249841BA727C9008F1F21 /* Resources */,
 				D36EA7371CE5338100DD94E0 /* Carthage */,
+				D36DB30A1D1A45890003DD7F /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -408,6 +416,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D36DB30A1D1A45890003DD7F /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --path NowCastMapView\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		D36EA7371CE5338100DD94E0 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -456,6 +478,7 @@
 				D30341391C63864100F44630 /* UIImage+RGBA255.swift in Sources */,
 				D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */,
 				D3D3CCFB1BB6098A0083B7FC /* NowCastImage.swift in Sources */,
+				D36DB30D1D1B58050003DD7F /* NowCastZoomLevel.swift in Sources */,
 				D37C3F061C72975300CEE631 /* Weak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +495,7 @@
 				D3FD42061C6B6A9C00EE1A65 /* NowCastImageTests.swift in Sources */,
 				D3FD42021C6815F100EE1A65 /* NowCastRainLevels.swift in Sources */,
 				D3FD41FB1C67891A00EE1A65 /* NowCastRainLevelsTest.swift in Sources */,
+				D36DB30F1D1B59F90003DD7F /* NowCastZoomLevel.swift in Sources */,
 				D3112FA11BACA1EE00FE21CF /* NowCastBaseTimeParser.swift in Sources */,
 				D3762E2D1CE755DA006D0979 /* NowCastBaseTestCase.swift in Sources */,
 				D3FD41FF1C6815DA00EE1A65 /* UIImage+RGBA255.swift in Sources */,
@@ -498,6 +522,7 @@
 				D38D34431CE724B100D77509 /* NowCastImage.swift in Sources */,
 				D38D34441CE724B100D77509 /* UIImage+RGBA255.swift in Sources */,
 				D38D34451CE724B100D77509 /* Constants.swift in Sources */,
+				D36DB30E1D1B58050003DD7F /* NowCastZoomLevel.swift in Sources */,
 				D38D34461CE724B100D77509 /* Weak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

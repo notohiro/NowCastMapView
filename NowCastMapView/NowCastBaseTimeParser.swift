@@ -16,7 +16,8 @@ class NowCastBaseTimeParser: NSObject, NSXMLParserDelegate {
 		self.isBaseTimeElement = false
 	}
 
-	func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+	func parser(parser: NSXMLParser, didStartElement elementName: String,
+	            namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
 		if elementName == "basetime" {
 			self.isBaseTimeElement = true
 		}

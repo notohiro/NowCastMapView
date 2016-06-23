@@ -8,29 +8,32 @@
 
 import Foundation
 
-public func ==(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+public func == (lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
 	if lhs === rhs { return true }
 
 	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
 	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
 
-	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedSame { return true }
-	else { return false }
+	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedSame {
+		return true
+	} else {
+		return false
+	}
 }
 
-public func ==(lhs: NowCastBaseTime?, rhs: NowCastBaseTime) -> Bool {
+public func == (lhs: NowCastBaseTime?, rhs: NowCastBaseTime) -> Bool {
 	guard let lhs = lhs else { return false }
 
 	return lhs == rhs
 }
 
-public func ==(lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
+public func == (lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
 	guard let rhs = rhs else { return false }
 
 	return lhs == rhs
 }
 
-public func ==(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
+public func == (lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
 	// for in case of nil == nil
 	if lhs === rhs { return true }
 
@@ -40,29 +43,32 @@ public func ==(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
 	return lhs == rhs
 }
 
-public func !=(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+public func != (lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
 	if lhs === rhs { return false }
 
 	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return true }
 	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return true }
 
-	if lhsBaseTimeDate.compare(rhsBaseTimeDate) != .OrderedSame { return true }
-	else { return false }
+	if lhsBaseTimeDate.compare(rhsBaseTimeDate) != .OrderedSame {
+		return true
+	} else {
+		return false
+	}
 }
 
-public func !=(lhs: NowCastBaseTime?, rhs: NowCastBaseTime) -> Bool {
+public func != (lhs: NowCastBaseTime?, rhs: NowCastBaseTime) -> Bool {
 	guard let lhs = lhs else { return true }
 
 	return lhs != rhs
 }
 
-public func !=(lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
+public func != (lhs: NowCastBaseTime, rhs: NowCastBaseTime?) -> Bool {
 	guard let rhs = rhs else { return true }
 
 	return lhs != rhs
 }
 
-public func !=(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
+public func != (lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
 	// for in case of nil == nil
 	if lhs === rhs { return false }
 
@@ -72,10 +78,13 @@ public func !=(lhs: NowCastBaseTime?, rhs: NowCastBaseTime?) -> Bool {
 	return lhs != rhs
 }
 
-public func <(lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
+public func < (lhs: NowCastBaseTime, rhs: NowCastBaseTime) -> Bool {
 	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
 	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
 
-	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedAscending { return true }
-	else { return false }
+	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedAscending {
+		return true
+	} else {
+		return false
+	}
 }

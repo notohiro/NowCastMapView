@@ -8,6 +8,11 @@
 
 import Foundation
 
+public struct NowCastBaseTimeContext {
+	public var baseTime: NowCastBaseTime
+	public var index: Int
+}
+
 public class NowCastBaseTime: NSObject, NSCoding, Comparable {
 	private let kForecastPeriod = 12
 	private var baseTimeArr = [String]()
@@ -20,8 +25,9 @@ public class NowCastBaseTime: NSObject, NSCoding, Comparable {
 		super.init()
 		if let baseTimeArr = aDecoder.decodeObjectForKey("baseTimeArr") as? [String] {
 			self.baseTimeArr = baseTimeArr
+		} else {
+			return nil
 		}
-		else { return nil }
 	}
 
 	public func encodeWithCoder(aCoder: NSCoder) {
@@ -34,7 +40,7 @@ public class NowCastBaseTime: NSObject, NSCoding, Comparable {
 
 		let parser = NSXMLParser(data: data)
 		let parserDelegate =  NowCastBaseTimeParser()
-		parser.delegate = parserDelegate;
+		parser.delegate = parserDelegate
 
 		if parser.parse() {
 			let inputFormatter = NSDateFormatter()
