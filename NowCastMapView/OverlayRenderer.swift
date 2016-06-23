@@ -49,21 +49,19 @@ public class OverlayRenderer: MKOverlayRenderer {
 	}
 
 	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		if let images = dataSource?.Images(inMapRect: mapRect, forZoomScale: zoomScale) {
-			for image in images {
-				if let imageData = image.imageData, imageReference = image.imageData?.CGImage {
-					UIGraphicsBeginImageContext(imageData.size)
-					let imageContext = UIGraphicsGetCurrentContext()
-					CGContextDrawImage(imageContext, CGRect.init(x: 0, y: 0, width: imageData.size.width, height: imageData.size.height), imageReference)
-					let revertedImg = UIGraphicsGetImageFromCurrentImageContext()
-					UIGraphicsEndImageContext()
+		dataSource?.Images(inMapRect: mapRect, forZoomScale: zoomScale)?.forEach { image in
+			if let imageData = image.imageData, imageReference = image.imageData?.CGImage {
+				UIGraphicsBeginImageContext(imageData.size)
+				let imageContext = UIGraphicsGetCurrentContext()
+				CGContextDrawImage(imageContext, CGRect.init(x: 0, y: 0, width: imageData.size.width, height: imageData.size.height), imageReference)
+				let revertedImg = UIGraphicsGetImageFromCurrentImageContext()
+				UIGraphicsEndImageContext()
 
-					CGContextClearRect(context, rectForMapRect(image.mapRect))
-					CGContextSetAlpha(context, 0.6)
-					CGContextDrawImage(context, rectForMapRect(image.mapRect), revertedImg.CGImage)
-				} else {
-					CGContextDrawImage(context, rectForMapRect(image.mapRect), backgroundImage.CGImage)
-				}
+				CGContextClearRect(context, rectForMapRect(image.mapRect))
+				CGContextSetAlpha(context, 0.6)
+				CGContextDrawImage(context, rectForMapRect(image.mapRect), revertedImg.CGImage)
+			} else {
+				CGContextDrawImage(context, rectForMapRect(image.mapRect), backgroundImage.CGImage)
 			}
 		}
 	}

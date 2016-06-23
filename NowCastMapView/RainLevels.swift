@@ -42,11 +42,8 @@ public class RainLevels: CustomStringConvertible {
 		}
 	}
 	public var error: NSError?
-	public var hash: String? {
-		return baseTime.baseTimeString(atIndex: 0).flatMap { $0 + "\(coordinate.latitude)" + "\(coordinate.longitude)" }
-	}
 	public var description: String {
-		return hash ?? "error"
+		return baseTime.baseTimeString(atIndex: 0).flatMap { $0 + "\(coordinate.latitude)" + "\(coordinate.longitude)" } ?? "error"
 	}
 
 	private let sharedManager = RainLevelsManager.sharedManager

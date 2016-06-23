@@ -60,6 +60,7 @@ public class BaseTime: NSObject, NSCoding, Comparable {
 			forecastDateArr.append(NSDate(timeInterval: NSTimeInterval(i*60*5), sinceDate: forecastTime))
 		}
 
+		// reverse array
 		forecastDateArr.sortInPlace {
 			if $0.compare($1) == .OrderedAscending {
 				return false

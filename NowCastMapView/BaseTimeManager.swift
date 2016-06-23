@@ -9,9 +9,6 @@
 import Foundation
 import AwesomeCache
 
-private let kBaseTimeURL = NSURL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
-private let kLastSavedBaseTimeKey = "lastSavedBaseTime"
-
 public class BaseTimeManagerNotificationObject {
 	public let baseTime: BaseTime
 	public let fetchResult: NSComparisonResult
@@ -22,6 +19,11 @@ public class BaseTimeManagerNotificationObject {
 }
 
 final public class BaseTimeManager {
+	struct Constants {
+		static let baseTimeURL = NSURL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
+		static let lastSavedBaseTimeKey = "lastSavedBaseTime"
+	}
+
 	public static let sharedManager = BaseTimeManager()
 
 	public struct Notification {
@@ -47,7 +49,7 @@ final public class BaseTimeManager {
 	}
 
 	public var lastSavedBaseTime: BaseTime? {
-		return sharedCache.objectForKey(kLastSavedBaseTimeKey)
+		return sharedCache.objectForKey(Constants.lastSavedBaseTimeKey)
 	}
 
 	private init() { }
@@ -63,9 +65,11 @@ final public class BaseTimeManager {
 		}
 		objc_sync_exit(self)
 
-		let task = baseTimeSession.dataTaskWithURL(kBaseTimeURL) { [unowned self] data, response, error in
-			if let _ = error {	} // do something?
-			else { let _ = data.flatMap { BaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) } }
+		let task = baseTimeSession.dataTaskWithURL(Constants.baseTimeURL) { [unowned self] data, response, error in
+			if let _ = error { // do something?
+			} else {
+				let _ = data.flatMap { BaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) }
+			}
 
 			self.fetching = false
 		}
@@ -74,7 +78,7 @@ final public class BaseTimeManager {
 	}
 
 	public func removeCache() {
-		sharedCache.removeObjectForKey(kLastSavedBaseTimeKey)
+		sharedCache.removeObjectForKey(Constants.lastSavedBaseTimeKey)
 	}
 
 	private func notifyBaseTime(baseTime: BaseTime) {
@@ -92,6 +96,6 @@ final public class BaseTimeManager {
 
 	// for calling from test methods
 	func saveBaseTime(baseTime: BaseTime) {
-		sharedCache.setObject(baseTime, forKey: kLastSavedBaseTimeKey)
+		sharedCache.setObject(baseTime, forKey: Constants.lastSavedBaseTimeKey)
 	}
 }
