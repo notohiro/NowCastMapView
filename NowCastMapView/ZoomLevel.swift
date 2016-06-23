@@ -1,6 +1,6 @@
 //
-//  NowCastZoomLevel.swift
-//  NowCastMapView
+//  ZoomLevel.swift
+//  MapView
 //
 //  Created by Hiroshi Noto on 6/23/16.
 //  Copyright © 2016 Hiroshi Noto. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-public enum NowCastZoomLevel: Int {
+public enum ZoomLevel: Int {
 	static let MKZoomScaleForLevel4: CGFloat = 0.000488
 	static let MKZoomScaleForLevel2: CGFloat = 0.000122
 
@@ -18,9 +18,9 @@ public enum NowCastZoomLevel: Int {
 	case level6 = 64
 
 	init(zoomScale: MKZoomScale) {
-		if zoomScale > NowCastZoomLevel.MKZoomScaleForLevel4 {
+		if zoomScale > ZoomLevel.MKZoomScaleForLevel4 {
 			self = .level6
-		} else if zoomScale > NowCastZoomLevel.MKZoomScaleForLevel2 {
+		} else if zoomScale > ZoomLevel.MKZoomScaleForLevel2 {
 			self = .level4
 		} else {
 			self = .level2

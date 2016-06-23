@@ -20,7 +20,7 @@ public struct Constants {
 	static let terminalLongitude: Double = 170
 }
 
-public enum NowCastDownloadPriority: Float {
+public enum DownloadPriority: Float {
 	case Urgent		= 1.0
 	case High		= 0.8
 	case Default	= 0.6

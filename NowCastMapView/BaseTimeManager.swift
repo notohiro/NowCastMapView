@@ -1,6 +1,6 @@
 //
-//  NowCastBaseTimeManager.swift
-//  NowCastMapView
+//  BaseTimeManager.swift
+//  MapView
 //
 //  Created by Hiroshi Noto on 9/15/15.
 //  Copyright © 2015 Hiroshi Noto. All rights reserved.
@@ -12,41 +12,41 @@ import AwesomeCache
 private let kBaseTimeURL = NSURL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
 private let kLastSavedBaseTimeKey = "lastSavedBaseTime"
 
-public class NowCastBaseTimeManagerNotificationObject {
-	public let baseTime: NowCastBaseTime
+public class BaseTimeManagerNotificationObject {
+	public let baseTime: BaseTime
 	public let fetchResult: NSComparisonResult
-	private init(baseTime: NowCastBaseTime, fetchResult: NSComparisonResult) {
+	private init(baseTime: BaseTime, fetchResult: NSComparisonResult) {
 		self.baseTime = baseTime
 		self.fetchResult = fetchResult
 	}
 }
 
-final public class NowCastBaseTimeManager {
-	public static let sharedManager = NowCastBaseTimeManager()
+final public class BaseTimeManager {
+	public static let sharedManager = BaseTimeManager()
 
 	public struct Notification {
-		public static let name = "NowCastBaseTimeManagerNotification"
+		public static let name = "BaseTimeManagerNotification"
 		public static let object = "object"
 	}
 
 	private var fetching = false
 	private var timer: NSTimer?
-	private let sharedCache = try! Cache<NowCastBaseTime>(name: "NowCastBaseTimeCache") // swiftlint:disable:this force_try
+	private let sharedCache = try! Cache<BaseTime>(name: "BaseTimeCache") // swiftlint:disable:this force_try
 
 	public var fetchInterval: NSTimeInterval = 0 { // 0 means never check automatically
 		didSet {
 			timer?.invalidate()
-			if self.fetchInterval != 0 {
+			if fetchInterval != 0 {
 				timer = NSTimer.scheduledTimerWithTimeInterval(fetchInterval,
 				                                               target: self,
-				                                               selector: #selector(NowCastBaseTimeManager.fetch(_:)),
+				                                               selector: #selector(BaseTimeManager.fetch(_:)),
 				                                               userInfo: nil,
 				                                               repeats: true)
 			}
 		}
 	}
 
-	public var lastSavedBaseTime: NowCastBaseTime? {
+	public var lastSavedBaseTime: BaseTime? {
 		return sharedCache.objectForKey(kLastSavedBaseTimeKey)
 	}
 
@@ -65,7 +65,7 @@ final public class NowCastBaseTimeManager {
 
 		let task = baseTimeSession.dataTaskWithURL(kBaseTimeURL) { [unowned self] data, response, error in
 			if let _ = error {	} // do something?
-			else { let _ = data.flatMap { NowCastBaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) } }
+			else { let _ = data.flatMap { BaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) } }
 
 			self.fetching = false
 		}
@@ -77,21 +77,21 @@ final public class NowCastBaseTimeManager {
 		sharedCache.removeObjectForKey(kLastSavedBaseTimeKey)
 	}
 
-	private func notifyBaseTime(baseTime: NowCastBaseTime) {
+	private func notifyBaseTime(baseTime: BaseTime) {
 		// if lastSaved == nil, result = Ascending
 		let fetchResult = lastSavedBaseTime?.compare(baseTime) ?? .OrderedAscending
-		if fetchResult == .OrderedAscending { self.saveBaseTime(baseTime) }
+		if fetchResult == .OrderedAscending { saveBaseTime(baseTime) }
 
 		var notifyObject = [NSObject : AnyObject]()
-		let aObject = NowCastBaseTimeManagerNotificationObject(baseTime: baseTime, fetchResult: fetchResult)
-		notifyObject[NowCastBaseTimeManager.Notification.object] = aObject
+		let aObject = BaseTimeManagerNotificationObject(baseTime: baseTime, fetchResult: fetchResult)
+		notifyObject[BaseTimeManager.Notification.object] = aObject
 
 		let nc = NSNotificationCenter.defaultCenter()
-		nc.postNotificationName(NowCastBaseTimeManager.Notification.name, object: nil, userInfo:notifyObject)
+		nc.postNotificationName(BaseTimeManager.Notification.name, object: nil, userInfo:notifyObject)
 	}
 
 	// for calling from test methods
-	func saveBaseTime(baseTime: NowCastBaseTime) {
+	func saveBaseTime(baseTime: BaseTime) {
 		sharedCache.setObject(baseTime, forKey: kLastSavedBaseTimeKey)
 	}
 }

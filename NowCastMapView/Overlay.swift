@@ -1,6 +1,6 @@
 //
-//  NowCastOverlay.swift
-//  NowCastMapView
+//  Overlay.swift
+//  MapView
 //
 //  Created by Hiroshi Noto on 6/20/15.
 //  Copyright (c) 2015 Hiroshi Noto. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-public class NowCastOverlay: NSObject, MKOverlay {
+public class Overlay: NSObject, MKOverlay {
 	public var coordinate: CLLocationCoordinate2D {
 		return CLLocationCoordinate2DMake((Constants.originLatitude + Constants.terminalLatitude)/2, (Constants.originLongitude + Constants.terminalLongitude)/2)
 	}
