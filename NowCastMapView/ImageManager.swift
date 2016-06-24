@@ -103,10 +103,10 @@ final public class ImageManager {
 		return images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: priority).first
 	}
 
-	public func cancelImageRequestsPriorityLessThan(priority: Float) {
+	public func cancelImageRequestsPriorityLessThan(priority: DownloadPriority) {
 		imageSession.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
 			for task in dataTasks {
-				if task.priority < priority { task.cancel() }
+				if task.priority < priority.rawValue { task.cancel() }
 			}
 		}
 	}
