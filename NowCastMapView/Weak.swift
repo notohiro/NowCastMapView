@@ -9,7 +9,7 @@
 import Foundation
 
 public class Weak<T: AnyObject> {
-	private weak var _value:T?
+	private weak var _value: T?
 
 	public init(value: T) {
 		_value = value

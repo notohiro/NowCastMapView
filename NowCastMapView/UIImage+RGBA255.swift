@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-internal struct RGBA255: Equatable {
+struct RGBA255: Equatable {
 	let red: Int
 	let green: Int
 	let blue: Int
@@ -25,22 +25,22 @@ internal struct RGBA255: Equatable {
 	private static func round(value: Int) -> Int {
 		if value < 0 { return 0 }
 		if 255 < value { return 255 }
-		else { return value }
+		return value
 	}
 }
 
-internal func ==(lhs: RGBA255, rhs: RGBA255) -> Bool {
+func == (lhs: RGBA255, rhs: RGBA255) -> Bool {
 	return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha ? true : false
 }
 
 extension UIImage {
 	func color(atPoint point: CGPoint) -> RGBA255 {
-		//ピクセルデータ取得してバイナリ化
-		let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
+		// convert to binary data from getting pixel data
+		let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(CGImage))
 		let data: UnsafePointer = CFDataGetBytePtr(pixelData)
 
-		//RGBおよびアルファ値を取得します
-		let pixelInfo: Int = ((Int(self.size.width) * Int(point.y)) + Int(point.x)) * 4
+		// calculate RGBA
+		let pixelInfo: Int = ((Int(size.width) * Int(point.y)) + Int(point.x)) * 4
 
 		let r = Int(data[pixelInfo])
 		let g = Int(data[pixelInfo+1])

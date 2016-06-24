@@ -1,5 +1,5 @@
 //
-//  NowCastImageManagerTests.swift
+//  ImageManagerTests.swift
 //  NowCastMapView
 //
 //  Created by Hiroshi Noto on 3/13/16.
@@ -9,22 +9,22 @@
 import XCTest
 import MapKit
 
-class NowCastImageManagerTests: XCTestCase {
-	let imageManager = NowCastImageManager.sharedManager
+class ImageManagerTests: BaseTestCase {
+	let imageManager = ImageManager.sharedManager
 
-	func testNCZoomLevel() {
-		XCTAssertEqual(NCZoomLevel.NCZoomLevel2.rawValue, 4)
-		XCTAssertEqual(NCZoomLevel.NCZoomLevel4.rawValue, 16)
-		XCTAssertEqual(NCZoomLevel.NCZoomLevel6.rawValue, 64)
+	func testZoomLevel() {
+		XCTAssertEqual(ZoomLevel.level2.rawValue, 4)
+		XCTAssertEqual(ZoomLevel.level4.rawValue, 16)
+		XCTAssertEqual(ZoomLevel.level6.rawValue, 64)
 
-		XCTAssertEqual(NCZoomLevel(zoomScale: 0.000489), NCZoomLevel.NCZoomLevel6)
-		XCTAssertEqual(NCZoomLevel(zoomScale: 0.000488), NCZoomLevel.NCZoomLevel4)
-		XCTAssertEqual(NCZoomLevel(zoomScale: 0.000123), NCZoomLevel.NCZoomLevel4)
-		XCTAssertEqual(NCZoomLevel(zoomScale: 0.000122), NCZoomLevel.NCZoomLevel2)
+		XCTAssertEqual(ZoomLevel(zoomScale: 0.000489), ZoomLevel.level6)
+		XCTAssertEqual(ZoomLevel(zoomScale: 0.000488), ZoomLevel.level4)
+		XCTAssertEqual(ZoomLevel(zoomScale: 0.000123), ZoomLevel.level4)
+		XCTAssertEqual(ZoomLevel(zoomScale: 0.000122), ZoomLevel.level2)
 
-		XCTAssertEqual(NCZoomLevel.NCZoomLevel2.toURLPrefix(), "zoom2")
-		XCTAssertEqual(NCZoomLevel.NCZoomLevel4.toURLPrefix(), "zoom4")
-		XCTAssertEqual(NCZoomLevel.NCZoomLevel6.toURLPrefix(), "zoom6")
+		XCTAssertEqual(ZoomLevel.level2.toURLPrefix(), "zoom2")
+		XCTAssertEqual(ZoomLevel.level4.toURLPrefix(), "zoom4")
+		XCTAssertEqual(ZoomLevel.level6.toURLPrefix(), "zoom6")
 	}
 
 	func makeMapRect(originLatitude originLatitude: Double, originLongitude: Double, terminalLatitude: Double, terminalLongitude: Double) -> MKMapRect {

@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 
-		NowCastBaseTimeManager.sharedManager.fetch()
-		NowCastBaseTimeManager.sharedManager.fetchInterval =  10
+		BaseTimeManager.sharedManager.fetch()
+		BaseTimeManager.sharedManager.fetchInterval =  10
 
         return true
     }
@@ -46,4 +46,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

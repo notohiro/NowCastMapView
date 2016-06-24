@@ -1,5 +1,5 @@
 //
-//  AmeBaseTestCase.swift
+//  BaseTestCase.swift
 //  NowCastMapView
 //
 //  Created by Hiroshi Noto on 5/14/16.
@@ -9,18 +9,18 @@
 import Foundation
 import XCTest
 
-class AmeBaseTestCase: XCTestCase {
-	let SecondsForTimeout = 3.0
+class BaseTestCase: XCTestCase {
+	let secondsForTimeout = 3.0
 
-	func getBaseTimeFrom(fileName: String) -> NowCastBaseTime? {
+	func getBaseTimeFrom(fileName: String) -> BaseTime? {
 		let baseTime = NSBundle(forClass: self.dynamicType).pathForResource(fileName, ofType: "xml").flatMap {
-			NSData(contentsOfFile: $0).flatMap { NowCastBaseTime(baseTimeData: $0) }
+			NSData(contentsOfFile: $0).flatMap { BaseTime(baseTimeData: $0) }
 		}
 
 		return baseTime
 	}
 
-	func setImageCache(fileName: String, forBaseTime baseTime: NowCastBaseTime) -> UIImage? {
+	func setImageCache(fileName: String, forBaseTime baseTime: BaseTime) -> UIImage? {
 		let image = NSBundle(forClass: self.dynamicType).pathForResource(fileName, ofType: "png").flatMap {
 			NSData(contentsOfFile: $0).flatMap { UIImage(data: $0) }
 		}
@@ -28,8 +28,11 @@ class AmeBaseTestCase: XCTestCase {
 		if let image = image {
 			for index in baseTime.range() {
 				// set cache
-				let URL = NowCastImage.imageURL(forLatitudeNumber: 0, longitudeNumber: 0, zoomLevel: .NCZoomLevel6, baseTime: baseTime, baseTimeIndex: index)!
-				NowCastImageManager.sharedManager.sharedImageCache.setObject(image, forKey: URL.absoluteString)
+				let imageContext = ImageContext(latitudeNumber: 0, longitudeNumber: 0, zoomLevel: .level6)
+				let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: index)
+
+				let url = Image.url(forImageContext: imageContext, baseTimeContext: baseTimeContext)!
+				ImageManager.sharedManager.sharedImageCache.setObject(image, forKey: url.absoluteString)
 			}
 		}
 
@@ -37,8 +40,8 @@ class AmeBaseTestCase: XCTestCase {
 	}
 
 	func removeImageCache() {
-		NowCastImageManager.sharedManager.sharedImageCache.removeAllObjects()
-		// wait 2 seconds until disk cache flusheds
+		ImageManager.sharedManager.sharedImageCache.removeAllObjects()
+		// wait seconds until disk cache flushed
 		NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 0.5))
 	}
 

@@ -9,58 +9,73 @@
 /* Begin PBXBuildFile section */
 		D30341391C63864100F44630 /* UIImage+RGBA255.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage+RGBA255.swift */; };
 		D307FFD41C5C844B001F6C66 /* NewBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D307FFD31C5C844B001F6C66 /* NewBaseTime.xml */; };
-		D3112F9E1BACA14F00FE21CF /* NowCastBaseTimeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3112F9D1BACA14F00FE21CF /* NowCastBaseTimeManagerTests.swift */; };
-		D3112F9F1BACA1E700FE21CF /* NowCastBaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */; };
-		D3112FA01BACA1EA00FE21CF /* NowCastBaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* NowCastBaseTime.swift */; };
-		D3112FA11BACA1EE00FE21CF /* NowCastBaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */; };
+		D3112F9E1BACA14F00FE21CF /* BaseTimeManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3112F9D1BACA14F00FE21CF /* BaseTimeManagerTests.swift */; };
+		D3112F9F1BACA1E700FE21CF /* BaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */; };
+		D3112FA01BACA1EA00FE21CF /* BaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* BaseTime.swift */; };
+		D3112FA11BACA1EE00FE21CF /* BaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* BaseTimeParser.swift */; };
 		D332498A1BA727C9008F1F21 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D33249911BA727C9008F1F21 /* NowCastMapView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249861BA727C9008F1F21 /* NowCastMapView.framework */; };
-		D33249A61BA7280F008F1F21 /* NowCastMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A01BA7280F008F1F21 /* NowCastMapView.swift */; };
-		D33249A91BA7280F008F1F21 /* NowCastOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */; };
-		D33249AA1BA7280F008F1F21 /* NowCastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */; };
+		D33249A91BA7280F008F1F21 /* OverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */; };
+		D33249AA1BA7280F008F1F21 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* Overlay.swift */; };
 		D33249AD1BA72823008F1F21 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
-		D33249AF1BA82E6C008F1F21 /* NowCastImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */; };
-		D33249B11BA842F2008F1F21 /* NowCastBaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* NowCastBaseTime.swift */; };
-		D33249B31BA84A03008F1F21 /* NowCastBaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */; };
-		D33249B51BA86259008F1F21 /* NowCastBaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */; };
+		D33249AF1BA82E6C008F1F21 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* ImageManager.swift */; };
+		D33249B11BA842F2008F1F21 /* BaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* BaseTime.swift */; };
+		D33249B31BA84A03008F1F21 /* BaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */; };
+		D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* BaseTimeParser.swift */; };
 		D335FBC21CBDEEF600960920 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D335FBC11CBDEEF600960920 /* tile2.png */; };
-		D3438CA31BADB3C9009B5AB8 /* InternalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */; };
-		D3438CA41BADB3F4009B5AB8 /* InternalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */; };
+		D33F56341D1BDB560088E547 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
+		D33F56351D1BDB560088E547 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
+		D33F56361D1BDB560088E547 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
+		D33F56381D1BDBB70088E547 /* RainLevelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56371D1BDBB70088E547 /* RainLevelColor.swift */; };
+		D33F56391D1BDBB70088E547 /* RainLevelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56371D1BDBB70088E547 /* RainLevelColor.swift */; };
+		D33F563A1D1BDBB70088E547 /* RainLevelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56371D1BDBB70088E547 /* RainLevelColor.swift */; };
+		D33F563C1D1C0F840088E547 /* RainLevelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */; };
+		D33F563D1D1C0F840088E547 /* RainLevelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */; };
+		D33F563E1D1C0F840088E547 /* RainLevelsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */; };
+		D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
+		D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
+		D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
+		D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
+		D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
+		D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
+		D36DB3111D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */; };
+		D36DB3121D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */; };
+		D36DB3131D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */; };
 		D36EA7391CE533CB00DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D36EA73A1CE53CE900DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
-		D374E88E1C5ED75F001837E3 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
-		D3762E2D1CE755DA006D0979 /* AmeBaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3762E2C1CE755DA006D0979 /* AmeBaseTestCase.swift */; };
+		D374E88E1C5ED75F001837E3 /* RainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* RainLevels.swift */; };
+		D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
+		D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
+		D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */; };
 		D37C3F061C72975300CEE631 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
-		D38D343B1CE724B100D77509 /* NowCastMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */; };
-		D38D343C1CE724B100D77509 /* NowCastMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A01BA7280F008F1F21 /* NowCastMapView.swift */; };
-		D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */; };
-		D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */; };
-		D38D343F1CE724B100D77509 /* NowCastBaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */; };
-		D38D34401CE724B100D77509 /* NowCastBaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* NowCastBaseTime.swift */; };
-		D38D34411CE724B100D77509 /* NowCastBaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */; };
-		D38D34421CE724B100D77509 /* NowCastImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */; };
-		D38D34431CE724B100D77509 /* NowCastImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */; };
+		D38D343A1CE724B100D77509 /* RainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* RainLevels.swift */; };
+		D38D343D1CE724B100D77509 /* OverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */; };
+		D38D343E1CE724B100D77509 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* Overlay.swift */; };
+		D38D343F1CE724B100D77509 /* BaseTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */; };
+		D38D34401CE724B100D77509 /* BaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* BaseTime.swift */; };
+		D38D34411CE724B100D77509 /* BaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* BaseTimeParser.swift */; };
+		D38D34421CE724B100D77509 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* ImageManager.swift */; };
+		D38D34431CE724B100D77509 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Image.swift */; };
 		D38D34441CE724B100D77509 /* UIImage+RGBA255.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage+RGBA255.swift */; };
-		D38D34451CE724B100D77509 /* InternalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */; };
+		D38D34451CE724B100D77509 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D38D34461CE724B100D77509 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
 		D38D34491CE724E600D77509 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */; };
 		D39FBB2E1CEB2A1400FE6769 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
-		D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C7EFE01C952744007A7867 /* NowCastImageManagerTests.swift */; };
+		D3A5E4201D12221E005B47D4 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
+		D3C7EFE11C952744007A7867 /* ImageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C7EFE01C952744007A7867 /* ImageManagerTests.swift */; };
 		D3D3CCF01BAE60D00083B7FC /* OldBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */; };
-		D3D3CCF21BAE6BE70083B7FC /* NowCastBaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */; };
-		D3D3CCF71BB0326B0083B7FC /* NowCastMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */; };
-		D3D3CCFB1BB6098A0083B7FC /* NowCastImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */; };
-		D3FD41FB1C67891A00EE1A65 /* NowCastRainLevelsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD41FA1C67891A00EE1A65 /* NowCastRainLevelsTest.swift */; };
+		D3D3CCF21BAE6BE70083B7FC /* BaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */; };
+		D3D3CCFB1BB6098A0083B7FC /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Image.swift */; };
+		D3FD41FB1C67891A00EE1A65 /* RainLevelsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */; };
 		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
-		D3FD41FE1C6815D600EE1A65 /* NowCastImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */; };
+		D3FD41FE1C6815D600EE1A65 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Image.swift */; };
 		D3FD41FF1C6815DA00EE1A65 /* UIImage+RGBA255.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage+RGBA255.swift */; };
-		D3FD42001C6815E000EE1A65 /* NowCastImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */; };
-		D3FD42021C6815F100EE1A65 /* NowCastRainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */; };
-		D3FD42061C6B6A9C00EE1A65 /* NowCastImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD42051C6B6A9C00EE1A65 /* NowCastImageTests.swift */; };
+		D3FD42001C6815E000EE1A65 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249AE1BA82E6C008F1F21 /* ImageManager.swift */; };
+		D3FD42021C6815F100EE1A65 /* RainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* RainLevels.swift */; };
+		D3FD42061C6B6A9C00EE1A65 /* ImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD42051C6B6A9C00EE1A65 /* ImageTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,38 +91,43 @@
 /* Begin PBXFileReference section */
 		D30341381C63864100F44630 /* UIImage+RGBA255.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+RGBA255.swift"; sourceTree = "<group>"; };
 		D307FFD31C5C844B001F6C66 /* NewBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NewBaseTime.xml; sourceTree = "<group>"; };
-		D3112F9D1BACA14F00FE21CF /* NowCastBaseTimeManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeManagerTests.swift; sourceTree = "<group>"; };
+		D3112F9D1BACA14F00FE21CF /* BaseTimeManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeManagerTests.swift; sourceTree = "<group>"; };
 		D33249861BA727C9008F1F21 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33249891BA727C9008F1F21 /* NowCastMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowCastMapView.h; sourceTree = "<group>"; };
 		D332498B1BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D33249901BA727C9008F1F21 /* NowCastMapViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NowCastMapViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33249971BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D33249A01BA7280F008F1F21 /* NowCastMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastMapView.swift; sourceTree = "<group>"; };
-		D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastOverlayRenderer.swift; sourceTree = "<group>"; };
-		D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastOverlay.swift; sourceTree = "<group>"; };
+		D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayRenderer.swift; sourceTree = "<group>"; };
+		D33249A41BA7280F008F1F21 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		D33249AC1BA72823008F1F21 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImageManager.swift; sourceTree = "<group>"; };
-		D33249B01BA842F2008F1F21 /* NowCastBaseTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTime.swift; sourceTree = "<group>"; };
-		D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeManager.swift; sourceTree = "<group>"; };
-		D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeParser.swift; sourceTree = "<group>"; };
+		D33249AE1BA82E6C008F1F21 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		D33249B01BA842F2008F1F21 /* BaseTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTime.swift; sourceTree = "<group>"; };
+		D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeManager.swift; sourceTree = "<group>"; };
+		D33249B41BA86259008F1F21 /* BaseTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeParser.swift; sourceTree = "<group>"; };
 		D335FBC11CBDEEF600960920 /* tile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile2.png; sourceTree = "<group>"; };
-		D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalConstants.swift; sourceTree = "<group>"; };
+		D33F56331D1BDB560088E547 /* RainLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevel.swift; sourceTree = "<group>"; };
+		D33F56371D1BDBB70088E547 /* RainLevelColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelColor.swift; sourceTree = "<group>"; };
+		D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsManager.swift; sourceTree = "<group>"; };
+		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevel.swift; sourceTree = "<group>"; };
+		D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
 		D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AwesomeCache.framework; path = Carthage/Build/iOS/AwesomeCache.framework; sourceTree = "<group>"; };
 		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
-		D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevels.swift; sourceTree = "<group>"; };
-		D3762E2C1CE755DA006D0979 /* AmeBaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmeBaseTestCase.swift; sourceTree = "<group>"; };
+		D374E88D1C5ED75F001837E3 /* RainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevels.swift; sourceTree = "<group>"; };
+		D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseTime+Comparable.swift"; sourceTree = "<group>"; };
+		D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		D37C3F051C72975300CEE631 /* Weak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
 		D38D34311CE7204F00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D38D34471CE724DB00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NowCastMapView.framework; path = Carthage/Build/iOS/NowCastMapView.framework; sourceTree = "<group>"; };
 		D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InvalidBaseTime.xml; sourceTree = "<group>"; };
-		D3C7EFE01C952744007A7867 /* NowCastImageManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImageManagerTests.swift; sourceTree = "<group>"; };
+		D3C7EFE01C952744007A7867 /* ImageManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManagerTests.swift; sourceTree = "<group>"; };
 		D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OldBaseTime.xml; sourceTree = "<group>"; };
-		D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastBaseTimeTests.swift; sourceTree = "<group>"; };
-		D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastMapViewController.swift; sourceTree = "<group>"; };
-		D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImage.swift; sourceTree = "<group>"; };
-		D3FD41FA1C67891A00EE1A65 /* NowCastRainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastRainLevelsTest.swift; sourceTree = "<group>"; };
+		D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeTests.swift; sourceTree = "<group>"; };
+		D3D3CCFA1BB6098A0083B7FC /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsTest.swift; sourceTree = "<group>"; };
 		D3FD41FC1C68154F00EE1A65 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
-		D3FD42051C6B6A9C00EE1A65 /* NowCastImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowCastImageTests.swift; sourceTree = "<group>"; };
+		D3FD42051C6B6A9C00EE1A65 /* ImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */,
 				D38D34491CE724E600D77509 /* AwesomeCache.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +174,7 @@
 		D332497C1BA727C9008F1F21 = {
 			isa = PBXGroup;
 			children = (
+				D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */,
 				D33249881BA727C9008F1F21 /* NowCastMapView */,
 				D33249941BA727C9008F1F21 /* NowCastMapViewTests */,
 				D33249871BA727C9008F1F21 /* Products */,
@@ -173,7 +195,7 @@
 		D33249881BA727C9008F1F21 /* NowCastMapView */ = {
 			isa = PBXGroup;
 			children = (
-				D374E88C1C5E083A001837E3 /* RainLevel */,
+				D374E88C1C5E083A001837E3 /* RainLevels */,
 				D3D3CCEE1BAE5A500083B7FC /* MapView */,
 				D3438CA01BADB09F009B5AB8 /* BaseTime */,
 				D3FDA9CA1BB7708F00BD5F45 /* Image */,
@@ -185,12 +207,12 @@
 		D33249941BA727C9008F1F21 /* NowCastMapViewTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3762E2C1CE755DA006D0979 /* AmeBaseTestCase.swift */,
-				D3FD41FA1C67891A00EE1A65 /* NowCastRainLevelsTest.swift */,
-				D3D3CCF11BAE6BE70083B7FC /* NowCastBaseTimeTests.swift */,
-				D3112F9D1BACA14F00FE21CF /* NowCastBaseTimeManagerTests.swift */,
-				D3FD42051C6B6A9C00EE1A65 /* NowCastImageTests.swift */,
-				D3C7EFE01C952744007A7867 /* NowCastImageManagerTests.swift */,
+				D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */,
+				D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */,
+				D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */,
+				D3112F9D1BACA14F00FE21CF /* BaseTimeManagerTests.swift */,
+				D3FD42051C6B6A9C00EE1A65 /* ImageTests.swift */,
+				D3C7EFE01C952744007A7867 /* ImageManagerTests.swift */,
 				D3D3CCF51BAE9D090083B7FC /* Resources */,
 			);
 			path = NowCastMapViewTests;
@@ -199,9 +221,10 @@
 		D3438CA01BADB09F009B5AB8 /* BaseTime */ = {
 			isa = PBXGroup;
 			children = (
-				D33249B01BA842F2008F1F21 /* NowCastBaseTime.swift */,
-				D33249B21BA84A03008F1F21 /* NowCastBaseTimeManager.swift */,
-				D33249B41BA86259008F1F21 /* NowCastBaseTimeParser.swift */,
+				D33249B01BA842F2008F1F21 /* BaseTime.swift */,
+				D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */,
+				D33249B21BA84A03008F1F21 /* BaseTimeManager.swift */,
+				D33249B41BA86259008F1F21 /* BaseTimeParser.swift */,
 			);
 			name = BaseTime;
 			sourceTree = "<group>";
@@ -210,28 +233,30 @@
 			isa = PBXGroup;
 			children = (
 				D33249891BA727C9008F1F21 /* NowCastMapView.h */,
-				D3438CA21BADB3C9009B5AB8 /* InternalConstants.swift */,
+				D3438CA21BADB3C9009B5AB8 /* Constants.swift */,
 				D37C3F051C72975300CEE631 /* Weak.swift */,
+				D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */,
 				D332498B1BA727C9008F1F21 /* Info.plist */,
 			);
 			name = etc;
 			sourceTree = "<group>";
 		};
-		D374E88C1C5E083A001837E3 /* RainLevel */ = {
+		D374E88C1C5E083A001837E3 /* RainLevels */ = {
 			isa = PBXGroup;
 			children = (
-				D374E88D1C5ED75F001837E3 /* NowCastRainLevels.swift */,
+				D33F56331D1BDB560088E547 /* RainLevel.swift */,
+				D33F56371D1BDBB70088E547 /* RainLevelColor.swift */,
+				D374E88D1C5ED75F001837E3 /* RainLevels.swift */,
+				D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */,
 			);
-			name = RainLevel;
+			name = RainLevels;
 			sourceTree = "<group>";
 		};
 		D3D3CCEE1BAE5A500083B7FC /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				D3D3CCF61BB0326B0083B7FC /* NowCastMapViewController.swift */,
-				D33249A01BA7280F008F1F21 /* NowCastMapView.swift */,
-				D33249A31BA7280F008F1F21 /* NowCastOverlayRenderer.swift */,
-				D33249A41BA7280F008F1F21 /* NowCastOverlay.swift */,
+				D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */,
+				D33249A41BA7280F008F1F21 /* Overlay.swift */,
 			);
 			name = MapView;
 			sourceTree = "<group>";
@@ -253,8 +278,9 @@
 		D3FDA9CA1BB7708F00BD5F45 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				D3D3CCFA1BB6098A0083B7FC /* NowCastImage.swift */,
-				D33249AE1BA82E6C008F1F21 /* NowCastImageManager.swift */,
+				D3D3CCFA1BB6098A0083B7FC /* Image.swift */,
+				D33249AE1BA82E6C008F1F21 /* ImageManager.swift */,
+				D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */,
 				D30341381C63864100F44630 /* UIImage+RGBA255.swift */,
 			);
 			name = Image;
@@ -291,6 +317,7 @@
 				D33249831BA727C9008F1F21 /* Headers */,
 				D33249841BA727C9008F1F21 /* Resources */,
 				D36EA7371CE5338100DD94E0 /* Carthage */,
+				D36DB30A1D1A45890003DD7F /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -309,6 +336,7 @@
 				D332498D1BA727C9008F1F21 /* Frameworks */,
 				D332498E1BA727C9008F1F21 /* Resources */,
 				D36EA73B1CE53DBA00DD94E0 /* Carthage */,
+				D33F563F1D1CA4B60088E547 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -409,6 +437,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D33F563F1D1CA4B60088E547 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --path NowCastMapViewTests\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		D36DB30A1D1A45890003DD7F /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --path NowCastMapView\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		D36EA7371CE5338100DD94E0 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -446,18 +502,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D33249B31BA84A03008F1F21 /* NowCastBaseTimeManager.swift in Sources */,
-				D374E88E1C5ED75F001837E3 /* NowCastRainLevels.swift in Sources */,
-				D33249B11BA842F2008F1F21 /* NowCastBaseTime.swift in Sources */,
-				D33249A91BA7280F008F1F21 /* NowCastOverlayRenderer.swift in Sources */,
-				D33249AA1BA7280F008F1F21 /* NowCastOverlay.swift in Sources */,
-				D33249AF1BA82E6C008F1F21 /* NowCastImageManager.swift in Sources */,
-				D33249B51BA86259008F1F21 /* NowCastBaseTimeParser.swift in Sources */,
+				D33F56381D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
+				D33249B31BA84A03008F1F21 /* BaseTimeManager.swift in Sources */,
+				D36DB3111D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
+				D374E88E1C5ED75F001837E3 /* RainLevels.swift in Sources */,
+				D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */,
+				D33249B11BA842F2008F1F21 /* BaseTime.swift in Sources */,
+				D33249A91BA7280F008F1F21 /* OverlayRenderer.swift in Sources */,
+				D33249AA1BA7280F008F1F21 /* Overlay.swift in Sources */,
+				D33F563C1D1C0F840088E547 /* RainLevelsManager.swift in Sources */,
+				D33249AF1BA82E6C008F1F21 /* ImageManager.swift in Sources */,
+				D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */,
 				D30341391C63864100F44630 /* UIImage+RGBA255.swift in Sources */,
-				D33249A61BA7280F008F1F21 /* NowCastMapView.swift in Sources */,
-				D3438CA31BADB3C9009B5AB8 /* InternalConstants.swift in Sources */,
-				D3D3CCF71BB0326B0083B7FC /* NowCastMapViewController.swift in Sources */,
-				D3D3CCFB1BB6098A0083B7FC /* NowCastImage.swift in Sources */,
+				D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */,
+				D33F56341D1BDB560088E547 /* RainLevel.swift in Sources */,
+				D3D3CCFB1BB6098A0083B7FC /* Image.swift in Sources */,
+				D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */,
 				D37C3F061C72975300CEE631 /* Weak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,21 +526,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A5E4201D12221E005B47D4 /* BaseTime+Comparable.swift in Sources */,
 				D39FBB2E1CEB2A1400FE6769 /* Weak.swift in Sources */,
-				D3438CA41BADB3F4009B5AB8 /* InternalConstants.swift in Sources */,
-				D3C7EFE11C952744007A7867 /* NowCastImageManagerTests.swift in Sources */,
-				D3D3CCF21BAE6BE70083B7FC /* NowCastBaseTimeTests.swift in Sources */,
-				D3FD42061C6B6A9C00EE1A65 /* NowCastImageTests.swift in Sources */,
-				D3FD42021C6815F100EE1A65 /* NowCastRainLevels.swift in Sources */,
-				D3FD41FB1C67891A00EE1A65 /* NowCastRainLevelsTest.swift in Sources */,
-				D3112FA11BACA1EE00FE21CF /* NowCastBaseTimeParser.swift in Sources */,
-				D3762E2D1CE755DA006D0979 /* AmeBaseTestCase.swift in Sources */,
+				D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */,
+				D3C7EFE11C952744007A7867 /* ImageManagerTests.swift in Sources */,
+				D3D3CCF21BAE6BE70083B7FC /* BaseTimeTests.swift in Sources */,
+				D33F56361D1BDB560088E547 /* RainLevel.swift in Sources */,
+				D3FD42061C6B6A9C00EE1A65 /* ImageTests.swift in Sources */,
+				D3FD42021C6815F100EE1A65 /* RainLevels.swift in Sources */,
+				D3FD41FB1C67891A00EE1A65 /* RainLevelsTest.swift in Sources */,
+				D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */,
+				D3112FA11BACA1EE00FE21CF /* BaseTimeParser.swift in Sources */,
+				D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */,
+				D36DB3131D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
 				D3FD41FF1C6815DA00EE1A65 /* UIImage+RGBA255.swift in Sources */,
-				D3112FA01BACA1EA00FE21CF /* NowCastBaseTime.swift in Sources */,
-				D3FD42001C6815E000EE1A65 /* NowCastImageManager.swift in Sources */,
-				D3FD41FE1C6815D600EE1A65 /* NowCastImage.swift in Sources */,
-				D3112F9F1BACA1E700FE21CF /* NowCastBaseTimeManager.swift in Sources */,
-				D3112F9E1BACA14F00FE21CF /* NowCastBaseTimeManagerTests.swift in Sources */,
+				D3112FA01BACA1EA00FE21CF /* BaseTime.swift in Sources */,
+				D3FD42001C6815E000EE1A65 /* ImageManager.swift in Sources */,
+				D33F563E1D1C0F840088E547 /* RainLevelsManager.swift in Sources */,
+				D33F563A1D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
+				D3FD41FE1C6815D600EE1A65 /* Image.swift in Sources */,
+				D3112F9F1BACA1E700FE21CF /* BaseTimeManager.swift in Sources */,
+				D3112F9E1BACA14F00FE21CF /* BaseTimeManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,18 +554,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D38D343A1CE724B100D77509 /* NowCastRainLevels.swift in Sources */,
-				D38D343B1CE724B100D77509 /* NowCastMapViewController.swift in Sources */,
-				D38D343C1CE724B100D77509 /* NowCastMapView.swift in Sources */,
-				D38D343D1CE724B100D77509 /* NowCastOverlayRenderer.swift in Sources */,
-				D38D343E1CE724B100D77509 /* NowCastOverlay.swift in Sources */,
-				D38D343F1CE724B100D77509 /* NowCastBaseTimeManager.swift in Sources */,
-				D38D34401CE724B100D77509 /* NowCastBaseTime.swift in Sources */,
-				D38D34411CE724B100D77509 /* NowCastBaseTimeParser.swift in Sources */,
-				D38D34421CE724B100D77509 /* NowCastImageManager.swift in Sources */,
-				D38D34431CE724B100D77509 /* NowCastImage.swift in Sources */,
+				D33F56391D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
+				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
+				D36DB3121D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
+				D38D343A1CE724B100D77509 /* RainLevels.swift in Sources */,
+				D38D343D1CE724B100D77509 /* OverlayRenderer.swift in Sources */,
+				D38D343E1CE724B100D77509 /* Overlay.swift in Sources */,
+				D38D343F1CE724B100D77509 /* BaseTimeManager.swift in Sources */,
+				D38D34401CE724B100D77509 /* BaseTime.swift in Sources */,
+				D33F563D1D1C0F840088E547 /* RainLevelsManager.swift in Sources */,
+				D38D34411CE724B100D77509 /* BaseTimeParser.swift in Sources */,
+				D38D34421CE724B100D77509 /* ImageManager.swift in Sources */,
+				D38D34431CE724B100D77509 /* Image.swift in Sources */,
 				D38D34441CE724B100D77509 /* UIImage+RGBA255.swift in Sources */,
-				D38D34451CE724B100D77509 /* InternalConstants.swift in Sources */,
+				D33F56351D1BDB560088E547 /* RainLevel.swift in Sources */,
+				D38D34451CE724B100D77509 /* Constants.swift in Sources */,
+				D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */,
 				D38D34461CE724B100D77509 /* Weak.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -607,6 +677,7 @@
 		D332499B1BA727C9008F1F21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -633,6 +704,7 @@
 		D332499C1BA727C9008F1F21 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -686,7 +758,7 @@
 		D38D34371CE7204F00D77509 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -709,7 +781,7 @@
 		D38D34381CE7204F00D77509 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
