@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 public protocol OverlayRendererDataSource {
-	func Images(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [Image]?
+	func images(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [Image]?
 }
 
 public class OverlayRenderer: MKOverlayRenderer {
@@ -49,7 +49,7 @@ public class OverlayRenderer: MKOverlayRenderer {
 	}
 
 	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		dataSource?.Images(inMapRect: mapRect, forZoomScale: zoomScale)?.forEach { image in
+		dataSource?.images(inMapRect: mapRect, forZoomScale: zoomScale)?.forEach { image in
 			if let imageData = image.imageData, imageReference = image.imageData?.CGImage {
 				UIGraphicsBeginImageContext(imageData.size)
 				let imageContext = UIGraphicsGetCurrentContext()

@@ -10,7 +10,7 @@ import UIKit
 import NowCastMapView
 import MapKit
 
-class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendererDataSource {
+class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSource {
 
 // MARK: - IBOutlets
 
@@ -18,7 +18,7 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 
 // MARK: - NowCastMapViewDataSource
 
-	var baseTime: NowCastBaseTime? {
+	var baseTime: BaseTime? {
 		didSet { renderer.setNeedsDisplay() }
 	}
 
@@ -28,19 +28,19 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 
 // MARK: - Other Variables
 
-	var overlay = NowCastOverlay()
-	var renderer: NowCastOverlayRenderer!
-	let imageManager = NowCastImageManager.sharedManager
+	var overlay = Overlay()
+	var renderer: OverlayRenderer!
+	let imageManager = ImageManager.sharedManager
 
 	var annotation: MKPointAnnotation? {
 		didSet {
 			if let baseTime = baseTime, annotation = annotation {
-				let _ = NowCastRainLevels(baseTime: baseTime, coordinate: annotation.coordinate) { rainLevels, error in
+				let _ = RainLevels(baseTime: baseTime, coordinate: annotation.coordinate) { rainLevels, error in
 					NSOperationQueue.mainQueue().addOperationWithBlock {
 						if let baseTimeString = rainLevels.baseTime.baseTimeString(atIndex: 0), level = rainLevels.rainLevel(atBaseTimeIndex: 0)?.level {
 
 							let message = baseTimeString + ": level = " + String(level)
-							let alertController = UIAlertController(title: "Fetched NowCastRainLevels", message: message, preferredStyle: .Alert)
+							let alertController = UIAlertController(title: "Fetched RainLevels", message: message, preferredStyle: .Alert)
 
 							let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
 							alertController.addAction(defaultAction)
@@ -62,17 +62,17 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 		mapView.delegate = self
 
 		// Initialize Overlay and Renderer
-		renderer = NowCastOverlayRenderer(overlay: overlay)
+		renderer = OverlayRenderer(overlay: overlay)
 		renderer.dataSource = self
 		mapView.addOverlay(overlay)
 
 		// register notification
 		let nc = NSNotificationCenter.defaultCenter()
-		nc.addObserver(self, selector: #selector(ViewController.baseTimeUpdated(_:)), name: NowCastBaseTimeManager.Notification.name, object: nil)
-		nc.addObserver(self, selector: #selector(ViewController.imageFetched(_:)), name: NowCastImageManager.Notification.name, object: nil)
+		nc.addObserver(self, selector: #selector(ViewController.baseTimeUpdated(_:)), name: BaseTimeManager.Notification.name, object: nil)
+		nc.addObserver(self, selector: #selector(ViewController.imageFetched(_:)), name: ImageManager.Notification.name, object: nil)
 
 		// restore last baseTime
-		baseTime = NowCastBaseTimeManager.sharedManager.lastSavedBaseTime
+		baseTime = BaseTimeManager.sharedManager.lastSavedBaseTime
     }
 
 // MARK: - IBAction
@@ -99,11 +99,12 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 		return renderer
 	}
 
-// MARK: - NowCastOverlayRendererDataSource
+// MARK: - OverlayRendererDataSource
 
-	func nowCastImages(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [NowCastImage]? {
+	func images(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [Image]? {
 		if let baseTime = self.baseTime {
-			return imageManager.images(forMapRect: mapRect, zoomScale: zoomScale, baseTime: baseTime, baseTimeIndex: baseTimeIndex, priority: NowCastDownloadPriorityHigh)
+			let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: baseTimeIndex)
+			return imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: .High)
 		}
 		else { return nil }
 	}
@@ -114,32 +115,25 @@ class ViewController: UIViewController, MKMapViewDelegate, NowCastOverlayRendere
 		return true
 	}
 
-// MARK: - NowCastBaseTimeManager.Notification
+// MARK: - BaseTimeManager.Notification
 
     func baseTimeUpdated(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-			if let object = userInfo[NowCastBaseTimeManager.Notification.object] as? NowCastBaseTimeManagerNotificationObject {
-				if object.fetchResult == .OrderedAscending {
-					baseTime = object.baseTime
-				}
-			}
-        }
-    }
+		guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else { return }
+		baseTime = object.baseTime
+	}
 
-// MARK: - NowCastImageManagerNotification
+// MARK: - ImageManagerNotification
 
 	dynamic func imageFetched(notification: NSNotification) {
-		if let userInfo = notification.userInfo {
-			if let image = userInfo[NowCastImageManager.Notification.object] as? NowCastImage {
-				if baseTime?.compare(image.baseTime) != .OrderedSame { return }
-				if image.baseTimeIndex != baseTimeIndex { return }
+		guard let image = notification.userInfo?[ImageManager.Notification.object] as? Image else { return }
 
-				// check region of MapView
-				// issue #3
+		if baseTime?.compare(image.baseTimeContext.baseTime) != .OrderedSame { return }
+		if image.baseTimeContext.index != baseTimeIndex { return }
 
-				renderer.setNeedsDisplay()
-			}
-		}
+		// check region of MapView
+		// issue #3
+
+		renderer.setNeedsDisplay()
 	}
 }
 

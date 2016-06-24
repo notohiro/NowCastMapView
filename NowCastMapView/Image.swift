@@ -14,6 +14,12 @@ public struct ImageContext {
 	public var latitudeNumber: Int
 	public var longitudeNumber: Int
 	public var zoomLevel: ZoomLevel
+
+	public init(latitudeNumber: Int, longitudeNumber: Int, zoomLevel: ZoomLevel) {
+		self.latitudeNumber = latitudeNumber
+		self.longitudeNumber = longitudeNumber
+		self.zoomLevel = zoomLevel
+	}
 }
 
 public class Image: CustomStringConvertible {

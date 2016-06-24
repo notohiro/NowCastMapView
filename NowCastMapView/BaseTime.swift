@@ -11,6 +11,11 @@ import Foundation
 public struct BaseTimeContext {
 	public var baseTime: BaseTime
 	public var index: Int
+
+	public init(baseTime: BaseTime, index: Int) {
+		self.baseTime = baseTime
+		self.index = index
+	}
 }
 
 public class BaseTime: NSObject, NSCoding, Comparable {
