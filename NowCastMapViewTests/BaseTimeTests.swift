@@ -1,5 +1,5 @@
 //
-//  NowCastBaseTimeTests.swift
+//  BaseTimeTests.swift
 //  NowCastMapView
 //
 //  Created by Hiroshi Noto on 9/20/15.
@@ -9,90 +9,87 @@
 import XCTest
 import AwesomeCache
 
-class NowCastBaseTimeTests: NowCastBaseTestCase {
+class BaseTimeTests: BaseTestCase {
 	func testInitWithXML() {
-		if let baseTime = getBaseTimeFrom("OldBaseTime") {
-			// test .count()
-			XCTAssertEqual(baseTime.count(), 48)
-			// test .range()
-			XCTAssertEqual(baseTime.range(), (-35...12))
-		}
-		else { XCTFail() }
+		guard let baseTime = getBaseTimeFrom("OldBaseTime") else { XCTFail(); return }
+
+		// test .count()
+		XCTAssertEqual(baseTime.count(), 48)
+		// test .range()
+		XCTAssertEqual(baseTime.range(), (-35...12))
 	}
 
 	func testInitWithCache() {
-		if let baseTime = getBaseTimeFrom("OldBaseTime") {
-			let kLastSavedBaseTimeKey = "lastSavedBaseTime"
-			// to release sharedCache object for exec init?(coder aDecoder: NSCoder)
-			autoreleasepool {
-				// save
-				let sharedCache = try! Cache<NowCastBaseTime>(name: NowCastBaseTimeCacheName)
-				sharedCache.removeAllObjects()
-				sharedCache.setObject(baseTime, forKey: kLastSavedBaseTimeKey)
-			}
+		guard let baseTime = getBaseTimeFrom("OldBaseTime") else { XCTFail(); return }
 
-			waitForSeconds(SecondsForTimeout)
-
-			autoreleasepool {
-				// restore
-				let sharedCache = try! Cache<NowCastBaseTime>(name: NowCastBaseTimeCacheName)
-				if let restoredBaseTime = sharedCache.objectForKey(kLastSavedBaseTimeKey) {
-					// test .count()
-					XCTAssertEqual(restoredBaseTime.count(), 48)
-					// test .range()
-					XCTAssertEqual(restoredBaseTime.range(), (-35...12))
-				}
-				else { XCTFail() }
-			}
+		let lastSavedBaseTimeKey = "lastSavedBaseTime"
+		// to release sharedCache object for exec init?(coder aDecoder: NSCoder)
+		autoreleasepool {
+			// save
+			let sharedCache = try! Cache<BaseTime>(name: "BaseTimeCache") // swiftlint:disable:this force_try
+			sharedCache.removeAllObjects()
+			sharedCache.setObject(baseTime, forKey: lastSavedBaseTimeKey)
 		}
-		else { XCTFail() }
+
+		waitForSeconds(secondsForTimeout)
+
+		autoreleasepool {
+			// restore
+			let sharedCache = try! Cache<BaseTime>(name: "BaseTimeCache") // swiftlint:disable:this force_try
+			guard let restoredBaseTime = sharedCache.objectForKey(lastSavedBaseTimeKey) else { XCTFail(); return }
+
+			// test .count()
+			XCTAssertEqual(restoredBaseTime.count(), 48)
+			// test .range()
+			XCTAssertEqual(restoredBaseTime.range(), (-35...12))
+		}
 	}
 
 	func testInitWithInvalidData() {
-		XCTAssertNil(NowCastBaseTime(baseTimeData: NSData()))
+		XCTAssertNil(BaseTime(baseTimeData: NSData()))
 	}
 
 	func testBaseTimeStringAtIndex() {
-		if let baseTime = getBaseTimeFrom("OldBaseTime") {
-			for i in baseTime.range() {
-				// test .baseTimeStringAtIndex(index index: Int)
-				let baseTimeStringAtIndex = baseTime.baseTimeString(atIndex: i)
-				XCTAssertNotNil(baseTimeStringAtIndex)
-			}
+		guard let baseTime = getBaseTimeFrom("OldBaseTime") else { XCTFail(); return }
 
-			XCTAssertNil(baseTime.baseTimeString(atIndex: baseTime.range().startIndex-1))
+		for i in baseTime.range() {
+			// test .baseTimeStringAtIndex(index index: Int)
+			let baseTimeStringAtIndex = baseTime.baseTimeString(atIndex: i)
+			XCTAssertNotNil(baseTimeStringAtIndex)
 		}
-		else { XCTFail() }
+
+		XCTAssertNil(baseTime.baseTimeString(atIndex: baseTime.range().startIndex-1))
 	}
 
 	func testBaseTimeDateAtIndex() {
-		if let baseTime = getBaseTimeFrom("OldBaseTime") {
-			for i in baseTime.range() {
-				// test .baseTimeDateAtIndex(index index: Int)
-				let baseTimeDateAtIndex = baseTime.baseTimeDate(atIndex: i)
-				XCTAssertNotNil(baseTimeDateAtIndex)
-			}
+		guard let baseTime = getBaseTimeFrom("OldBaseTime") else { XCTFail(); return }
 
-			XCTAssertNil(baseTime.baseTimeDate(atIndex: baseTime.range().startIndex-1))
+		for i in baseTime.range() {
+			// test .baseTimeDateAtIndex(index index: Int)
+			let baseTimeDateAtIndex = baseTime.baseTimeDate(atIndex: i)
+			XCTAssertNotNil(baseTimeDateAtIndex)
 		}
-		else { XCTFail() }
-	}
+
+		XCTAssertNil(baseTime.baseTimeDate(atIndex: baseTime.range().startIndex-1))	}
 
 	func testCompare() {
-		if let oldBaseTime = getBaseTimeFrom("OldBaseTime"), newBaseTime = getBaseTimeFrom("NewBaseTime") {
-			XCTAssertEqual(oldBaseTime.compare(oldBaseTime), (NSComparisonResult).OrderedSame)
-			XCTAssertEqual(oldBaseTime.compare(newBaseTime), (NSComparisonResult).OrderedAscending)
-			XCTAssertEqual(newBaseTime.compare(oldBaseTime), (NSComparisonResult).OrderedDescending)
-		}
-		else { XCTFail() }
+		guard let oldBaseTime = getBaseTimeFrom("OldBaseTime") else { XCTFail(); return }
+		guard let newBaseTime = getBaseTimeFrom("NewBaseTime") else { XCTFail(); return }
+
+		XCTAssertEqual(oldBaseTime.compare(oldBaseTime), (NSComparisonResult).OrderedSame)
+		XCTAssertEqual(oldBaseTime.compare(newBaseTime), (NSComparisonResult).OrderedAscending)
+		XCTAssertEqual(newBaseTime.compare(oldBaseTime), (NSComparisonResult).OrderedDescending)
 	}
 
+	// swiftlint:disable function_body_length
 	func testEquatable() {
-		guard let oldBaseTime = getBaseTimeFrom("OldBaseTime"), newBaseTime = getBaseTimeFrom("NewBaseTime") else { XCTFail(); return }
-		let optionalOldBaseTime: NowCastBaseTime? = oldBaseTime
+		guard let oldBaseTime = getBaseTimeFrom("OldBaseTime") else { XCTFail(); return }
+		guard let newBaseTime = getBaseTimeFrom("NewBaseTime") else { XCTFail(); return }
+
+		let optionalOldBaseTime: BaseTime? = oldBaseTime
 		let optionalOldBaseTime2 = getBaseTimeFrom("OldBaseTime")
 		let optionalNewBaseTime = getBaseTimeFrom("NewBaseTime")
-		let optionalBaseTime: NowCastBaseTime? = nil
+		let optionalBaseTime: BaseTime? = nil
 
 		// compare between Not Optionals
 		// same objects
@@ -157,4 +154,5 @@ class NowCastBaseTimeTests: NowCastBaseTestCase {
 		XCTAssertFalse(optionalBaseTime != nil)
 		XCTAssertFalse(nil != optionalBaseTime)
 	}
+	// swiftlint:enable function_body_length
 }

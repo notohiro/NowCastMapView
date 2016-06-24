@@ -1,6 +1,6 @@
 //
 //  RainLevels.swift
-//  MapView
+//  NowCastMapView
 //
 //  Created by Hiroshi Noto on 2/1/16.
 //  Copyright © 2016 Hiroshi Noto. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  Image.swift
-//  MapView
+//  NowCastMapView
 //
 //  Created by Hiroshi Noto on 9/26/15.
 //  Copyright © 2015 Hiroshi Noto. All rights reserved.
