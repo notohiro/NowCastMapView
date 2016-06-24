@@ -136,4 +136,3 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		renderer.setNeedsDisplay()
 	}
 }
-
