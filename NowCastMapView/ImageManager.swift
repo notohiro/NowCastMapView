@@ -104,7 +104,12 @@ final public class ImageManager {
 	public func cancelImageRequestsPriorityLessThan(priority: DownloadPriority) {
 		imageSession.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
 			for task in dataTasks {
-				if task.priority < priority.rawValue { task.cancel() }
+				if task.priority < priority.rawValue {
+					task.cancel()
+					if let key = task.currentRequest?.URL?.absoluteString {
+						self.imagePool.removeValueForKey(key)
+					}
+				}
 			}
 		}
 	}

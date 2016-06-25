@@ -237,6 +237,8 @@ public class Image: CustomStringConvertible {
 
 		if let httpResponse = response as? NSHTTPURLResponse {
 			if httpResponse.statusCode != 200 {
+				ImageManager.sharedManager.imagePool.removeValueForKey(url.absoluteString)
+				
 				if error == nil {
 					let httpError = NSError(domain: "NSURLErrorDomain", code: httpResponse.statusCode, userInfo: nil)
 					notifyObject[ImageManager.Notification.error] = httpError
