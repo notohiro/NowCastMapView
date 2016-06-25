@@ -121,4 +121,9 @@ final public class ImageManager {
 	public func removeAllCache() {
 		sharedImageCache.removeAllObjects()
 	}
+
+	public func flushMemoryCache() {
+		imagePool.removeAll()
+		imagePool = SynchronizedDictionary<String, Image>()
+	}
 }

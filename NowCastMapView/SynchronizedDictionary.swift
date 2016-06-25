@@ -9,8 +9,8 @@
 import Foundation
 
 class SynchronizedDictionary<S: Hashable, T> {
-	private var _dictionary = [S : T]()
 	var count: Int { return _dictionary.count }
+	private var _dictionary = [S : T]()
 	private let accessQueue = dispatch_queue_create("SynchronizedDictionaryAccess", DISPATCH_QUEUE_SERIAL)
 
 	func setValue(value: T, forKey key: S) {
@@ -30,6 +30,12 @@ class SynchronizedDictionary<S: Hashable, T> {
 	func removeValueForKey(key: S) {
 		dispatch_async(accessQueue) {
 			self._dictionary.removeValueForKey(key)
+		}
+	}
+
+	func removeAll() {
+		dispatch_async(accessQueue) {
+			self._dictionary.removeAll()
 		}
 	}
 }
