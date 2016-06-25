@@ -10,6 +10,7 @@ import Foundation
 
 class SynchronizedDictionary<S: Hashable, T> {
 	private var _dictionary = [S : T]()
+	var count: Int { return _dictionary.count }
 	private let accessQueue = dispatch_queue_create("SynchronizedDictionaryAccess", DISPATCH_QUEUE_SERIAL)
 
 	func setValue(value: T, forKey key: S) {

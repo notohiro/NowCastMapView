@@ -20,8 +20,7 @@ final public class ImageManager {
 	}
 
 	let sharedImageCache = try! Cache<UIImage>(name: "ImageCache") // swiftlint:disable:this force_try
-	var imagePool = SynchronizedDictionary<String, Weak<Image>>()
-	var processingImages = SynchronizedDictionary<String, Image>()
+	var imagePool = SynchronizedDictionary<String, Image>()
 
 	private init() { }
 
@@ -77,16 +76,15 @@ final public class ImageManager {
 				let imageContext = ImageContext(latitudeNumber: latNumber, longitudeNumber: lonNumber, zoomLevel: zoomLevel)
 				guard let url = Image.url(forImageContext: imageContext, baseTimeContext: baseTimeContext) else { continue }
 
-				objc_sync_enter(self)
-				if let image = imagePool.valueForKey(url.absoluteString)?.value() {
+				if let image = imagePool.valueForKey(url.absoluteString) {
 					if image.priority.rawValue < priority.rawValue { image.priority = priority }
 					retArr.append(image)
 				} else {
 					if let image = Image(forImageContext: imageContext, baseTimeContext: baseTimeContext, priority: priority) {
+						imagePool.setValue(image, forKey: url.absoluteString)
 						retArr.append(image)
 					}
 				}
-				objc_sync_exit(self)
 			}
 		}
 

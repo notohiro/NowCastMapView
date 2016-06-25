@@ -155,13 +155,7 @@ public class Image: CustomStringConvertible {
 		if imageContext.longitudeNumber < 0 { return nil }
 		if imageContext.longitudeNumber > imageContext.zoomLevel.rawValue - 1 { return nil }
 
-		ImageManager.sharedManager.imagePool.setValue(Weak(value: self), forKey: url.absoluteString)
-		ImageManager.sharedManager.processingImages.setValue(self, forKey: url.absoluteString)
 		if needsDownload { downloadImage() }
-	}
-
-	deinit {
-		ImageManager.sharedManager.imagePool.removeValueForKey(url.absoluteString)
 	}
 
 	func contains(coordinate: CLLocationCoordinate2D) -> Bool {
@@ -229,7 +223,7 @@ public class Image: CustomStringConvertible {
 	}
 
 	private func downloadImage() {
-		dataTask = imageSession.dataTaskWithURL(url) { [unowned self] data, response, error in
+		dataTask = imageSession.dataTaskWithURL(url) { data, response, error in
 			self.downloadFinished(data, response: response, error: error)
 		}
 		dataTask?.priority = priority.rawValue
@@ -237,8 +231,6 @@ public class Image: CustomStringConvertible {
 	}
 
 	public func downloadFinished(data: NSData?, response: NSURLResponse?, error: NSError?) {
-		ImageManager.sharedManager.processingImages.removeValueForKey(url.absoluteString)
-
 		var notifyObject = [NSObject : AnyObject]()
 		notifyObject[ImageManager.Notification.object] = self
 		notifyObject[ImageManager.Notification.error] = error
