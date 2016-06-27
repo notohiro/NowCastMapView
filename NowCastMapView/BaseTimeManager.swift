@@ -31,6 +31,8 @@ final public class BaseTimeManager {
 		public static let object = "object"
 	}
 
+	let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+
 	private var fetching = false
 	private var timer: NSTimer?
 	private let sharedCache = try! Cache<BaseTime>(name: "BaseTimeCache") // swiftlint:disable:this force_try
@@ -65,7 +67,7 @@ final public class BaseTimeManager {
 		}
 		objc_sync_exit(self)
 
-		let task = baseTimeSession.dataTaskWithURL(Constants.baseTimeURL) { [unowned self] data, response, error in
+		let task = session.dataTaskWithURL(Constants.baseTimeURL) { [unowned self] data, response, error in
 			if let _ = error { // do something?
 			} else {
 				let _ = data.flatMap { BaseTime(baseTimeData: $0) }.flatMap { self.notifyBaseTime($0) }

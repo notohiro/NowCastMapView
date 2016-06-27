@@ -223,7 +223,7 @@ public class Image: CustomStringConvertible {
 	}
 
 	private func downloadImage() {
-		dataTask = imageSession.dataTaskWithURL(url) { data, response, error in
+		dataTask = ImageManager.sharedManager.session.dataTaskWithURL(url) { data, response, error in
 			self.downloadFinished(data, response: response, error: error)
 		}
 		dataTask?.priority = priority.rawValue
@@ -238,7 +238,7 @@ public class Image: CustomStringConvertible {
 		if let httpResponse = response as? NSHTTPURLResponse {
 			if httpResponse.statusCode != 200 {
 				ImageManager.sharedManager.imagePool.removeValueForKey(url.absoluteString)
-				
+
 				if error == nil {
 					let httpError = NSError(domain: "NSURLErrorDomain", code: httpResponse.statusCode, userInfo: nil)
 					notifyObject[ImageManager.Notification.error] = httpError

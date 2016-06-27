@@ -9,9 +9,6 @@
 import Foundation
 import AwesomeCache
 
-let imageSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-let baseTimeSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-
 public struct Constants {
 	// define coordinate of upper left and bottom right
 	static let originLatitude: Double    = 61

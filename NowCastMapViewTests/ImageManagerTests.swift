@@ -11,6 +11,12 @@ import MapKit
 
 class ImageManagerTests: BaseTestCase {
 	let imageManager = ImageManager.sharedManager
+	var imageFetchedCount = 0
+
+	override func setUp() {
+		super.setUp()
+		imageFetchedCount = 0
+	}
 
 	func testZoomLevel() {
 		XCTAssertEqual(ZoomLevel.level2.rawValue, 4)
@@ -54,5 +60,54 @@ class ImageManagerTests: BaseTestCase {
 
 		let coordinateOutsideService = CLLocationCoordinate2DMake(62, 99)
 		XCTAssertFalse(imageManager.isServiceAvailable(atCoordinate: coordinateOutsideService))
+	}
+
+	func testPerformanceImages() {
+		removeImageCache()
+
+		var baseTime: BaseTime?
+
+		expectationForNotification(BaseTimeManager.Notification.name, object: nil) { (notification: NSNotification) -> Bool in
+			guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else {
+				XCTFail()
+				return true
+			}
+			baseTime = object.baseTime
+
+			return true
+		}
+
+		BaseTimeManager.sharedManager.fetch()
+
+		waitForExpectationsWithTimeout(secondsForTimeout, handler: nil)
+
+		// MKMapRect
+		let origin = MKMapPointForCoordinate(CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude))
+		let terminal = MKMapPointForCoordinate(CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude))
+		let size = MKMapSizeMake(terminal.x - origin.x, terminal.y - origin.y)
+		let mapRect = MKMapRectMake(origin.x, origin.y, size.width, size.height)
+
+		let nc = NSNotificationCenter.defaultCenter()
+		nc.addObserver(self, selector: #selector(ImageManagerTests.newImageFetched(_:)), name: ImageManager.Notification.name, object: nil)
+
+		self.measureBlock {
+			guard let baseTime = baseTime else { XCTFail(); return }
+			let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: 0)
+
+			let zoomScale = ZoomLevel.MKZoomScaleForLevel4
+			let images = self.imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: .High)
+
+			print("\(images.count)")
+
+			while images.count != self.imageFetchedCount {
+				let wait: NSTimeInterval = 0.01
+				print("\(self.imageFetchedCount)")
+				NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: wait))
+			}
+		}
+	}
+
+	func newImageFetched(notification: NSNotification) {
+		imageFetchedCount += 1
 	}
 }

@@ -12,6 +12,7 @@ import AwesomeCache
 
 final public class ImageManager {
 	public static let sharedManager = ImageManager()
+	let session: NSURLSession
 
 	public struct Notification {
 		public static let name = "ImageManagerNotification"
@@ -22,7 +23,11 @@ final public class ImageManager {
 	let sharedImageCache = try! Cache<UIImage>(name: "ImageCache") // swiftlint:disable:this force_try
 	var imagePool = SynchronizedDictionary<String, Image>()
 
-	private init() { }
+	private init() {
+		let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+		configuration.HTTPMaximumConnectionsPerHost = 10
+		session = NSURLSession(configuration: configuration)
+	}
 
 	public func isServiceAvailable(inMapRect mapRect: MKMapRect) -> Bool {
 		// mapRect origin Coordinate
@@ -102,7 +107,7 @@ final public class ImageManager {
 	}
 
 	public func cancelImageRequestsPriorityLessThan(priority: DownloadPriority) {
-		imageSession.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
+		session.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
 			for task in dataTasks {
 				if task.priority < priority.rawValue {
 					task.cancel()
