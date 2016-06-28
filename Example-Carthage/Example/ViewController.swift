@@ -12,11 +12,11 @@ import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSource {
 
-	// MARK: - IBOutlets
+// MARK: - IBOutlets
 
 	@IBOutlet weak var mapView: MKMapView!
 
-	// MARK: - NowCastMapViewDataSource
+// MARK: - NowCastMapViewDataSource
 
 	var baseTime: BaseTime? {
 		didSet { renderer.setNeedsDisplay() }
@@ -26,7 +26,7 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		didSet { renderer.setNeedsDisplay() }
 	}
 
-	// MARK: - Other Variables
+// MARK: - Other Variables
 
 	var overlay = Overlay()
 	var renderer: OverlayRenderer!
@@ -53,7 +53,9 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		}
 	}
 
-	// MARK: - Application Lifecycle
+	var needsRefresh = false
+
+// MARK: - Application Lifecycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -73,9 +75,15 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 
 		// restore last baseTime
 		baseTime = BaseTimeManager.sharedManager.lastSavedBaseTime
+
+		NSTimer.scheduledTimerWithTimeInterval(0.5,
+		                                       target: self,
+		                                       selector: #selector(ViewController.refreshTimer(_:)),
+		                                       userInfo: nil,
+		                                       repeats: true)
 	}
 
-	// MARK: - IBAction
+// MARK: - IBAction
 
 	@IBAction func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
 		if (sender.state == .Began) {
@@ -93,13 +101,20 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		}
 	}
 
-	// MARK: - MKMapViewDelegate
+// MARK: - Custom Functions
+
+	func refreshTimer(timer: NSTimer) {
+		if needsRefresh { renderer.setNeedsDisplay() }
+		needsRefresh = false
+	}
+
+// MARK: - MKMapViewDelegate
 
 	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
 		return renderer
 	}
 
-	// MARK: - OverlayRendererDataSource
+// MARK: - OverlayRendererDataSource
 
 	func images(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [Image]? {
 		if let baseTime = self.baseTime {
@@ -109,22 +124,22 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		else { return nil }
 	}
 
-	// MARK: - UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate
 
 	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
 
-	// MARK: - BaseTimeManager.Notification
+// MARK: - BaseTimeManager.Notification
 
 	func baseTimeUpdated(notification: NSNotification) {
 		guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else { return }
 		baseTime = object.baseTime
 	}
 
-	// MARK: - ImageManagerNotification
+// MARK: - ImageManagerNotification
 
-	dynamic func imageFetched(notification: NSNotification) {
+	func imageFetched(notification: NSNotification) {
 		guard let image = notification.userInfo?[ImageManager.Notification.object] as? Image else { return }
 
 		if baseTime?.compare(image.baseTimeContext.baseTime) != .OrderedSame { return }
@@ -133,6 +148,6 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		// check region of MapView
 		// issue #3
 		
-		renderer.setNeedsDisplay()
+		needsRefresh = true
 	}
 }

@@ -223,8 +223,8 @@ public class Image: CustomStringConvertible {
 	}
 
 	private func downloadImage() {
-		dataTask = ImageManager.sharedManager.session.dataTaskWithURL(url) { data, response, error in
-			self.downloadFinished(data, response: response, error: error)
+		dataTask = ImageManager.sharedManager.session.dataTaskWithURL(url) { [weak self] data, response, error in
+			self?.downloadFinished(data, response: response, error: error)
 		}
 		dataTask?.priority = priority.rawValue
 		dataTask?.resume()

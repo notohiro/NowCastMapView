@@ -101,6 +101,13 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		}
 	}
 
+// MARK: - Custom Functions
+
+	func refreshTimer(timer: NSTimer) {
+		if needsRefresh { renderer.setNeedsDisplay() }
+		needsRefresh = false
+	}
+
 // MARK: - MKMapViewDelegate
 
 	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
@@ -142,10 +149,5 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		// issue #3
 
 		needsRefresh = true
-	}
-
-	func refreshTimer(timer: NSTimer) {
-		if needsRefresh { renderer.setNeedsDisplay() }
-		needsRefresh = false
 	}
 }

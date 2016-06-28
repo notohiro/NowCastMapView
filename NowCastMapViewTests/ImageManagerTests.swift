@@ -107,6 +107,61 @@ class ImageManagerTests: BaseTestCase {
 		}
 	}
 
+//	func testCancel() {
+//		removeImageCache()
+//
+//		var baseTime: BaseTime?
+//
+//		expectationForNotification(BaseTimeManager.Notification.name, object: nil) { (notification: NSNotification) -> Bool in
+//			guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else {
+//				XCTFail()
+//				return true
+//			}
+//			baseTime = object.baseTime
+//
+//			return true
+//		}
+//
+//		BaseTimeManager.sharedManager.fetch()
+//
+//		waitForExpectationsWithTimeout(secondsForTimeout, handler: nil)
+//
+//		// MKMapRect
+//		let origin = MKMapPointForCoordinate(CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude))
+//		let terminal = MKMapPointForCoordinate(CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude))
+//		let size = MKMapSizeMake(terminal.x - origin.x, terminal.y - origin.y)
+//		let mapRect = MKMapRectMake(origin.x, origin.y, size.width, size.height)
+//
+//		if let baseTime = baseTime {
+//			let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: 0)
+//
+//			let zoomScale = ZoomLevel.MKZoomScaleForLevel4
+//			let images = self.imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: .Default)
+//
+//			let grobalQueue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
+//
+//			print("\(images.count)")
+//			print("\(imageManager.imagePool.count)")
+//
+//			dispatch_sync(grobalQueue, {
+//				let wait: NSTimeInterval = 1
+//				NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: wait))
+//			})
+//
+//			self.imageManager.cancelImageRequestsPriorityLessThan(.High)
+//			print("\(imageManager.imagePool.count)")
+//
+//			dispatch_sync(grobalQueue, {
+//				let wait: NSTimeInterval = 3
+//				NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: wait))
+//			})
+//
+//			print("\(imageManager.imagePool.count)")
+//		} else {
+//			XCTFail()
+//		}
+//	}
+
 	func newImageFetched(notification: NSNotification) {
 		imageFetchedCount += 1
 	}
