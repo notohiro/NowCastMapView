@@ -53,6 +53,8 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		}
 	}
 
+	var needsRefresh = false
+
 // MARK: - Application Lifecycle
 
     override func viewDidLoad() {
@@ -73,6 +75,12 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 
 		// restore last baseTime
 		baseTime = BaseTimeManager.sharedManager.lastSavedBaseTime
+
+		NSTimer.scheduledTimerWithTimeInterval(0.5,
+		                                       target: self,
+		                                       selector: #selector(ViewController.refreshTimer(_:)),
+		                                       userInfo: nil,
+		                                       repeats: true)
     }
 
 // MARK: - IBAction
@@ -124,7 +132,7 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 
 // MARK: - ImageManagerNotification
 
-	dynamic func imageFetched(notification: NSNotification) {
+	func imageFetched(notification: NSNotification) {
 		guard let image = notification.userInfo?[ImageManager.Notification.object] as? Image else { return }
 
 		if baseTime?.compare(image.baseTimeContext.baseTime) != .OrderedSame { return }
@@ -133,6 +141,11 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		// check region of MapView
 		// issue #3
 
-		renderer.setNeedsDisplay()
+		needsRefresh = true
+	}
+
+	func refreshTimer(timer: NSTimer) {
+		if needsRefresh { renderer.setNeedsDisplay() }
+		needsRefresh = false
 	}
 }

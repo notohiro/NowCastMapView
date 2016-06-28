@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		BaseTimeManager.sharedManager.fetch()
 		BaseTimeManager.sharedManager.fetchInterval =  10
 		ImageManager.sharedManager.removeAllCache()
+		ImageManager.sharedManager.flushMemoryCache()
 
         return true
     }

@@ -21,7 +21,7 @@ final public class ImageManager {
 	}
 
 	let sharedImageCache = try! Cache<UIImage>(name: "ImageCache") // swiftlint:disable:this force_try
-	var imagePool = SynchronizedDictionary<String, Image>()
+	var imagePool = [String : Image]()
 
 	private init() {
 		let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -81,12 +81,12 @@ final public class ImageManager {
 				let imageContext = ImageContext(latitudeNumber: latNumber, longitudeNumber: lonNumber, zoomLevel: zoomLevel)
 				guard let url = Image.url(forImageContext: imageContext, baseTimeContext: baseTimeContext) else { continue }
 
-				if let image = imagePool.valueForKey(url.absoluteString) {
+				if let image = imagePool[url.absoluteString] {
 					if image.priority.rawValue < priority.rawValue { image.priority = priority }
 					retArr.append(image)
 				} else {
 					if let image = Image(forImageContext: imageContext, baseTimeContext: baseTimeContext, priority: priority) {
-						imagePool.setValue(image, forKey: url.absoluteString)
+						imagePool[url.absoluteString] = image
 						retArr.append(image)
 					}
 				}
@@ -129,6 +129,6 @@ final public class ImageManager {
 
 	public func flushMemoryCache() {
 		imagePool.removeAll()
-		imagePool = SynchronizedDictionary<String, Image>()
+		imagePool = [String : Image]()
 	}
 }
