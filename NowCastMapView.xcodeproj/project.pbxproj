@@ -38,9 +38,6 @@
 		D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
 		D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
 		D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
-		D36DB3111D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */; };
-		D36DB3121D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */; };
-		D36DB3131D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */; };
 		D36EA7391CE533CB00DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D36EA73A1CE53CE900DD94E0 /* AwesomeCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */; };
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
@@ -110,7 +107,6 @@
 		D33F563B1D1C0F840088E547 /* RainLevelsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsManager.swift; sourceTree = "<group>"; };
 		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevel.swift; sourceTree = "<group>"; };
-		D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
 		D36EA7381CE533CB00DD94E0 /* AwesomeCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AwesomeCache.framework; path = Carthage/Build/iOS/AwesomeCache.framework; sourceTree = "<group>"; };
 		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
 		D374E88D1C5ED75F001837E3 /* RainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevels.swift; sourceTree = "<group>"; };
@@ -235,7 +231,6 @@
 				D33249891BA727C9008F1F21 /* NowCastMapView.h */,
 				D3438CA21BADB3C9009B5AB8 /* Constants.swift */,
 				D37C3F051C72975300CEE631 /* Weak.swift */,
-				D36DB3101D1B84660003DD7F /* SynchronizedDictionary.swift */,
 				D332498B1BA727C9008F1F21 /* Info.plist */,
 			);
 			name = etc;
@@ -504,7 +499,6 @@
 			files = (
 				D33F56381D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeManager.swift in Sources */,
-				D36DB3111D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
 				D374E88E1C5ED75F001837E3 /* RainLevels.swift in Sources */,
 				D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */,
 				D33249B11BA842F2008F1F21 /* BaseTime.swift in Sources */,
@@ -538,7 +532,6 @@
 				D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */,
 				D3112FA11BACA1EE00FE21CF /* BaseTimeParser.swift in Sources */,
 				D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */,
-				D36DB3131D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
 				D3FD41FF1C6815DA00EE1A65 /* UIImage+RGBA255.swift in Sources */,
 				D3112FA01BACA1EA00FE21CF /* BaseTime.swift in Sources */,
 				D3FD42001C6815E000EE1A65 /* ImageManager.swift in Sources */,
@@ -556,7 +549,6 @@
 			files = (
 				D33F56391D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
-				D36DB3121D1B84660003DD7F /* SynchronizedDictionary.swift in Sources */,
 				D38D343A1CE724B100D77509 /* RainLevels.swift in Sources */,
 				D38D343D1CE724B100D77509 /* OverlayRenderer.swift in Sources */,
 				D38D343E1CE724B100D77509 /* Overlay.swift in Sources */,
