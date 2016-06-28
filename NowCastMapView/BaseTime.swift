@@ -77,6 +77,9 @@ public class BaseTime: NSObject, NSCoding, Comparable {
 		baseTimeArr += forecastDateArr.map { outputFormatter.stringFromDate($0) }
 		baseTimeArr += parserDelegate.parsedArr
 
+		// temporary fix until AME-141
+		if baseTimeArr.count != 48 { return nil }
+
 		return
 	}
 
