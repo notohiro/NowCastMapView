@@ -46,6 +46,9 @@
 		D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
 		D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */; };
 		D37C3F061C72975300CEE631 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37C3F051C72975300CEE631 /* Weak.swift */; };
+		D387C5131D2340F7003146E9 /* UIImage+Reverted.swift in Sources */ = {isa = PBXBuildFile; fileRef = D387C5121D2340F7003146E9 /* UIImage+Reverted.swift */; };
+		D387C5141D2340F7003146E9 /* UIImage+Reverted.swift in Sources */ = {isa = PBXBuildFile; fileRef = D387C5121D2340F7003146E9 /* UIImage+Reverted.swift */; };
+		D387C5151D2340F7003146E9 /* UIImage+Reverted.swift in Sources */ = {isa = PBXBuildFile; fileRef = D387C5121D2340F7003146E9 /* UIImage+Reverted.swift */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D38D343A1CE724B100D77509 /* RainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* RainLevels.swift */; };
 		D38D343D1CE724B100D77509 /* OverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */; };
@@ -113,6 +116,7 @@
 		D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseTime+Comparable.swift"; sourceTree = "<group>"; };
 		D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		D37C3F051C72975300CEE631 /* Weak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
+		D387C5121D2340F7003146E9 /* UIImage+Reverted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Reverted.swift"; sourceTree = "<group>"; };
 		D38D34311CE7204F00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D38D34471CE724DB00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NowCastMapView.framework; path = Carthage/Build/iOS/NowCastMapView.framework; sourceTree = "<group>"; };
 		D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InvalidBaseTime.xml; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 				D33249AE1BA82E6C008F1F21 /* ImageManager.swift */,
 				D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */,
 				D30341381C63864100F44630 /* UIImage+RGBA255.swift */,
+				D387C5121D2340F7003146E9 /* UIImage+Reverted.swift */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D387C5131D2340F7003146E9 /* UIImage+Reverted.swift in Sources */,
 				D33F56381D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeManager.swift in Sources */,
 				D374E88E1C5ED75F001837E3 /* RainLevels.swift in Sources */,
@@ -529,6 +535,7 @@
 				D3FD42061C6B6A9C00EE1A65 /* ImageTests.swift in Sources */,
 				D3FD42021C6815F100EE1A65 /* RainLevels.swift in Sources */,
 				D3FD41FB1C67891A00EE1A65 /* RainLevelsTest.swift in Sources */,
+				D387C5151D2340F7003146E9 /* UIImage+Reverted.swift in Sources */,
 				D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */,
 				D3112FA11BACA1EE00FE21CF /* BaseTimeParser.swift in Sources */,
 				D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */,
@@ -547,6 +554,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D387C5141D2340F7003146E9 /* UIImage+Reverted.swift in Sources */,
 				D33F56391D1BDBB70088E547 /* RainLevelColor.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
 				D38D343A1CE724B100D77509 /* RainLevels.swift in Sources */,

@@ -106,6 +106,7 @@ public class Image: CustomStringConvertible {
 	public let baseTimeContext: BaseTimeContext
 	public let url: NSURL
 	public var imageData: UIImage?
+	public var xRevertedImageData: UIImage?
 	public var priority: DownloadPriority {
 		didSet {
 			guard let dataTask = self.dataTask else { return }
@@ -142,6 +143,7 @@ public class Image: CustomStringConvertible {
 		if let imageData = ImageManager.sharedManager.sharedImageCache.objectForKey(url.absoluteString) {
 			// if exists
 			self.imageData = imageData
+			self.xRevertedImageData = imageData.xReverted()
 		} else {
 			// if not exists
 			// to start download after all initialization finished
@@ -237,7 +239,9 @@ public class Image: CustomStringConvertible {
 
 		if let httpResponse = response as? NSHTTPURLResponse {
 			if httpResponse.statusCode != 200 {
+				objc_sync_enter(ImageManager.sharedManager)
 				ImageManager.sharedManager.imagePool.removeValueForKey(url.absoluteString)
+				objc_sync_exit(ImageManager.sharedManager)
 
 				if error == nil {
 					let httpError = NSError(domain: "NSURLErrorDomain", code: httpResponse.statusCode, userInfo: nil)
@@ -249,6 +253,7 @@ public class Image: CustomStringConvertible {
 		let image =  data.flatMap { UIImage(data: $0) }
 		if let imageData =  image {
 			self.imageData = imageData
+			self.xRevertedImageData = imageData.xReverted()
 			let imageCache = ImageManager.sharedManager.sharedImageCache
 			imageCache.setObject(imageData, forKey: url.absoluteString, expires: .Date(NSDate(timeIntervalSinceNow: 60*60*24*5)))
 		}

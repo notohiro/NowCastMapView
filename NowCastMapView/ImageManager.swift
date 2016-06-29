@@ -81,6 +81,7 @@ final public class ImageManager {
 				let imageContext = ImageContext(latitudeNumber: latNumber, longitudeNumber: lonNumber, zoomLevel: zoomLevel)
 				guard let url = Image.url(forImageContext: imageContext, baseTimeContext: baseTimeContext) else { continue }
 
+				objc_sync_enter(self)
 				if let image = imagePool[url.absoluteString] {
 					if image.priority.rawValue < priority.rawValue { image.priority = priority }
 					retArr.append(image)
@@ -90,6 +91,7 @@ final public class ImageManager {
 						retArr.append(image)
 					}
 				}
+				objc_sync_exit(self)
 			}
 		}
 
@@ -112,7 +114,9 @@ final public class ImageManager {
 				if task.priority < priority.rawValue {
 					task.cancel()
 					if let key = task.currentRequest?.URL?.absoluteString {
+						objc_sync_enter(self)
 						self.imagePool.removeValueForKey(key)
+						objc_sync_exit(self)
 					}
 				}
 			}
@@ -128,7 +132,9 @@ final public class ImageManager {
 	}
 
 	public func flushMemoryCache() {
+		objc_sync_enter(self)
 		imagePool.removeAll()
 		imagePool = [String : Image]()
+		objc_sync_exit(self)
 	}
 }

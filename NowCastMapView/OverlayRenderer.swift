@@ -50,16 +50,10 @@ public class OverlayRenderer: MKOverlayRenderer {
 
 	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
 		dataSource?.images(inMapRect: mapRect, forZoomScale: zoomScale)?.forEach { image in
-			if let imageData = image.imageData, imageReference = image.imageData?.CGImage {
-				UIGraphicsBeginImageContext(imageData.size)
-				let imageContext = UIGraphicsGetCurrentContext()
-				CGContextDrawImage(imageContext, CGRect.init(x: 0, y: 0, width: imageData.size.width, height: imageData.size.height), imageReference)
-				let revertedImg = UIGraphicsGetImageFromCurrentImageContext()
-				UIGraphicsEndImageContext()
-
+			if let imageData = image.xRevertedImageData, imageReference = image.xRevertedImageData?.CGImage {
 				CGContextClearRect(context, rectForMapRect(image.mapRect))
 				CGContextSetAlpha(context, 0.6)
-				CGContextDrawImage(context, rectForMapRect(image.mapRect), revertedImg.CGImage)
+				CGContextDrawImage(context, rectForMapRect(image.mapRect), imageReference)
 			} else {
 				CGContextDrawImage(context, rectForMapRect(image.mapRect), backgroundImage.CGImage)
 			}

@@ -37,16 +37,16 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 			if let baseTime = baseTime, annotation = annotation {
 				let _ = RainLevels(baseTime: baseTime, coordinate: annotation.coordinate) { rainLevels, error in
 					NSOperationQueue.mainQueue().addOperationWithBlock {
-						if let baseTimeString = rainLevels.baseTime.baseTimeString(atIndex: 0), level = rainLevels.rainLevel(atBaseTimeIndex: 0)?.level {
+						guard let baseTimeString = rainLevels.baseTime.baseTimeString(atIndex: 0) else { return }
+						guard let level = rainLevels.rainLevel(atBaseTimeIndex: 0)?.level else { return }
 
-							let message = baseTimeString + ": level = " + String(level)
-							let alertController = UIAlertController(title: "Fetched RainLevels", message: message, preferredStyle: .Alert)
+						let message = baseTimeString + ": level = " + String(level)
+						let alertController = UIAlertController(title: "Fetched RainLevels", message: message, preferredStyle: .Alert)
 
-							let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-							alertController.addAction(defaultAction)
+						let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+						alertController.addAction(defaultAction)
 
-							self.presentViewController(alertController, animated: true, completion: nil)
-						}
+						self.presentViewController(alertController, animated: true, completion: nil)
 					}
 				}
 			}
@@ -57,8 +57,8 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 
 // MARK: - Application Lifecycle
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
 		// Initialize mapView
 		mapView.delegate = self
@@ -81,7 +81,7 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		                                       selector: #selector(ViewController.refreshTimer(_:)),
 		                                       userInfo: nil,
 		                                       repeats: true)
-	}
+    }
 
 // MARK: - IBAction
 
@@ -132,7 +132,7 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 
 // MARK: - BaseTimeManager.Notification
 
-	func baseTimeUpdated(notification: NSNotification) {
+    func baseTimeUpdated(notification: NSNotification) {
 		guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else { return }
 		baseTime = object.baseTime
 	}
@@ -147,7 +147,7 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 
 		// check region of MapView
 		// issue #3
-		
+
 		needsRefresh = true
 	}
 }

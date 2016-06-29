@@ -1,6 +1,6 @@
 PODS:
-  - AwesomeCache (3.0)
-  - NowCastMapView (1.0):
+  - AwesomeCache (3.0.1)
+  - NowCastMapView (1.2):
     - AwesomeCache
 
 DEPENDENCIES:
@@ -11,8 +11,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AwesomeCache: e3b2a117c9aabda336ce22c156e646629ac18cdb
-  NowCastMapView: 03639de234fe831da7a8088558cbec9ec907805f
+  AwesomeCache: a1561c926b6cf812c5f3f4262ea22e20bf8323c1
+  NowCastMapView: 86301da285e9bb0cf8ca2e17bfc759089b980cdf
 
 PODFILE CHECKSUM: 6bd091113dc89008b907ad5ef397b19451e7c44e
 
