@@ -22,11 +22,13 @@ final public class ImageManager {
 
 	let sharedImageCache = try! Cache<UIImage>(name: "ImageCache") // swiftlint:disable:this force_try
 	var imagePool = [String : Image]()
+	var initQueue = NSOperationQueue()
 
 	private init() {
 		let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
 		configuration.HTTPMaximumConnectionsPerHost = 10
 		session = NSURLSession(configuration: configuration)
+		initQueue.maxConcurrentOperationCount = 5
 	}
 
 	public func isServiceAvailable(inMapRect mapRect: MKMapRect) -> Bool {

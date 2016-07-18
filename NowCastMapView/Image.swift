@@ -145,8 +145,7 @@ public class Image: CustomStringConvertible {
 		if imageContext.longitudeNumber < 0 { return nil }
 		if imageContext.longitudeNumber > imageContext.zoomLevel.rawValue - 1 { return nil }
 
-		let queue = NSOperationQueue()
-		queue.addOperationWithBlock {
+		ImageManager.sharedManager.initQueue.addOperationWithBlock {
 			// check cache exists
 			if let imageData = ImageManager.sharedManager.sharedImageCache.objectForKey(url.absoluteString) {
 				// if exists

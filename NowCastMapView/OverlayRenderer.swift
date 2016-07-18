@@ -61,13 +61,6 @@ public class OverlayRenderer: MKOverlayRenderer {
 		}
 	}
 
-	public func prefetch(mapRect: MKMapRect, zoomScale: MKZoomScale, priority: DownloadPriority?) {
-		guard let baseTimeContext = self.baseTimeContext else { return }
-		let priority = priority ?? .Low
-		let imageManager = ImageManager.sharedManager
-		let _ = imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: priority)
-	}
-
 // MARK: - ImageManagerNotification
 
 	func imageFetched(notification: NSNotification) {
