@@ -125,7 +125,7 @@ public class Image: CustomStringConvertible {
 	var rectCoordinates: (origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
 		return Image.coordinates(forImageContext: imageContext)
 	}
-	var mapRect: MKMapRect {
+	public var mapRect: MKMapRect {
 		return Image.mapRect(forImageContext: imageContext)
 	}
 
@@ -138,18 +138,6 @@ public class Image: CustomStringConvertible {
 		guard let url = Image.url(forImageContext: imageContext, baseTimeContext: baseTimeContext) else { return nil }
 		self.url = url
 
-		// check cache exists
-		var needsDownload = false
-		if let imageData = ImageManager.sharedManager.sharedImageCache.objectForKey(url.absoluteString) {
-			// if exists
-			self.imageData = imageData
-			self.xRevertedImageData = imageData.xReverted()
-		} else {
-			// if not exists
-			// to start download after all initialization finished
-			needsDownload = true
-		}
-
 		// initialize mods
 		if imageContext.latitudeNumber < 0 { return nil }
 		if imageContext.latitudeNumber > imageContext.zoomLevel.rawValue - 1 { return nil }
@@ -157,7 +145,24 @@ public class Image: CustomStringConvertible {
 		if imageContext.longitudeNumber < 0 { return nil }
 		if imageContext.longitudeNumber > imageContext.zoomLevel.rawValue - 1 { return nil }
 
-		if needsDownload { downloadImage() }
+		let queue = NSOperationQueue()
+		queue.addOperationWithBlock {
+			// check cache exists
+			if let imageData = ImageManager.sharedManager.sharedImageCache.objectForKey(url.absoluteString) {
+				// if exists
+				self.imageData = imageData
+				self.xRevertedImageData = imageData.xReverted()
+				self.notify(withError: nil)
+			} else {
+				// if not exists
+				// to start download after all initialization finished
+				self.dataTask = ImageManager.sharedManager.session.dataTaskWithURL(url) { [weak self] data, response, error in
+					self?.downloadFinished(data, response: response, error: error)
+				}
+				self.dataTask?.priority = priority.rawValue
+				self.dataTask?.resume()
+			}
+		}
 	}
 
 	func contains(coordinate: CLLocationCoordinate2D) -> Bool {
@@ -224,18 +229,8 @@ public class Image: CustomStringConvertible {
 		return CLLocationCoordinate2DMake(latitude, longitude)
 	}
 
-	private func downloadImage() {
-		dataTask = ImageManager.sharedManager.session.dataTaskWithURL(url) { [weak self] data, response, error in
-			self?.downloadFinished(data, response: response, error: error)
-		}
-		dataTask?.priority = priority.rawValue
-		dataTask?.resume()
-	}
-
 	public func downloadFinished(data: NSData?, response: NSURLResponse?, error: NSError?) {
-		var notifyObject = [NSObject : AnyObject]()
-		notifyObject[ImageManager.Notification.object] = self
-		notifyObject[ImageManager.Notification.error] = error
+		var notifyError: NSError?
 
 		if let httpResponse = response as? NSHTTPURLResponse {
 			if httpResponse.statusCode != 200 {
@@ -245,7 +240,9 @@ public class Image: CustomStringConvertible {
 
 				if error == nil {
 					let httpError = NSError(domain: "NSURLErrorDomain", code: httpResponse.statusCode, userInfo: nil)
-					notifyObject[ImageManager.Notification.error] = httpError
+					notifyError = httpError
+				} else {
+					notifyError = error
 				}
 			}
 		}
@@ -257,6 +254,14 @@ public class Image: CustomStringConvertible {
 			let imageCache = ImageManager.sharedManager.sharedImageCache
 			imageCache.setObject(imageData, forKey: url.absoluteString, expires: .Date(NSDate(timeIntervalSinceNow: 60*60*24*5)))
 		}
+
+		notify(withError: notifyError)
+	}
+
+	private func notify(withError error: NSError?) {
+		var notifyObject = [NSObject : AnyObject]()
+		notifyObject[ImageManager.Notification.object] = self
+		notifyObject[ImageManager.Notification.error] = error
 
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.postNotificationName(ImageManager.Notification.name, object: nil, userInfo:notifyObject)

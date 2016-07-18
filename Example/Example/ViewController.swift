@@ -7,29 +7,54 @@
 //
 
 import UIKit
-import NowCastMapView
 import MapKit
+import NowCastMapView
 
-class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSource {
+class ViewController: UIViewController, MKMapViewDelegate {
+	struct Constants {
+		static let numberOfForecastBars = 12
+		static let numberOfPastBars = 12
+	}
 
 // MARK: - IBOutlets
 
 	@IBOutlet weak var mapView: MKMapView!
+	@IBOutlet weak var slider: UISlider!
+	@IBOutlet weak var indexLabel: UILabel!
 
 // MARK: - NowCastMapViewDataSource
 
 	var baseTime: BaseTime? {
-		didSet { renderer.setNeedsDisplay() }
+		didSet {
+			if oldValue == baseTime { return }
+			overlays.forEach {
+				guard let baseTime = self.baseTime else { $0.1.renderer.baseTimeContext = nil; return }
+				let index = $0.0
+				let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: index)
+				$0.1.renderer.baseTimeContext = baseTimeContext
+			}
+		}
 	}
 
-	var baseTimeIndex: Int = 0 {
-		didSet { renderer.setNeedsDisplay() }
+	var baseTimeIndex: Int = -1 {
+		didSet {
+			if baseTimeIndex == oldValue { return }
+			indexLabel.text = "\(baseTimeIndex)"
+
+			guard let overlay = overlays[baseTimeIndex]?.overlay else { return }
+			mapView.addOverlay(overlay, level: .AboveRoads)
+
+			let removeOverlays = mapView.overlays.filter {
+				guard let renderer = mapView(mapView, rendererForOverlay: $0) as? OverlayRenderer else { return false }
+				return renderer.baseTimeContext?.index != baseTimeIndex
+			}
+			mapView.removeOverlays(removeOverlays)
+		}
 	}
 
 // MARK: - Other Variables
 
-	var overlay = Overlay()
-	var renderer: OverlayRenderer!
+	var overlays = [Int : (overlay: Overlay, renderer: OverlayRenderer)]()
 	let imageManager = ImageManager.sharedManager
 
 	var annotation: MKPointAnnotation? {
@@ -53,8 +78,6 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		}
 	}
 
-	var needsRefresh = false
-
 // MARK: - Application Lifecycle
 
     override func viewDidLoad() {
@@ -64,23 +87,23 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		mapView.delegate = self
 
 		// Initialize Overlay and Renderer
-		renderer = OverlayRenderer(overlay: overlay)
-		renderer.dataSource = self
-		mapView.addOverlay(overlay)
+		for index in -Constants.numberOfPastBars...Constants.numberOfForecastBars {
+			let overlay = Overlay()
+			let renderer = OverlayRenderer(overlay: overlay)
+			overlays[index] = (overlay, renderer)
+		}
 
 		// register notification
 		let nc = NSNotificationCenter.defaultCenter()
 		nc.addObserver(self, selector: #selector(ViewController.baseTimeUpdated(_:)), name: BaseTimeManager.Notification.name, object: nil)
-		nc.addObserver(self, selector: #selector(ViewController.imageFetched(_:)), name: ImageManager.Notification.name, object: nil)
 
 		// restore last baseTime
 		baseTime = BaseTimeManager.sharedManager.lastSavedBaseTime
 
-		NSTimer.scheduledTimerWithTimeInterval(0.5,
-		                                       target: self,
-		                                       selector: #selector(ViewController.refreshTimer(_:)),
-		                                       userInfo: nil,
-		                                       repeats: true)
+		slider.maximumValue = Float(Constants.numberOfForecastBars)
+		slider.minimumValue = -Float(Constants.numberOfPastBars)
+		slider.value = 0
+		baseTimeIndex = 0
     }
 
 // MARK: - IBAction
@@ -101,27 +124,15 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
 		}
 	}
 
-// MARK: - Custom Functions
-
-	func refreshTimer(timer: NSTimer) {
-		if needsRefresh { renderer.setNeedsDisplay() }
-		needsRefresh = false
+	@IBAction func sliderValueChanged(sender: UISlider) {
+		baseTimeIndex = Int(floor(sender.value))
+		sender.value = Float(baseTimeIndex)
 	}
 
 // MARK: - MKMapViewDelegate
 
 	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-		return renderer
-	}
-
-// MARK: - OverlayRendererDataSource
-
-	func images(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [Image]? {
-		if let baseTime = self.baseTime {
-			let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: baseTimeIndex)
-			return imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: .High)
-		}
-		else { return nil }
+		return overlays.filter { $0.1.overlay === overlay }.first!.1.renderer
 	}
 
 // MARK: - UIGestureRecognizerDelegate
@@ -135,19 +146,5 @@ class ViewController: UIViewController, MKMapViewDelegate, OverlayRendererDataSo
     func baseTimeUpdated(notification: NSNotification) {
 		guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else { return }
 		baseTime = object.baseTime
-	}
-
-// MARK: - ImageManagerNotification
-
-	func imageFetched(notification: NSNotification) {
-		guard let image = notification.userInfo?[ImageManager.Notification.object] as? Image else { return }
-
-		if baseTime?.compare(image.baseTimeContext.baseTime) != .OrderedSame { return }
-		if image.baseTimeContext.index != baseTimeIndex { return }
-
-		// check region of MapView
-		// issue #3
-
-		needsRefresh = true
 	}
 }

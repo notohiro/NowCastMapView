@@ -58,14 +58,14 @@ final public class ImageManager {
 
 	public func images(inMapRect mapRect: MKMapRect, zoomScale: MKZoomScale, baseTimeContext: BaseTimeContext, priority: DownloadPriority) -> [Image] {
 		var retArr = [Image]()
+
 		if isServiceAvailable(inMapRect: mapRect) == false { return retArr }
 
 		// mapRect origin Coordinate
 		let originCoordinate = MKCoordinateForMapPoint(mapRect.origin)
 		// mapRect terminal Coordinate
 		let terminalPoint = MKMapPointMake(mapRect.origin.x + mapRect.size.width, mapRect.origin.y + mapRect.size.height)
-		let  terminalCoordinate = MKCoordinateForMapPoint(terminalPoint)
-
+		let terminalCoordinate = MKCoordinateForMapPoint(terminalPoint)
 
 		// convert from MKZoomScale to NCZoomLevel
 		let zoomLevel = ZoomLevel(zoomScale: zoomScale)

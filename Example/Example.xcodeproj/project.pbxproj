@@ -80,14 +80,22 @@
 		D307FFA41C56EBA3001F6C66 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				D307FFA51C56EBA3001F6C66 /* AppDelegate.swift */,
 				D307FFA71C56EBA3001F6C66 /* ViewController.swift */,
-				D307FFA91C56EBA3001F6C66 /* Main.storyboard */,
-				D307FFAC1C56EBA3001F6C66 /* Assets.xcassets */,
-				D307FFAE1C56EBA3001F6C66 /* LaunchScreen.storyboard */,
-				D307FFB11C56EBA3001F6C66 /* Info.plist */,
+				D3D6424C1D3C9671003D7BA1 /* Supporting Files */,
 			);
 			path = Example;
+			sourceTree = "<group>";
+		};
+		D3D6424C1D3C9671003D7BA1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D307FFA51C56EBA3001F6C66 /* AppDelegate.swift */,
+				D307FFAE1C56EBA3001F6C66 /* LaunchScreen.storyboard */,
+				D307FFA91C56EBA3001F6C66 /* Main.storyboard */,
+				D307FFAC1C56EBA3001F6C66 /* Assets.xcassets */,
+				D307FFB11C56EBA3001F6C66 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +133,7 @@
 				TargetAttributes = {
 					D307FFA11C56EBA3001F6C66 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = NGSEKJM42E;
 					};
 				};
 			};
