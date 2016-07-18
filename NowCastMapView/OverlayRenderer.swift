@@ -41,7 +41,7 @@ public class OverlayRenderer: MKOverlayRenderer {
 		let images = imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: .High)
 
 		images.forEach { image in
-			if let imageData = image.xRevertedImageData, imageReference = image.xRevertedImageData?.CGImage {
+			if let _ = image.xRevertedImageData, imageReference = image.xRevertedImageData?.CGImage {
 				CGContextClearRect(context, rectForMapRect(image.mapRect))
 				CGContextSetAlpha(context, 0.6)
 				CGContextDrawImage(context, rectForMapRect(image.mapRect), imageReference)
