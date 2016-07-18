@@ -41,14 +41,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
 			if baseTimeIndex == oldValue { return }
 			indexLabel.text = "\(baseTimeIndex)"
 
+			mapView.removeOverlays(mapView.overlays)
+
 			guard let overlay = overlays[baseTimeIndex]?.overlay else { return }
 			mapView.addOverlay(overlay, level: .AboveRoads)
-
-			let removeOverlays = mapView.overlays.filter {
-				guard let renderer = mapView(mapView, rendererForOverlay: $0) as? OverlayRenderer else { return false }
-				return renderer.baseTimeContext?.index != baseTimeIndex
-			}
-			mapView.removeOverlays(removeOverlays)
 		}
 	}
 

@@ -16,6 +16,7 @@ public class OverlayRenderer: MKOverlayRenderer {
 		didSet { setNeedsDisplay() }
 	}
 	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
+	public var lastRequestedZoomScale: MKZoomScale?
 
 	override public init(overlay: MKOverlay) {
 		super.init(overlay: overlay)
@@ -25,6 +26,8 @@ public class OverlayRenderer: MKOverlayRenderer {
 	}
 
 	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
+		lastRequestedZoomScale = zoomScale
+
 		guard let baseTimeContext = self.baseTimeContext else {
 			var red: CGFloat = 0
 			var green: CGFloat = 0
@@ -56,6 +59,13 @@ public class OverlayRenderer: MKOverlayRenderer {
 				CGContextFillRect(context, rectForMapRect(image.mapRect))
 			}
 		}
+	}
+
+	public func prefetch(mapRect: MKMapRect, zoomScale: MKZoomScale, priority: DownloadPriority?) {
+		guard let baseTimeContext = self.baseTimeContext else { return }
+		let priority = priority ?? .Low
+		let imageManager = ImageManager.sharedManager
+		let _ = imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: priority)
 	}
 
 // MARK: - ImageManagerNotification
