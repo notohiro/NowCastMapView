@@ -9,7 +9,7 @@
 import XCTest
 import CoreLocation
 
-class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsDelegate {
+class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModelDelegate {
 	var baseTime: BaseTime?
 	var rainLevels: RainLevels?
 
