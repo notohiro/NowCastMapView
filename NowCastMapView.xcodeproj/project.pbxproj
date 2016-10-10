@@ -328,12 +328,12 @@
 		D3FDA9CA1BB7708F00BD5F45 /* Tile */ = {
 			isa = PBXGroup;
 			children = (
-				D3DE78A91D77D6730054420C /* Coordinates.swift */,
 				D3D3CCFA1BB6098A0083B7FC /* Tile.swift */,
 				D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */,
 				D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */,
 				D3DE78A41D6FB5740054420C /* TileModel.swift */,
 				D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */,
+				D3DE78A91D77D6730054420C /* Coordinates.swift */,
 			);
 			name = Tile;
 			sourceTree = "<group>";

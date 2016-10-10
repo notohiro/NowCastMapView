@@ -24,11 +24,9 @@ public protocol TileModelDelegate: class {
 }
 
 open class TileModel: TileProvider {
-	/// aaa
+
 	open let baseTime: BaseTime
-
 	private var session: URLSession
-
 	open weak var delegate: TileModelDelegate?
 	private var cachedTiles = Set<Tile>() {
 		didSet {
@@ -56,12 +54,9 @@ open class TileModel: TileProvider {
 	/**
 	Returns tiles within given MapRect.
 
-	- Parameter	mapRect:			The MapRect you need to get tiles.
-	- Parameter zoomScale:			The ZoomScale of tiles.
-	- Parameter baseTimeContext:	The BaseTimeContext of tiles.
-	- Parameter priority:			The priority of tile download task.
+	- Parameter	request:	The request you need to get tiles.
 
-	- Returns: The tiles within given MapRect.
+	- Returns: The tiles within given request.
 	*/
 	open func tiles(with request: TileModel.Request) -> [Tile] {
 		var retArr = [Tile]()
@@ -111,7 +106,6 @@ open class TileModel: TileProvider {
 						}
 						objc_sync_exit(self)
 					}
-//					tile.dataTask?.priority = request.priority.rawValue
 
 					processingTiles.insert(tile)
 					retArr.append(tile)

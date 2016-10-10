@@ -10,54 +10,29 @@ import Foundation
 import MapKit
 
 /**
-A Tile structure represents a single tile file of
+A `Tile` structure represents a single tile file of
 High-resolution Precipitation Nowcasts.
 (http://www.jma.go.jp/en/highresorad/)
 
-A initializer immediately returns a instance that doesn't have tile data.
-Observable(you can get by `asObservable`) publishes events when
-a tile fetched from disk/Web or error occured.
-
-For performance, you should initialized by using TileManager.
-Tile instances are cached by TileManager, and it handles duplicated requests.
+For performance, you should initialize `Tile` instance by using `TileModel`.
+The `Tile` instances are cached by `TileModel`, and it handles duplicated requests.
 */
 public struct Tile {
 
 	// MARK: - Public Properties
+
 	public let baseTime: BaseTime
 	public let index: Int
 	public let modifiers: Tile.Modifiers
-
-	/// The URL of instance.
 	public let url: URL
-
-	/// The tile data. This will be nil until `.asObeservable.onNext` or `.tileFetched == true`.
 	public var image: UIImage?
-
-	/// The coordinate deltas of instance.
 	public let deltas: Tile.Deltas
-
-	/// The origin and terminal coordinates of instance.
 	public let coordinates: Coordinates
-
-	/// The MapRect of instance.
 	public let mapRect: MKMapRect
-
-
 	var dataTask: URLSessionDataTask?
 
 	// MARK: - Functions
 
-	/**
-	Initializes and returns the Tile instance.
-	`.tileData` and `.xRevertedTileData` will be nil until `.tileFetched` becomes true.
-	To cactch the events emitted by the instance, subscribe `.asObservable`.
-
-	- Parameter image:				The image.
-	- Parameter tileContext:		The tileContext.
-	- Parameter baseTimeContext:	The baseTimeContext.
-	- Parameter priority:			The priority of tile download task.
-	*/
 	init(image: UIImage?, baseTime: BaseTime, index: Int, modifiers: Tile.Modifiers, url: URL) {
 		self.image = image
 		self.baseTime = baseTime
@@ -69,6 +44,11 @@ public struct Tile {
 		self.mapRect = MKMapRect(modifiers: modifiers)
 	}
 
+	/**
+	Returns a Boolean value indicating whether the tile contains the given coordinate.
+
+	- Parameter coordinate:	The coordinate to test for containment within this tile.
+	*/
 	func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
 		let origin = coordinates.origin
 		let terminal = coordinates.terminal
@@ -82,6 +62,11 @@ public struct Tile {
 		}
 	}
 
+	/**
+	Returns a RGBA255 value at the given coordinate.
+
+	- Parameter coordinate:	The coordinate of the tile you want.
+	*/
 	func rgba255(at coordinate: CLLocationCoordinate2D) -> RGBA255? {
 		if contains(coordinate) == false { return nil }
 
@@ -90,6 +75,11 @@ public struct Tile {
 		return image?.rgba255(at: point)
 	}
 
+	/**
+	Returns a CGPoint value at the given coordinate.
+
+	- Parameter coordinate:	The coordinate of the tile you want.
+	*/
 	func point(at coordinate: CLLocationCoordinate2D) -> CGPoint? {
 		if contains(coordinate) == false { return nil }
 
@@ -101,6 +91,15 @@ public struct Tile {
 		return CGPoint.init(x: x, y: y)
 	}
 
+	/**
+	Returns a touple at the given coordinate.
+	The touple describes the normalized position.
+	The values of touple are between 0.0 and 1.0.
+	Top Left	: (0,0)
+	Bottom Right: (1,1)
+
+	- Parameter coordinate:	The coordinate of the tile you want.
+	*/
 	func position(at coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
 		if contains(coordinate) == false { return nil }
 
@@ -113,6 +112,11 @@ public struct Tile {
 		return (latitudePosition, longitudePosition)
 	}
 
+	/**
+	Returns a CLLocationCoordinate2D value at the given point.
+
+	- Parameter coordinate:	The point of the tile you want.
+	*/
 	func coordinate(at point: CGPoint) -> CLLocationCoordinate2D? {
 		guard let image = self.image else { return nil }
 

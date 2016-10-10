@@ -9,6 +9,10 @@
 import Foundation
 
 extension Tile {
+
+	/**
+	A `Deltas` structure represents the deltas of latitude and longitude for specified `ZoomLevel`.
+	*/
 	public struct Deltas {
 		let latitude: Double
 		let longitude: Double
