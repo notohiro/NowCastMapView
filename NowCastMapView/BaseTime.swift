@@ -8,112 +8,81 @@
 
 import Foundation
 
-public struct BaseTimeContext {
-	public var baseTime: BaseTime
-	public var index: Int
-
-	public init(baseTime: BaseTime, index: Int) {
-		self.baseTime = baseTime
-		self.index = index
-	}
-}
-
-public class BaseTime: NSObject, NSCoding, Comparable {
+public struct BaseTime {
 	private let forecastPeriod = 12
-	private var baseTimeArr = [String]()
+	private let baseTimeArr: [String]
 
-	public override var description: String {
-		return baseTimeString(atIndex: 0) ?? "error"
-	}
+	public var description: String { return baseTimeString(atIndex: 0) ?? "error" }
+	public var count: Int { return baseTimeArr.count }
+	public var range: CountableClosedRange<Int> { return (-baseTimeArr.count+forecastPeriod+1...forecastPeriod) } // -35...0..<13
 
-	public required init?(coder aDecoder: NSCoder) {
-		super.init()
-		if let baseTimeArr = aDecoder.decodeObjectForKey("baseTimeArr") as? [String] {
-			self.baseTimeArr = baseTimeArr
-		} else {
-			return nil
-		}
-	}
+	public init?(baseTimeData data: Data) {
+		var baseTimeArr = [String]()
 
-	public func encodeWithCoder(aCoder: NSCoder) {
-		aCoder.encodeObject(baseTimeArr, forKey: "baseTimeArr")
-	}
-
-	public required init?(baseTimeData data: NSData) {
-		super.init()
-		baseTimeArr = [String]()
-
-		let parser = NSXMLParser(data: data)
+		let parser = XMLParser(data: data)
 		let parserDelegate =  BaseTimeParser()
 		parser.delegate = parserDelegate
 
 		if !parser.parse() { return nil }
 
-		let inputFormatter = NSDateFormatter()
+		let inputFormatter = DateFormatter()
 		inputFormatter.dateFormat = "yyyyMMddHHmm"
-		inputFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+		inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-		let outputFormatter = NSDateFormatter()
+		let outputFormatter = DateFormatter()
 		outputFormatter.dateFormat = "yyyyMMddHHmm"
-		outputFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+		outputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
 		guard let firstBaseTime = parserDelegate.parsedArr.first else { return nil }
-		guard let forecastTime = inputFormatter.dateFromString(firstBaseTime) else { return nil }
+		guard let forecastTime = inputFormatter.date(from: firstBaseTime) else { return nil }
 
-		var forecastDateArr = [NSDate]()
+		var forecastDateArr = [Date]()
 		for i in 1...forecastPeriod {
-			forecastDateArr.append(NSDate(timeInterval: NSTimeInterval(i*60*5), sinceDate: forecastTime))
+			forecastDateArr.append(Date(timeInterval: TimeInterval(i*60*5), since: forecastTime))
 		}
 
 		// reverse array
-		forecastDateArr.sortInPlace {
-			if $0.compare($1) == .OrderedAscending {
+		forecastDateArr.sort {
+			if $0.compare($1) == .orderedAscending {
 				return false
 			} else {
 				return true
 			}
 		}
 
-		baseTimeArr += forecastDateArr.map { outputFormatter.stringFromDate($0) }
+		baseTimeArr += forecastDateArr.map { outputFormatter.string(from: $0) }
 		baseTimeArr += parserDelegate.parsedArr
 
 		// temporary fix until AME-141
 		if baseTimeArr.count != 48 { return nil }
 
+		self.baseTimeArr = baseTimeArr
+
 		return
-	}
-
-	public func count() -> Int {
-		return baseTimeArr.count
-	}
-
-	public func range() -> Range<Int> {
-		// -35...0...12
-		return (-baseTimeArr.count+forecastPeriod+1...forecastPeriod)
 	}
 
 	public func baseTimeString(atIndex index: Int) -> String? {
 		// convert from 12...-35 to 0...47
-		if range() ~= index { return baseTimeArr[-index+forecastPeriod] }
+		if range ~= index { return baseTimeArr[-index+forecastPeriod] }
 
 		return nil
 	}
 
-	public func baseTimeDate(atIndex index: Int) -> NSDate? {
-		if range() ~= index {
+	public func baseTimeDate(atIndex index: Int) -> Date? {
+		if range ~= index {
 			guard let baseTime = baseTimeString(atIndex: index) else { return nil }
 
-			let inputFormatter = NSDateFormatter()
+			let inputFormatter = DateFormatter()
 			inputFormatter.dateFormat = "yyyyMMddHHmm"
-			inputFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+			inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-			return inputFormatter.dateFromString(baseTime)
+			return inputFormatter.date(from: baseTime)
 		}
 
 		return nil
 	}
 
-	public func compare(other: BaseTime) -> NSComparisonResult {
+	public func compare(_ other: BaseTime) -> ComparisonResult {
 		// this api should return not optional value. and index: 0 must success.
 		return baseTimeDate(atIndex: 0)!.compare(other.baseTimeDate(atIndex: 0)!)
 	}

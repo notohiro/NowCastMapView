@@ -9,31 +9,44 @@
 import Foundation
 import UIKit
 
-public class RainLevel {
-	public var level: Int?
-	private var _color: RGBA255
+public enum RainLevel: Int {
+	case level0 = 0, level1, level2, level3, level4, level5, level6, level7, level8
 
-	init(color: RGBA255) {
-		self._color = color
+	static let rgba255ToRainLevel = [
+		RGBA255(red: 255, green: 255, blue: 255, alpha: 255) : 0,
+		RGBA255(red: 255, green: 255, blue: 255, alpha:   0) : 0,
+		RGBA255(red:   0, green:   0, blue:   0, alpha:   0) : 0,
+		RGBA255(red: 242, green: 242, blue: 255, alpha: 255) : 1,
+		RGBA255(red: 160, green: 210, blue: 255, alpha: 255) : 2,
+		RGBA255(red:  33, green: 140, blue: 255, alpha: 255) : 3,
+		RGBA255(red:   0, green:  65, blue: 255, alpha: 255) : 4,
+		RGBA255(red: 250, green: 245, blue:   0, alpha: 255) : 5,
+		RGBA255(red: 255, green: 153, blue:   0, alpha: 255) : 6,
+		RGBA255(red: 255, green:  40, blue:   0, alpha: 255) : 7,
+		RGBA255(red: 180, green:   0, blue: 104, alpha: 255) : 8
+	]
 
-		level = rainLevelColors.filter {
-			$0.color.red == color.red && $0.color.green == color.green && $0.color.blue == color.blue
-		}.first?.level
+	static let rainLevelToColor = [
+		UIColor(rgba255: RGBA255(red: 255, green: 255, blue: 255, alpha: 255)),
+		UIColor(rgba255: RGBA255(red: 242, green: 242, blue: 255, alpha: 255)),
+		UIColor(rgba255: RGBA255(red: 160, green: 210, blue: 255, alpha: 255)),
+		UIColor(rgba255: RGBA255(red:  33, green: 140, blue: 255, alpha: 255)),
+		UIColor(rgba255: RGBA255(red:   0, green:  65, blue: 255, alpha: 255)),
+		UIColor(rgba255: RGBA255(red: 250, green: 245, blue:   0, alpha: 255)),
+		UIColor(rgba255: RGBA255(red: 255, green: 153, blue:   0, alpha: 255)),
+		UIColor(rgba255: RGBA255(red: 255, green:  40, blue:   0, alpha: 255)),
+		UIColor(rgba255: RGBA255(red: 180, green:   0, blue: 104, alpha: 255))
+	]
+
+	init?(rgba255: RGBA255) {
+		if let level = RainLevel.rgba255ToRainLevel[rgba255] {
+			self.init(rawValue: level)
+		} else {
+			return nil
+		}
 	}
 
-	func toRGBA255() -> RGBA255? {
-		guard let level = self.level else { return nil }
-
-		if level == 0 { return rainLevelColor00.color }
-		return rainLevelColors.filter { $0.level == level }.first?.color
-	}
-
-	public func toUIColor() -> UIColor? {
-		guard let colorAsRGBA255 = toRGBA255() else { return nil }
-
-		let red = CGFloat(Double(colorAsRGBA255.red)/255.0)
-		let green = CGFloat(Double(colorAsRGBA255.green)/255.0)
-		let blue = CGFloat(Double(colorAsRGBA255.blue)/255.0)
-		return UIColor(red: red, green: green, blue: blue, alpha: CGFloat(colorAsRGBA255.alpha))
+	public var color: UIColor {
+		return RainLevel.rainLevelToColor[self.rawValue]
 	}
 }
