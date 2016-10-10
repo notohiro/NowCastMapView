@@ -139,36 +139,6 @@ open class TileModel: TileProvider {
 		session = TileModel.initSession()
 		processingTiles.removeAll()
 	}
-
-//	/*
-//	Returns tile at given coordinate.
-//
-//	- Parameter	coordinate:			The coordinate you need to get tile.
-//	- Parameter zoomScale:			The ZoomScale of tiles.
-//	- Parameter baseTimeContext:	The BaseTimeContext of tiles.
-//	- Parameter priority:			The priority of tile download task.
-//
-//	- Returns: The tile at given coordinate.
-//	*/
-//	open func cancelTileRequests(lessThan priority: DownloadPriority?) {
-//		processingTiles.filter {
-//			if let taskPriority = $0.dataTask?.priority {
-//				if let thresholdPriority = priority {
-//					// priority specified. return comparison result.
-//					return taskPriority < thresholdPriority.rawValue
-//				} else {
-//					// priority not specified. always return true.
-//					return true
-//				}
-//			} else {
-//				// fatal error. processingTiles must have `dataTask`
-//				return false
-//			}
-//			}.forEach {
-//				$0.dataTask?.cancel()
-//				processingTiles.remove($0)
-//		}
-//	}
 }
 
 extension TileModel: TileAvailability {
