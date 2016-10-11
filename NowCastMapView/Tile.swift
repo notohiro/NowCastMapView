@@ -18,17 +18,24 @@ For performance, you should initialize `Tile` instance by using `TileModel`.
 The `Tile` instances are cached by `TileModel`, and it handles duplicated requests.
 */
 public struct Tile {
-
 	// MARK: - Public Properties
 
 	public let baseTime: BaseTime
 	public let index: Int
+
 	public let modifiers: Tile.Modifiers
+
 	public let url: URL
+
 	public var image: UIImage?
+
 	public let deltas: Tile.Deltas
+
 	public let coordinates: Coordinates
 	public let mapRect: MKMapRect
+
+	// MARK: - Internal Properties
+
 	var dataTask: URLSessionDataTask?
 
 	// MARK: - Functions
@@ -92,8 +99,7 @@ public struct Tile {
 	}
 
 	/**
-	Returns a touple at the given coordinate.
-	The touple describes the normalized position.
+	Returns a normalized position at the given coordinate.
 	The values of touple are between 0.0 and 1.0.
 	Top Left	: (0,0)
 	Bottom Right: (1,1)

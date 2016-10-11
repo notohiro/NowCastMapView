@@ -93,6 +93,9 @@
 		D3DE78AE1D78F5290054420C /* Tile+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */; };
 		D3DE78AF1D78F5290054420C /* Tile+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */; };
 		D3DE78B01D78F5290054420C /* Tile+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */; };
+		D3EA9D8F1DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
+		D3EA9D901DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
+		D3EA9D911DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
 		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
 		D3FD41FE1C6815D600EE1A65 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
 		D3FD41FF1C6815DA00EE1A65 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
@@ -154,6 +157,7 @@
 		D3DE78A41D6FB5740054420C /* TileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileModel.swift; sourceTree = "<group>"; };
 		D3DE78A91D77D6730054420C /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Modifiers.swift"; sourceTree = "<group>"; };
+		D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileModel+Request.swift"; sourceTree = "<group>"; };
 		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsTest.swift; sourceTree = "<group>"; };
 		D3FD41FC1C68154F00EE1A65 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
@@ -332,6 +336,7 @@
 				D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */,
 				D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */,
 				D3DE78A41D6FB5740054420C /* TileModel.swift */,
+				D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */,
 				D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */,
 				D3DE78A91D77D6730054420C /* Coordinates.swift */,
 			);
@@ -532,6 +537,7 @@
 				D3CB76481D96292E00498829 /* Overlay.swift in Sources */,
 				D3CB765A1D96712B00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeModel.swift in Sources */,
+				D3EA9D8F1DAC9A5C0019822D /* TileModel+Request.swift in Sources */,
 				D3CB76551D96452200498829 /* RainLevels.swift in Sources */,
 				D3CB76581D966B3400498829 /* RainLevelsModel.swift in Sources */,
 				D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */,
@@ -564,6 +570,7 @@
 				D30F944A1DAA8FF000AFEBB0 /* RainLevelsTest.swift in Sources */,
 				D3CB763E1D95639100498829 /* ZoomLevelTests.swift in Sources */,
 				D3CB76311D9527B000498829 /* BaseTimeModelTests.swift in Sources */,
+				D3EA9D911DAC9A5C0019822D /* TileModel+Request.swift in Sources */,
 				D3CB76511D9637B400498829 /* UIColor.swift in Sources */,
 				D3D3CCF21BAE6BE70083B7FC /* BaseTimeTests.swift in Sources */,
 				D3CB76561D966B3300498829 /* RainLevelsModel.swift in Sources */,
@@ -602,6 +609,7 @@
 				D3CB76491D96292F00498829 /* Overlay.swift in Sources */,
 				D3CB765B1D96712C00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
+				D3EA9D901DAC9A5C0019822D /* TileModel+Request.swift in Sources */,
 				D3CB76541D96451E00498829 /* RainLevels.swift in Sources */,
 				D3CB76571D966B3300498829 /* RainLevelsModel.swift in Sources */,
 				D3DE78A61D6FB5740054420C /* TileModel.swift in Sources */,

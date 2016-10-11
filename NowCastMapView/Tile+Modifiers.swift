@@ -10,10 +10,18 @@ import Foundation
 import CoreLocation
 
 extension Tile {
+	/**
+	A `Modifiers` structure contains modifiers part of `Tile.url`.
+	`zoomLevel`/`longitude`_`latitude`.png
+	http://www.jma.go.jp/jp/highresorad/highresorad_tile/HRKSNC/201610101145/201610101145/zoom2/0_0.png
+	*/
 	public struct Modifiers {
 		public let zoomLevel: ZoomLevel
+
 		public let latitude: Int
 		public let longitude: Int
+
+		// MARK: - Functions
 
 		init?(zoomLevel: ZoomLevel, latitude: Int, longitude: Int) {
 			self.zoomLevel = zoomLevel
@@ -45,6 +53,8 @@ extension Tile {
 
 			if !isInServiceArea() { printError(); return nil }
 		}
+
+		// MARK: - Helper Functions
 
 		private func isInServiceArea() -> Bool {
 			// initialize mods

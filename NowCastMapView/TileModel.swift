@@ -9,55 +9,119 @@
 import Foundation
 import MapKit
 
+/**
+A `TileProvider` protocol defines a way to request a `Tile`.
+*/
 public protocol TileProvider {
+	/**
+	Returns tiles within given MapRect. The `Tile.image` object will be nil if it's not downloaded.
+	Call `resume()` method to obtain image file from internet.
+
+	- Parameter	request:	The request you need to get tiles.
+
+	- Returns: The tiles within given request.
+	*/
 	func tiles(with request: TileModel.Request) -> [Tile]
 }
 
+/**
+A `TileAvailability` protocol defines a way to check the service availability.
+*/
 public protocol TileAvailability {
+	/**
+	Returns the serivce availability within given MapRect.
+
+	- Parameter coordinates:	The `Coordinates` you want to know.
+
+	- Returns: `Coordinates` contains service area or not.
+	*/
 	static func isServiceAvailable(within coordinates: Coordinates) -> Bool
+
+	/**
+	Returns the serivce availability at given coordinate.
+
+	- Parameter coordinate:	The coordinate you want to know.
+
+	- Returns: The service availability at coordinate.
+	*/
 	static func isServiceAvailable(at coordinate: CLLocationCoordinate2D) -> Bool
 }
 
+/**
+The delegate of a `TileModel` object must adopt the `TileModelDelegate` protocol.
+The `TileModelDelegate` protocol describes the methods that `TileModel` objects call on their delegates to handle requested events.
+*/
 public protocol TileModelDelegate: class {
+	/// Tells the delegate that a request has finished and added tiles in model's cache.
 	func tileModel(_ model: TileModel, added tiles: Set<Tile>)
+
+	/// Tells the delegate that a request has finished with error.
 	func tileModel(_ model: TileModel, failed tile: Tile)
 }
 
-open class TileModel: TileProvider {
+/**
+An `TileModel` object lets you load the `Tile` by providing a `Request` object.
+*/
+open class TileModel {
+
+	// MARK: - Public Properties
 
 	open let baseTime: BaseTime
-	private var session: URLSession
+
 	open weak var delegate: TileModelDelegate?
-	private var cachedTiles = Set<Tile>() {
+
+	open var processingTiles = Set<Tile>()
+
+	// MARK: - Private Properties
+
+	fileprivate var session: URLSession
+
+	fileprivate var cachedTiles = Set<Tile>() {
 		didSet {
 			let addedTiles = cachedTiles.subtracting(oldValue)
 			delegate?.tileModel(self, added: addedTiles)
 		}
 	}
-	open var processingTiles = Set<Tile>()
 
-	private static func initSession() -> URLSession {
-		let configuration = URLSessionConfiguration.default
-		configuration.httpMaximumConnectionsPerHost = 4
-		return URLSession(configuration: configuration)
-	}
+	// MARK: - Functions
 
 	public init(baseTime: BaseTime) {
 		self.baseTime = baseTime
 		self.session = TileModel.initSession()
 	}
 
-	deinit {
-		print("TileModel.deinit")
+	/// Resumes the all tasks, if it is suspended.
+	open func resume() {
+		processingTiles.forEach { $0.dataTask?.resume() }
 	}
 
-	/**
-	Returns tiles within given MapRect.
+	/// Suspend the all tasks, if it is suspended.
+	open func suspend() {
+		processingTiles.forEach { $0.dataTask?.suspend() }
+	}
 
-	- Parameter	request:	The request you need to get tiles.
+	/// Immediately cancel the all tasks. Delegate will be called if it's set.
+	open func cancel() {
+		// call `cancel()` for each tasks before `invalidateAndCancel()`.
+		// `invalidateAndCancel()` never exec completionHandler of tasks before resumed.
+		processingTiles.forEach { $0.dataTask?.cancel() }
+		session.invalidateAndCancel()
+		session = TileModel.initSession()
+		processingTiles.removeAll()
+	}
 
-	- Returns: The tiles within given request.
-	*/
+	// MARK: - Helper Functions
+
+	private static func initSession() -> URLSession {
+		let configuration = URLSessionConfiguration.default
+		configuration.httpMaximumConnectionsPerHost = 4
+		return URLSession(configuration: configuration)
+	}
+}
+
+// MARK: - TileProvider
+
+extension TileModel: TileProvider {
 	open func tiles(with request: TileModel.Request) -> [Tile] {
 		var retArr = [Tile]()
 
@@ -116,33 +180,11 @@ open class TileModel: TileProvider {
 
 		return retArr
 	}
-
-	open func resume() {
-		processingTiles.forEach { $0.dataTask?.resume() }
-	}
-
-	open func suspend() {
-		processingTiles.forEach { $0.dataTask?.suspend() }
-	}
-
-	open func cancel() {
-		// call `cancel()` for each tasks before `invalidateAndCancel()`.
-		// `invalidateAndCancel()` never exec completionHandler of tasks before resumed.
-		processingTiles.forEach { $0.dataTask?.cancel() }
-		session.invalidateAndCancel()
-		session = TileModel.initSession()
-		processingTiles.removeAll()
-	}
 }
 
+// MARK: - TileAvailability
+
 extension TileModel: TileAvailability {
-	/**
-	Returns the serivce availability within given MapRect.
-
-	- Parameter mapRect:	The MapRect you want to know.
-
-	- Returns: MapRect contains service area or not.
-	*/
 	open static func isServiceAvailable(within coordinates: Coordinates) -> Bool {
 		if coordinates.origin.latitude >= Constants.terminalLatitude &&
 			coordinates.terminal.latitude <= Constants.originLatitude &&
@@ -154,13 +196,6 @@ extension TileModel: TileAvailability {
 		}
 	}
 
-	/**
-	Returns the serivce availability at given coordinate.
-
-	- Parameter coordinate:	The coordinate you want to know.
-
-	- Returns: The service availability at coordinate.
-	*/
 	open static func isServiceAvailable(at coordinate: CLLocationCoordinate2D) -> Bool {
 		if coordinate.latitude >= Constants.terminalLatitude &&
 			coordinate.latitude <= Constants.originLatitude &&
@@ -169,20 +204,6 @@ extension TileModel: TileAvailability {
 			return true
 		} else {
 			return false
-		}
-	}
-}
-
-extension TileModel {
-	public struct Request {
-		public let index: Int
-		public let scale: MKZoomScale
-		public let coordinates: Coordinates
-
-		public init(index: Int, scale: MKZoomScale, coordinates: Coordinates) {
-			self.index = index
-			self.scale = scale
-			self.coordinates = coordinates
 		}
 	}
 }
