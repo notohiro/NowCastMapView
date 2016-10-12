@@ -9,8 +9,16 @@
 import Foundation
 import MapKit
 
+/**
+A `Coordinates` structure contains two `CLLocationCoordinate2D` objects to represent rectangle on the map.
+The `Coordinates` could be converted from a `MKMapRect` by using initializer.
+*/
 public struct Coordinates {
+
+	// The coordinate of top left.
 	public var origin: CLLocationCoordinate2D
+
+	// The coordinate of bottom right.
 	public var terminal: CLLocationCoordinate2D
 
 	init(origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {

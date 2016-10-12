@@ -18,6 +18,7 @@ For performance, you should initialize `Tile` instance by using `TileModel`.
 The `Tile` instances are cached by `TileModel`, and it handles duplicated requests.
 */
 public struct Tile {
+
 	// MARK: - Public Properties
 
 	public let baseTime: BaseTime
@@ -53,14 +54,16 @@ public struct Tile {
 
 	/**
 	Returns a Boolean value indicating whether the tile contains the given coordinate.
+	Right edge and bottom one of the `Tile` are not contained, because these edges are contained by next tiles.
 
 	- Parameter coordinate:	The coordinate to test for containment within this tile.
+	
+	- Returns: Whether the tile contains the given coordinate
 	*/
 	func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
 		let origin = coordinates.origin
 		let terminal = coordinates.terminal
 
-		// dont include right & bottom border
 		if origin.latitude >= coordinate.latitude && coordinate.latitude > terminal.latitude &&
 			origin.longitude <= coordinate.longitude && coordinate.longitude < terminal.longitude {
 			return true
@@ -70,9 +73,12 @@ public struct Tile {
 	}
 
 	/**
-	Returns a RGBA255 value at the given coordinate.
+	Returns a `RGBA255` value at the given coordinate.
+	It could be nil if the coordinate don't be contained by the `Tile`.
 
 	- Parameter coordinate:	The coordinate of the tile you want.
+	
+	- Returns: A `RGBA255` value at the given coordinate.
 	*/
 	func rgba255(at coordinate: CLLocationCoordinate2D) -> RGBA255? {
 		if contains(coordinate) == false { return nil }
@@ -83,9 +89,12 @@ public struct Tile {
 	}
 
 	/**
-	Returns a CGPoint value at the given coordinate.
+	Returns a `CGPoint` value at the given coordinate.
+	It could be nil if the coordinate don't be contained by the `Tile`.
 
 	- Parameter coordinate:	The coordinate of the tile you want.
+	
+	- Returns: A `CGPoint` value at the given coordinate.
 	*/
 	func point(at coordinate: CLLocationCoordinate2D) -> CGPoint? {
 		if contains(coordinate) == false { return nil }
@@ -100,11 +109,14 @@ public struct Tile {
 
 	/**
 	Returns a normalized position at the given coordinate.
-	The values of touple are between 0.0 and 1.0.
-	Top Left	: (0,0)
-	Bottom Right: (1,1)
+	It could be nil if the coordinate don't be contained by the `Tile`.
+	The return value contains two dimensional position, and are between from 0.0 to 1.0.
+	(0,0) describes top left, (1,1) is bottom right.
+	(1,1) will never happen because bottom right edge don't be contained by the `Tile`.
 
 	- Parameter coordinate:	The coordinate of the tile you want.
+	
+	- Returns: A normalized position at the given coordinate.
 	*/
 	func position(at coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
 		if contains(coordinate) == false { return nil }
@@ -119,14 +131,16 @@ public struct Tile {
 	}
 
 	/**
-	Returns a CLLocationCoordinate2D value at the given point.
+	Returns a `CLLocationCoordinate2D` value at the given point.
+	It could be nil if the point is outside of the image of `Tile`.
 
 	- Parameter coordinate:	The point of the tile you want.
+	
+	- Returns: A `CLLocationCoordinate2D` value at the given point.
 	*/
 	func coordinate(at point: CGPoint) -> CLLocationCoordinate2D? {
 		guard let image = self.image else { return nil }
 
-		// return nil if it's point is not on tile
 		if point.x < 0 || point.y < 0 || point.x >= image.size.width || point.y >= image.size.height {
 			return nil
 		}

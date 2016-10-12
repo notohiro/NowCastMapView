@@ -16,7 +16,9 @@ extension TileModel {
 	public struct Request {
 
 		public let index: Int
+
 		public let scale: MKZoomScale
+
 		public let coordinates: Coordinates
 
 		public init(index: Int, scale: MKZoomScale, coordinates: Coordinates) {
