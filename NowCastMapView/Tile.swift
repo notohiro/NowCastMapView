@@ -54,18 +54,36 @@ public struct Tile {
 
 	/**
 	Returns a Boolean value indicating whether the tile contains the given coordinate.
-	Right edge and bottom one of the `Tile` are not contained, because these edges are contained by next tiles.
+	Right(East) edge and Bottom(South) one of the `Tile` are not contained, because these edges are contained by next tiles,
+	except if the `Tile` is on East or South service bound.
 
 	- Parameter coordinate:	The coordinate to test for containment within this tile.
-	
+
 	- Returns: Whether the tile contains the given coordinate
 	*/
 	func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
 		let origin = coordinates.origin
 		let terminal = coordinates.terminal
 
-		if origin.latitude >= coordinate.latitude && coordinate.latitude > terminal.latitude &&
-			origin.longitude <= coordinate.longitude && coordinate.longitude < terminal.longitude {
+		let north = origin.latitude >= coordinate.latitude
+		let west = origin.longitude <= coordinate.longitude
+
+		var south: Bool
+		var east: Bool
+
+		if modifiers.isOnServiceBound().south {
+			south = coordinate.latitude >= terminal.latitude
+		} else {
+			south = coordinate.latitude > terminal.latitude
+		}
+
+		if modifiers.isOnServiceBound().east {
+			east = coordinate.longitude <= terminal.longitude
+		} else {
+			east = coordinate.longitude < terminal.longitude
+		}
+
+		if north && west && south && east {
 			return true
 		} else {
 			return false
@@ -77,7 +95,7 @@ public struct Tile {
 	It could be nil if the coordinate don't be contained by the `Tile`.
 
 	- Parameter coordinate:	The coordinate of the tile you want.
-	
+
 	- Returns: A `RGBA255` value at the given coordinate.
 	*/
 	func rgba255(at coordinate: CLLocationCoordinate2D) -> RGBA255? {
@@ -93,7 +111,7 @@ public struct Tile {
 	It could be nil if the coordinate don't be contained by the `Tile`.
 
 	- Parameter coordinate:	The coordinate of the tile you want.
-	
+
 	- Returns: A `CGPoint` value at the given coordinate.
 	*/
 	func point(at coordinate: CLLocationCoordinate2D) -> CGPoint? {
@@ -115,7 +133,7 @@ public struct Tile {
 	(1,1) will never happen because bottom right edge don't be contained by the `Tile`.
 
 	- Parameter coordinate:	The coordinate of the tile you want.
-	
+
 	- Returns: A normalized position at the given coordinate.
 	*/
 	func position(at coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
@@ -135,7 +153,7 @@ public struct Tile {
 	It could be nil if the point is outside of the image of `Tile`.
 
 	- Parameter coordinate:	The point of the tile you want.
-	
+
 	- Returns: A `CLLocationCoordinate2D` value at the given point.
 	*/
 	func coordinate(at point: CGPoint) -> CLLocationCoordinate2D? {

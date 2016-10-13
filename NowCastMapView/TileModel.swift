@@ -13,6 +13,9 @@ import MapKit
 A `TileProvider` protocol defines a way to request a `Tile`.
 */
 public protocol TileProvider {
+
+	var baseTime: BaseTime { get }
+
 	/**
 	Returns tiles within given MapRect. The `Tile.image` object will be nil if it's not downloaded.
 	Call `resume()` method to obtain image file from internet.
@@ -64,9 +67,11 @@ An `TileModel` object lets you load the `Tile` by providing a `Request` object.
 */
 open class TileModel {
 
-	// MARK: - Public Properties
+	// MARK: - TileProvider
 
 	open let baseTime: BaseTime
+
+	// MARK: - Public Properties
 
 	open weak var delegate: TileModelDelegate?
 
@@ -95,7 +100,7 @@ open class TileModel {
 		processingTiles.forEach { $0.dataTask?.resume() }
 	}
 
-	/// Suspend the all tasks, if it is suspended.
+	/// Suspend the all tasks, if it is resumed.
 	open func suspend() {
 		processingTiles.forEach { $0.dataTask?.suspend() }
 	}
@@ -123,36 +128,25 @@ open class TileModel {
 
 extension TileModel: TileProvider {
 	open func tiles(with request: TileModel.Request) -> [Tile] {
-		var retArr = [Tile]()
+		var tiles = [Tile]()
 
-		if !TileModel.isServiceAvailable(within: request.coordinates) { return retArr }
+		if !TileModel.isServiceAvailable(within: request.coordinates) { return tiles }
 
-		// convert from MKZoomScale to ZoomLevel
 		let zoomLevel = ZoomLevel(zoomScale: request.scale)
 
-		// get tile numbers
-		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.origin) else { return retArr }
-		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.terminal) else { return retArr }
+		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.origin) else { return tiles }
+		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.terminal) else { return tiles }
 
-		// loop from origin to terminal
 		for latMod in originModifiers.latitude ... terminalModifiers.latitude {
 			for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
-				// get URL of tile
 				guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else { continue }
 				guard let url = URL(baseTime: baseTime, index: request.index, modifiers: mods) else { continue }
 
 				objc_sync_enter(self)
-				// check `cachedTiles`
 				if let tile = (cachedTiles.filter { $0.url.absoluteString == url.absoluteString }.first) {
-					retArr.append(tile)
-					objc_sync_exit(self)
-					continue
-				}
-
-				// no cache on `cachedTiles`
-				// check processingTiles
-				if let tile = (processingTiles.filter { $0.url.absoluteString == url.absoluteString }.first) {
-					retArr.append(tile)
+					tiles.append(tile)
+				} else if let tile = (processingTiles.filter { $0.url.absoluteString == url.absoluteString }.first) {
+					tiles.append(tile)
 				} else {
 					var tile = Tile(image: nil, baseTime: baseTime, index: request.index, modifiers: mods, url: url)
 
@@ -162,7 +156,6 @@ extension TileModel: TileProvider {
 						tile.dataTask = nil
 
 						if let image = (data.flatMap { UIImage(data: $0) }) {
-							// fetched image successfully
 							tile.image = image
 							self.cachedTiles.insert(tile)
 						} else {
@@ -172,13 +165,13 @@ extension TileModel: TileProvider {
 					}
 
 					processingTiles.insert(tile)
-					retArr.append(tile)
+					tiles.append(tile)
 				}
 				objc_sync_exit(self)
 			}
 		}
 
-		return retArr
+		return tiles
 	}
 }
 

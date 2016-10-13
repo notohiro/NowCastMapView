@@ -37,14 +37,16 @@ extension Tile {
 			self.zoomLevel = zoomLevel
 			let deltas = Tile.Deltas(zoomLevel: zoomLevel)
 
-			// initialize mods
 			let latDoubleNumber = (coordinate.latitude - Constants.originLatitude) / -deltas.latitude
 			var latitude = Int(floor(latDoubleNumber))
 			let lonDoubleNumber = (coordinate.longitude - Constants.originLongitude) / deltas.longitude
 			var longitude = Int(floor(lonDoubleNumber))
 
-			// for terminal edge
-			// ex: 4_4 is invalid, convert to 3_3
+			// If the coordinate points the bound of service area, modifiers could specify out of service area,
+			// because right and bottom edge of a `Tile` are contained by next tiles.
+			// And, it's guaranteed that coordinate is within service area
+			// hence a `TileModel.isServiceAvailable` function is called at the top of initializer.
+			// Therefore, if the modifiers specify the out of service area, convert modifiers to bound of service area.
 			if latitude == zoomLevel.rawValue { latitude -= 1 }
 			if longitude == zoomLevel.rawValue { longitude -= 1 }
 
@@ -52,6 +54,10 @@ extension Tile {
 			self.longitude = longitude
 
 			if !isInServiceArea() { printError(); return nil }
+		}
+
+		public func isOnServiceBound() -> (east: Bool, south: Bool) {
+			return (longitude == zoomLevel.rawValue - 1, latitude == zoomLevel.rawValue - 1)
 		}
 
 		// MARK: - Helper Functions
