@@ -7,8 +7,6 @@
 //
 
 import Foundation
-//import AwesomeCache
-//import RxSwift
 
 public protocol BaseTimeProvider {
 	var fetchInterval: TimeInterval { get set }
@@ -21,8 +19,8 @@ public protocol BaseTimeModelDelegate: class {
 
 open class BaseTimeModel: BaseTimeProvider {
 	struct Constants {
-		static let baseTimeURL = URL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
-		static let cacheKey = "tile_basetime.xml"
+		static let url = URL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
+		static let fts = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
 	}
 
 	open weak var delegate: BaseTimeModelDelegate?
@@ -69,7 +67,7 @@ open class BaseTimeModel: BaseTimeProvider {
 		}
 		objc_sync_exit(self)
 
-		let task = session.dataTask(with: Constants.baseTimeURL) { [unowned self] data, response, error in
+		let task = session.dataTask(with: Constants.url) { [unowned self] data, response, error in
 			if let _ = error { // do something?
 			} else {
 				let baseTime = data.flatMap { BaseTime(baseTimeData: $0) }

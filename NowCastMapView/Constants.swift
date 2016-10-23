@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//import AwesomeCache
 
 public struct Constants {
 	// define coordinate of upper left and bottom right
@@ -16,15 +15,3 @@ public struct Constants {
 	static let terminalLatitude: Double  = 7
 	static let terminalLongitude: Double = 170
 }
-
-//public enum DownloadPriority: Float, Comparable {
-//	case urgent		= 1.0
-//	case rainLevels	= 0.9
-//	case high		= 0.8
-//	case `default`	= 0.6
-//	case low		= 0.4
-//}
-
-//public func < (lhs: DownloadPriority, rhs: DownloadPriority) -> Bool {
-//	return lhs.rawValue < rhs.rawValue
-//}

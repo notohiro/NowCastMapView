@@ -8,33 +8,49 @@
 
 import Foundation
 
-// MARK: - Comparable
+// MARK: - Hashable
 
-extension BaseTime: Comparable {
+extension BaseTime: Hashable {
+	public var hashValue: Int {
+		let base: String = self[0]
+		return base.hashValue
+	}
+}
+
+// MARK: - Equatable
+
+extension BaseTime: Equatable {
 	public static func == (lhs: BaseTime, rhs: BaseTime) -> Bool {
-		guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
-		guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
-
-		if lhsBaseTimeDate.compare(rhsBaseTimeDate as Date) == .orderedSame {
-			return true
-		} else {
-			return false
-		}
+		return lhs.hashValue == rhs.hashValue
 	}
 
 	public static func != (lhs: BaseTime, rhs: BaseTime) -> Bool {
 		return !(lhs == rhs)
 	}
+}
 
+// MARK: - Comparable
+
+extension BaseTime: Comparable {
 	public static func < (lhs: BaseTime, rhs: BaseTime) -> Bool {
-		guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
-		guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
+		let lhsDate: Date = lhs[0]
+		let rhsDate: Date = rhs[0]
 
-		if lhsBaseTimeDate.compare(rhsBaseTimeDate as Date) == .orderedAscending {
+		if lhsDate.compare(rhsDate) == .orderedAscending {
 			return true
 		} else {
 			return false
 		}
+	}
+
+	public static func <= (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		if lhs == rhs { return true }
+		return lhs < rhs
+	}
+
+	public static func >= (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		if lhs == rhs { return true }
+		return lhs > rhs
 	}
 
 	public static func > (lhs: BaseTime, rhs: BaseTime) -> Bool {
