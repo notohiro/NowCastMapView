@@ -9,12 +9,9 @@
 import Foundation
 
 /**
-A `BaseTime` structure represents a single tile file of
-High-resolution Precipitation Nowcasts.
-(http://www.jma.go.jp/en/highresorad/)
-
-For performance, you should initialize `Tile` instance by using `TileModel`.
-The `Tile` instances are cached by `TileModel`, and it handles duplicated requests.
+A `BaseTime` structure contains a set of indexes represents forecast timeline as of specific forecast time.
+A `BaseTime` instances are parsed and instantiated from a simple xml data
+fetched from "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml".
 */
 public struct BaseTime {
 
@@ -70,7 +67,7 @@ public struct BaseTime {
 
 		self.ftDates = ftDates
 		self.ftStrings = ftStrings
-		range = BaseTime.index(from: ftDates.endIndex) ... BaseTime.index(from: ftDates.startIndex)
+		range = BaseTime.index(from: ftDates.endIndex-1) ... BaseTime.index(from: ftDates.startIndex)
 
 		return
 	}

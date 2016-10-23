@@ -17,6 +17,9 @@ public protocol BaseTimeModelDelegate: class {
 	func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?)
 }
 
+/**
+An `BaseTimeModel` object lets you fetch the `BaseTime`.
+*/
 open class BaseTimeModel: BaseTimeProvider {
 	struct Constants {
 		static let url = URL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
@@ -30,6 +33,7 @@ open class BaseTimeModel: BaseTimeProvider {
 	private var fetching = false
 
 	private var fetchTimer: Timer?
+
 	/// immediately fetch + interval
 	open var fetchInterval: TimeInterval = 0 { // 0 means never check automatically
 		didSet {

@@ -24,36 +24,20 @@ class BaseTimeTests: BaseTestCase {
 		XCTAssertNil(BaseTime(baseTimeData: Data()))
 	}
 
-	func testBaseTimeStringAtIndex() {
+	func testSubscriptAsString() {
 		guard let baseTime = baseTime(file: "OldBaseTime") else { XCTFail(); return }
 
 		for i in baseTime.range {
-			// test .baseTimeStringAtIndex(index index: Int)
-			let baseTimeStringAtIndex = baseTime.baseTimeString(atIndex: i)
-			XCTAssertNotNil(baseTimeStringAtIndex)
+			let _: String = baseTime[i]
 		}
-
-		XCTAssertNil(baseTime.baseTimeString(atIndex: baseTime.range.lowerBound-1))
 	}
 
-	func testBaseTimeDateAtIndex() {
+	func testSubscriptAsDate() {
 		guard let baseTime = baseTime(file: "OldBaseTime") else { XCTFail(); return }
 
 		for i in baseTime.range {
-			// test .baseTimeDateAtIndex(index index: Int)
-			let baseTimeDateAtIndex = baseTime.baseTimeDate(atIndex: i)
-			XCTAssertNotNil(baseTimeDateAtIndex)
+			let _: Date = baseTime[i]
 		}
-
-		XCTAssertNil(baseTime.baseTimeDate(atIndex: baseTime.range.lowerBound-1))	}
-
-	func testCompare() {
-		guard let oldBaseTime = baseTime(file: "OldBaseTime") else { XCTFail(); return }
-		guard let newBaseTime = baseTime(file: "NewBaseTime") else { XCTFail(); return }
-
-		XCTAssertEqual(oldBaseTime.compare(oldBaseTime), (ComparisonResult).orderedSame)
-		XCTAssertEqual(oldBaseTime.compare(newBaseTime), (ComparisonResult).orderedAscending)
-		XCTAssertEqual(newBaseTime.compare(oldBaseTime), (ComparisonResult).orderedDescending)
 	}
 
 	func testEquatable() {
@@ -63,16 +47,26 @@ class BaseTimeTests: BaseTestCase {
 		// same objects
 		XCTAssertTrue(oldBaseTime == oldBaseTime)
 		XCTAssertFalse(oldBaseTime != oldBaseTime)
+
 		// different objects
 		XCTAssertFalse(oldBaseTime == newBaseTime)
 		XCTAssertTrue(oldBaseTime != newBaseTime)
 	}
 
-	func testComparable() {
+	func testCompare() {
 		guard let oldBaseTime = baseTime(file: "OldBaseTime") else { XCTFail(); return }
 		guard let newBaseTime = baseTime(file: "NewBaseTime") else { XCTFail(); return }
 
 		XCTAssertTrue(oldBaseTime < newBaseTime)
+		XCTAssertFalse(newBaseTime < oldBaseTime)
+
+		XCTAssertTrue(oldBaseTime <= newBaseTime)
+		XCTAssertFalse(newBaseTime <= oldBaseTime)
+
+		XCTAssertFalse(oldBaseTime >= newBaseTime)
+		XCTAssertTrue(newBaseTime >= oldBaseTime)
+
 		XCTAssertFalse(oldBaseTime > newBaseTime)
+		XCTAssertTrue(newBaseTime > oldBaseTime)
 	}
 }
