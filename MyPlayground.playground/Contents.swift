@@ -1,8 +1,12 @@
 import Foundation
+//import PlaygroundSupport
 
-//let arr = [1, 2]
-//
-//arr.forEach {
-//	guard let str = $0 as? NSDate else { next }
-//	print($0)
-//}
+//PlaygroundPage.current.needsIndefiniteExecution = true
+
+
+let range = 1...3
+
+range.contains(1)
+range.contains(3)
+range.contains(4)
+range.contains(0)

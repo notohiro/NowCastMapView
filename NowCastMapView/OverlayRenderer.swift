@@ -9,45 +9,47 @@
 import Foundation
 import MapKit
 
-public class OverlayRenderer: MKOverlayRenderer {
+open class OverlayRenderer: MKOverlayRenderer {
+
 	static let DefaultBackgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
 
-	public var baseTimeContext: BaseTimeContext? {
-		didSet { setNeedsDisplay() }
-	}
+	open let baseTime: BaseTime
+	open let index: Int
+	open let tileModel: TileModel
+
 	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
 	public var lastRequestedZoomScale: MKZoomScale?
 
-	override public init(overlay: MKOverlay) {
-		super.init(overlay: overlay)
+	public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
+		self.baseTime = baseTime
+		self.index = index
+		tileModel = TileModel(baseTime: baseTime)
 
-		let nc = NSNotificationCenter.defaultCenter()
-		nc.addObserver(self, selector: #selector(OverlayRenderer.imageFetched(_:)), name: ImageManager.Notification.name, object: nil)
+		super.init(overlay: overlay)
+		tileModel.delegate = self
 	}
 
-	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
+	deinit {
+		print("OverlayRenderer.deinit")
+		tileModel.cancel()
+	}
+
+	override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
 		lastRequestedZoomScale = zoomScale
 
-		guard let baseTimeContext = self.baseTimeContext else {
-			var red: CGFloat = 0
-			var green: CGFloat = 0
-			var blue: CGFloat = 0
-			var alpha: CGFloat = 0
-			backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+		let coordinates = Coordinates(mapRect: mapRect)
+		let request = TileModel.Request(index: index, scale: zoomScale, coordinates: coordinates)
+		let tiles = tileModel.tiles(with: request)
+		tileModel.resume()
 
-			CGContextSetRGBFillColor(context, red, green, blue, alpha)
-			CGContextFillRect(context, rectForMapRect(mapRect))
-			return
-		}
+		tiles.forEach { tile in
+			if let image = tile.image {
+				context.clear(rect(for: tile.mapRect))
+				context.setAlpha(0.6)
 
-		let imageManager = ImageManager.sharedManager
-		let images = imageManager.images(inMapRect: mapRect, zoomScale: zoomScale, baseTimeContext: baseTimeContext, priority: .High)
-
-		images.forEach { image in
-			if let _ = image.xRevertedImageData, imageReference = image.xRevertedImageData?.CGImage {
-				CGContextClearRect(context, rectForMapRect(image.mapRect))
-				CGContextSetAlpha(context, 0.6)
-				CGContextDrawImage(context, rectForMapRect(image.mapRect), imageReference)
+				UIGraphicsPushContext(context)
+				image.draw(in: rect(for: tile.mapRect))
+				UIGraphicsPopContext()
 			} else {
 				var red: CGFloat = 0
 				var green: CGFloat = 0
@@ -55,20 +57,19 @@ public class OverlayRenderer: MKOverlayRenderer {
 				var alpha: CGFloat = 0
 				backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
 
-				CGContextSetRGBFillColor(context, red, green, blue, alpha)
-				CGContextFillRect(context, rectForMapRect(image.mapRect))
+				context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
+				context.fill(rect(for: tile.mapRect))
 			}
 		}
 	}
+}
 
-// MARK: - ImageManagerNotification
-
-	func imageFetched(notification: NSNotification) {
-		guard let image = notification.userInfo?[ImageManager.Notification.object] as? Image else { return }
-
-		if baseTimeContext?.baseTime != image.baseTimeContext.baseTime { return }
-		if baseTimeContext?.index != image.baseTimeContext.index { return }
-
-		setNeedsDisplayInMapRect(image.mapRect)
+extension OverlayRenderer: TileModelDelegate {
+	public func tileModel(_ model: TileModel, added tiles: Set<Tile>) {
+		tiles.forEach {
+			setNeedsDisplayIn($0.mapRect)
+		}
 	}
+
+	public func tileModel(_ model: TileModel, failed tile: Tile) { }
 }

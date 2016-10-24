@@ -9,6 +9,11 @@
 import Foundation
 import MapKit
 
+/**
+These constants represents zoom level used at High-resolution Precipitation Nowcasts.
+(http://www.jma.go.jp/en/highresorad/)
+The `ZoomLevel` could be converted from a `MKZoomScale` by using initializer.
+*/
 public enum ZoomLevel: Int {
 	static let MKZoomScaleForLevel4: CGFloat = 0.000488
 	static let MKZoomScaleForLevel2: CGFloat = 0.000122

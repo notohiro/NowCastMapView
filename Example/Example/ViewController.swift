@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 import NowCastMapView
 
-class ViewController: UIViewController, MKMapViewDelegate {
+class ViewController: UIViewController {
+
 	struct Constants {
 		static let numberOfForecastBars = 12
 		static let numberOfPastBars = 12
@@ -22,53 +23,57 @@ class ViewController: UIViewController, MKMapViewDelegate {
 	@IBOutlet weak var slider: UISlider!
 	@IBOutlet weak var indexLabel: UILabel!
 
-// MARK: - NowCastMapViewDataSource
+// MARK: - NowCastMapView Variables
 
+	let baseTimeModel = BaseTimeModel()
 	var baseTime: BaseTime? {
 		didSet {
 			if oldValue == baseTime { return }
-			overlays.forEach {
-				guard let baseTime = self.baseTime else { $0.1.renderer.baseTimeContext = nil; return }
-				let index = $0.0
-				let baseTimeContext = BaseTimeContext(baseTime: baseTime, index: index)
-				$0.1.renderer.baseTimeContext = baseTimeContext
+			if let baseTime = baseTime {
+				print("baseTime updated: \(baseTime)")
+
+				renderers.removeAll()
+				mapView.removeOverlays(mapView.overlays)
+
+				let overlay = Overlay()
+				for index in -Constants.numberOfPastBars...Constants.numberOfForecastBars {
+					let renderer = OverlayRenderer(overlay: overlay, baseTime: baseTime, index: index)
+
+					renderers[index] = renderer
+				}
+				OperationQueue.main.addOperation {
+					self.mapView.add(overlay, level: .aboveRoads)
+					self.mapView.setNeedsDisplay()
+				}
+
+				rainLevelsModel = RainLevelsModel(baseTime: baseTime)
+				rainLevelsModel?.delegate = self
 			}
 		}
 	}
 
-	var baseTimeIndex: Int = -1 {
+	var index: Int = 0 {
 		didSet {
-			if baseTimeIndex == oldValue { return }
-			indexLabel.text = "\(baseTimeIndex)"
-
-			mapView.removeOverlays(mapView.overlays)
-
-			guard let overlay = overlays[baseTimeIndex]?.overlay else { return }
-			mapView.addOverlay(overlay, level: .AboveRoads)
+			if index == oldValue { return }
+			indexLabel.text = "\(index)"
+			let overlays = mapView.overlays
+			mapView.removeOverlays(overlays)
+			mapView.addOverlays(overlays)
 		}
 	}
 
+	var rainLevelsModel: RainLevelsModel?
+
 // MARK: - Other Variables
 
-	var overlays = [Int : (overlay: Overlay, renderer: OverlayRenderer)]()
-	let imageManager = ImageManager.sharedManager
+	var renderers = [Int : OverlayRenderer]()
 
 	var annotation: MKPointAnnotation? {
 		didSet {
-			if let baseTime = baseTime, annotation = annotation {
-				let _ = RainLevels(baseTime: baseTime, coordinate: annotation.coordinate) { rainLevels, error in
-					NSOperationQueue.mainQueue().addOperationWithBlock {
-						guard let baseTimeString = rainLevels.baseTime.baseTimeString(atIndex: 0) else { return }
-						guard let level = rainLevels.rainLevel(atBaseTimeIndex: 0)?.level else { return }
-
-						let message = baseTimeString + ": level = " + String(level)
-						let alertController = UIAlertController(title: "Fetched RainLevels", message: message, preferredStyle: .Alert)
-
-						let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-						alertController.addAction(defaultAction)
-
-						self.presentViewController(alertController, animated: true, completion: nil)
-					}
+			if let annotation = annotation {
+				let request = RainLevelsModel.Request(coordinate: annotation.coordinate, range: 0...0)
+				if let rainLevels = rainLevelsModel?.rainLevels(with: request) {
+					rainLevelsModel(rainLevelsModel!, added: rainLevels)
 				}
 			}
 		}
@@ -82,36 +87,26 @@ class ViewController: UIViewController, MKMapViewDelegate {
 		// Initialize mapView
 		mapView.delegate = self
 
-		// Initialize Overlay and Renderer
-		for index in -Constants.numberOfPastBars...Constants.numberOfForecastBars {
-			let overlay = Overlay()
-			let renderer = OverlayRenderer(overlay: overlay)
-			overlays[index] = (overlay, renderer)
-		}
-
 		// register notification
-		let nc = NSNotificationCenter.defaultCenter()
-		nc.addObserver(self, selector: #selector(ViewController.baseTimeUpdated(_:)), name: BaseTimeManager.Notification.name, object: nil)
-
-		// restore last baseTime
-		baseTime = BaseTimeManager.sharedManager.lastSavedBaseTime
+		baseTimeModel.delegate = self
+		baseTimeModel.fetch()
+		baseTimeModel.fetchInterval =  3
 
 		slider.maximumValue = Float(Constants.numberOfForecastBars)
 		slider.minimumValue = -Float(Constants.numberOfPastBars)
-		slider.value = 0
-		baseTimeIndex = 0
+		indexLabel.text = "\(index)"
     }
 
 // MARK: - IBAction
 
-	@IBAction func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
-		if (sender.state == .Began) {
+	@IBAction func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+		if (sender.state == .began) {
 			// remove existing annotations
 			mapView.removeAnnotations(mapView.annotations)
 
 			// add annotation
-			let touchedPoint = sender.locationInView(mapView)
-			let touchCoordinate = mapView.convertPoint(touchedPoint, toCoordinateFromView: mapView)
+			let touchedPoint = sender.location(in: mapView)
+			let touchCoordinate = mapView.convert(touchedPoint, toCoordinateFrom: mapView)
 
 			let anno = MKPointAnnotation()
 			anno.coordinate = touchCoordinate
@@ -120,27 +115,61 @@ class ViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 
-	@IBAction func sliderValueChanged(sender: UISlider) {
-		baseTimeIndex = Int(floor(sender.value))
-		sender.value = Float(baseTimeIndex)
+	@IBAction func sliderValueChanged(_ sender: UISlider) {
+		index = Int(floor(sender.value))
+		sender.value = Float(index)
 	}
 
-// MARK: - MKMapViewDelegate
 
-	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-		return overlays.filter { $0.1.overlay === overlay }.first!.1.renderer
-	}
 
 // MARK: - UIGestureRecognizerDelegate
 
-	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
+}
 
-// MARK: - BaseTimeManager.Notification
+// MARK: - BaseTimeModelDelegate
 
-    func baseTimeUpdated(notification: NSNotification) {
-		guard let object = notification.userInfo?[BaseTimeManager.Notification.object] as? BaseTimeManagerNotificationObject else { return }
-		baseTime = object.baseTime
+extension ViewController: BaseTimeModelDelegate {
+	public func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {
+		self.baseTime = baseTime
+	}
+}
+
+// MARK: - BaseTimeModelDelegate
+
+extension ViewController: RainLevelsModelDelegate {
+	func rainLevelsModel(_ model: RainLevelsModel, added rainLevels: RainLevels) {
+		guard let level = rainLevels.levels[0]?.rawValue else { return }
+		let message = "level = " + String(level)
+		let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
+
+		let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+		alertController.addAction(defaultAction)
+
+		OperationQueue.main.addOperation {
+			self.present(alertController, animated: true, completion: nil)
+		}
+	}
+
+	func rainLevelsModel(_ model: RainLevelsModel, failed request: RainLevelsModel.Request) {
+		let message = "failed"
+		let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
+
+		let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+		alertController.addAction(defaultAction)
+
+		OperationQueue.main.addOperation {
+			self.present(alertController, animated: true, completion: nil)
+		}
+	}
+}
+
+// MARK: - MKMapViewDelegate
+
+extension ViewController: MKMapViewDelegate {
+	func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+		return renderers[index]!
 	}
 }

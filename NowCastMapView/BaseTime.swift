@@ -8,113 +8,111 @@
 
 import Foundation
 
-public struct BaseTimeContext {
-	public var baseTime: BaseTime
-	public var index: Int
+/**
+A `BaseTime` structure contains a set of indexes represents forecast timeline as of specific forecast time.
+A `BaseTime` instances are parsed and instantiated from a simple xml data
+fetched from "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml".
+*/
+public struct BaseTime {
 
-	public init(baseTime: BaseTime, index: Int) {
-		self.baseTime = baseTime
-		self.index = index
-	}
-}
+	// MARK: - Public Properties
 
-public class BaseTime: NSObject, NSCoding, Comparable {
-	private let forecastPeriod = 12
-	private var baseTimeArr = [String]()
+	public let range: CountableClosedRange<Int> // -35...0..12
+	public var count: Int { return range.count }
 
-	public override var description: String {
-		return baseTimeString(atIndex: 0) ?? "error"
-	}
+	// MARK: - Private Properties
 
-	public required init?(coder aDecoder: NSCoder) {
-		super.init()
-		if let baseTimeArr = aDecoder.decodeObjectForKey("baseTimeArr") as? [String] {
-			self.baseTimeArr = baseTimeArr
-		} else {
-			return nil
-		}
-	}
+	private let ftStrings: [String]
+	private let ftDates: [Date]
 
-	public func encodeWithCoder(aCoder: NSCoder) {
-		aCoder.encodeObject(baseTimeArr, forKey: "baseTimeArr")
-	}
+	// MARK: - Functions
 
-	public required init?(baseTimeData data: NSData) {
-		super.init()
-		baseTimeArr = [String]()
-
-		let parser = NSXMLParser(data: data)
+	public init?(baseTimeData data: Data) {
+		// parse xml
+		let parser = XMLParser(data: data)
 		let parserDelegate =  BaseTimeParser()
 		parser.delegate = parserDelegate
-
 		if !parser.parse() { return nil }
 
-		let inputFormatter = NSDateFormatter()
+		// inputFormatter
+		let inputFormatter = DateFormatter()
 		inputFormatter.dateFormat = "yyyyMMddHHmm"
-		inputFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+		inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-		let outputFormatter = NSDateFormatter()
+		// create ftDates from baseTime
+		// contains only past date
+		var ftDates = [Date]()
+		for index in 0 ..< parserDelegate.parsedArr.count {
+			guard let date = inputFormatter.date(from: parserDelegate.parsedArr[index]) else { return nil }
+			ftDates.append(date)
+		}
+
+		// create ftDates with fts for forecast
+		let base = ftDates[0]
+		BaseTimeModel.Constants.fts.enumerated().forEach { index, ft in
+			if ft == 0 { return }
+			ftDates.insert(base.addingTimeInterval(TimeInterval(ft*60)), at: 0)
+		}
+
+		// outputFormatter
+		let outputFormatter = DateFormatter()
 		outputFormatter.dateFormat = "yyyyMMddHHmm"
-		outputFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+		outputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-		guard let firstBaseTime = parserDelegate.parsedArr.first else { return nil }
-		guard let forecastTime = inputFormatter.dateFromString(firstBaseTime) else { return nil }
-
-		var forecastDateArr = [NSDate]()
-		for i in 1...forecastPeriod {
-			forecastDateArr.append(NSDate(timeInterval: NSTimeInterval(i*60*5), sinceDate: forecastTime))
+		// create ftStrings from ftDates
+		var ftStrings = [String]()
+		ftDates.forEach { date in
+			ftStrings.append(outputFormatter.string(from: date))
 		}
 
-		// reverse array
-		forecastDateArr.sortInPlace {
-			if $0.compare($1) == .OrderedAscending {
-				return false
-			} else {
-				return true
-			}
-		}
-
-		baseTimeArr += forecastDateArr.map { outputFormatter.stringFromDate($0) }
-		baseTimeArr += parserDelegate.parsedArr
-
-		// temporary fix until AME-141
-		if baseTimeArr.count != 48 { return nil }
+		self.ftDates = ftDates
+		self.ftStrings = ftStrings
+		range = BaseTime.index(from: ftDates.endIndex-1) ... BaseTime.index(from: ftDates.startIndex)
 
 		return
 	}
 
-	public func count() -> Int {
-		return baseTimeArr.count
+	public subscript(index: Int) -> String {
+		return ftStrings[BaseTime.arrayIndex(from: index)]
 	}
 
-	public func range() -> Range<Int> {
-		// -35...0...12
-		return (-baseTimeArr.count+forecastPeriod+1...forecastPeriod)
+	public subscript(index: Int) -> Date {
+		return ftDates[BaseTime.arrayIndex(from: index)]
+	}
+}
+
+// MARK: - Static Functions
+
+extension BaseTime {
+	/// convert from 0...47 to -35...12
+	static fileprivate func index(from arrayIndex: Int) -> Int {
+		return -(arrayIndex - (BaseTimeModel.Constants.fts.count - 1))
 	}
 
-	public func baseTimeString(atIndex index: Int) -> String? {
-		// convert from 12...-35 to 0...47
-		if range() ~= index { return baseTimeArr[-index+forecastPeriod] }
-
-		return nil
+	/// convert from -35...12 to 0...47
+	static fileprivate func arrayIndex(from index: Int) -> Int {
+		return (-index) + (BaseTimeModel.Constants.fts.count - 1)
 	}
+}
 
-	public func baseTimeDate(atIndex index: Int) -> NSDate? {
-		if range() ~= index {
-			guard let baseTime = baseTimeString(atIndex: index) else { return nil }
+// MARK: - CustomStringConvertible
 
-			let inputFormatter = NSDateFormatter()
-			inputFormatter.dateFormat = "yyyyMMddHHmm"
-			inputFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
-
-			return inputFormatter.dateFromString(baseTime)
-		}
-
-		return nil
+extension BaseTime: CustomStringConvertible {
+	public var description: String {
+		return self[0]
 	}
+}
 
-	public func compare(other: BaseTime) -> NSComparisonResult {
-		// this api should return not optional value. and index: 0 must success.
-		return baseTimeDate(atIndex: 0)!.compare(other.baseTimeDate(atIndex: 0)!)
+// MARK: - CustomDebugStringConvertible
+
+extension BaseTime: CustomDebugStringConvertible {
+	public var debugDescription: String {
+//		var output: [String] = []
+//
+//		output.append("[url]: \(url)")
+//		output.append(image != nil ? "[image]: not nil" : "[image]: nil")
+//
+//		return output.joined(separator: "\n")
+		return description
 	}
 }
