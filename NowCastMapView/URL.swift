@@ -10,7 +10,8 @@ import Foundation
 
 extension URL {
 	public init?(baseTime: BaseTime, index: Int, modifiers: Tile.Modifiers) {
-		let forecastTime: String = baseTime[index]
+		if !baseTime.range.contains(index) { return nil }
+		let forecastTime: String = index < 0 ? baseTime[index] : baseTime[0]
 		let viewTime: String = index < 0 ? forecastTime : baseTime[index]
 
 		let urlString = String(format: "%@%@%@%@%@%@%@%ld%@%ld%@",

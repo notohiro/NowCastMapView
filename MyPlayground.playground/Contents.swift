@@ -4,9 +4,9 @@ import Foundation
 //PlaygroundPage.current.needsIndefiniteExecution = true
 
 
-var arr = ["a", "b"]
-arr.enumerated().forEach { index, val in
-	print(index)
-}
+let range = 1...3
 
-arr.insert("c", at: 0)
+range.contains(1)
+range.contains(3)
+range.contains(4)
+range.contains(0)
