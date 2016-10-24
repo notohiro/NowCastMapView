@@ -9,60 +9,67 @@
 import Foundation
 import MapKit
 
-public protocol OverlayRendererDataSource {
-	func images(inMapRect mapRect: MKMapRect, forZoomScale zoomScale: MKZoomScale) -> [Image]?
-}
+open class OverlayRenderer: MKOverlayRenderer {
 
-public class OverlayRenderer: MKOverlayRenderer {
 	static let DefaultBackgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
 
-	public var dataSource: OverlayRendererDataSource?
-	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor {
-		didSet {
-			backgroundImage = OverlayRenderer.makeImage(fromUIColor: backgroundColor)
-		}
-	}
-	private var backgroundImage: UIImage
+	open let baseTime: BaseTime
+	open let index: Int
+	open let tileModel: TileModel
 
-	static private func makeImage(fromUIColor color: UIColor) -> UIImage {
-		let rect = CGRect.init(x: 0, y: 0, width: 1.0, height: 1.0)
-		UIGraphicsBeginImageContext(rect.size)
-		let bgContext = UIGraphicsGetCurrentContext()
+	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
+	public var lastRequestedZoomScale: MKZoomScale?
 
-		CGContextSetFillColorWithColor(bgContext, color.CGColor)
-		CGContextFillRect(bgContext, rect)
+	public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
+		self.baseTime = baseTime
+		self.index = index
+		tileModel = TileModel(baseTime: baseTime)
 
-		let image = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-
-		return image
-	}
-
-	override public init(overlay: MKOverlay) {
-		backgroundImage = OverlayRenderer.makeImage(fromUIColor: backgroundColor)
 		super.init(overlay: overlay)
+		tileModel.delegate = self
 	}
 
-	init(overlay: MKOverlay, backgroundColor: UIColor) {
-		backgroundImage = OverlayRenderer.makeImage(fromUIColor: backgroundColor)
-		super.init(overlay: overlay)
+	deinit {
+		print("OverlayRenderer.deinit")
+		tileModel.cancel()
 	}
 
-	override public func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-		dataSource?.images(inMapRect: mapRect, forZoomScale: zoomScale)?.forEach { image in
-			if let imageData = image.imageData, imageReference = image.imageData?.CGImage {
-				UIGraphicsBeginImageContext(imageData.size)
-				let imageContext = UIGraphicsGetCurrentContext()
-				CGContextDrawImage(imageContext, CGRect.init(x: 0, y: 0, width: imageData.size.width, height: imageData.size.height), imageReference)
-				let revertedImg = UIGraphicsGetImageFromCurrentImageContext()
-				UIGraphicsEndImageContext()
+	override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
+		lastRequestedZoomScale = zoomScale
 
-				CGContextClearRect(context, rectForMapRect(image.mapRect))
-				CGContextSetAlpha(context, 0.6)
-				CGContextDrawImage(context, rectForMapRect(image.mapRect), revertedImg.CGImage)
+		let coordinates = Coordinates(mapRect: mapRect)
+		let request = TileModel.Request(index: index, scale: zoomScale, coordinates: coordinates)
+		let tiles = tileModel.tiles(with: request)
+		tileModel.resume()
+
+		tiles.forEach { tile in
+			if let image = tile.image {
+				context.clear(rect(for: tile.mapRect))
+				context.setAlpha(0.6)
+
+				UIGraphicsPushContext(context)
+				image.draw(in: rect(for: tile.mapRect))
+				UIGraphicsPopContext()
 			} else {
-				CGContextDrawImage(context, rectForMapRect(image.mapRect), backgroundImage.CGImage)
+				var red: CGFloat = 0
+				var green: CGFloat = 0
+				var blue: CGFloat = 0
+				var alpha: CGFloat = 0
+				backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+				context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
+				context.fill(rect(for: tile.mapRect))
 			}
 		}
 	}
+}
+
+extension OverlayRenderer: TileModelDelegate {
+	public func tileModel(_ model: TileModel, added tiles: Set<Tile>) {
+		tiles.forEach {
+			setNeedsDisplayIn($0.mapRect)
+		}
+	}
+
+	public func tileModel(_ model: TileModel, failed tile: Tile) { }
 }

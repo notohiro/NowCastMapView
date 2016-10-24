@@ -8,83 +8,52 @@
 
 import Foundation
 
-public func == (lhs: BaseTime, rhs: BaseTime) -> Bool {
-	if lhs === rhs { return true }
+// MARK: - Hashable
 
-	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
-	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
-
-	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedSame {
-		return true
-	} else {
-		return false
+extension BaseTime: Hashable {
+	public var hashValue: Int {
+		let base: String = self[0]
+		return base.hashValue
 	}
 }
 
-public func == (lhs: BaseTime?, rhs: BaseTime) -> Bool {
-	guard let lhs = lhs else { return false }
+// MARK: - Equatable
 
-	return lhs == rhs
-}
+extension BaseTime: Equatable {
+	public static func == (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
 
-public func == (lhs: BaseTime, rhs: BaseTime?) -> Bool {
-	guard let rhs = rhs else { return false }
-
-	return lhs == rhs
-}
-
-public func == (lhs: BaseTime?, rhs: BaseTime?) -> Bool {
-	// for in case of nil == nil
-	if lhs === rhs { return true }
-
-	guard let lhs = lhs else { return false }
-	guard let rhs = rhs else { return false }
-
-	return lhs == rhs
-}
-
-public func != (lhs: BaseTime, rhs: BaseTime) -> Bool {
-	if lhs === rhs { return false }
-
-	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return true }
-	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return true }
-
-	if lhsBaseTimeDate.compare(rhsBaseTimeDate) != .OrderedSame {
-		return true
-	} else {
-		return false
+	public static func != (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		return !(lhs == rhs)
 	}
 }
 
-public func != (lhs: BaseTime?, rhs: BaseTime) -> Bool {
-	guard let lhs = lhs else { return true }
+// MARK: - Comparable
 
-	return lhs != rhs
-}
+extension BaseTime: Comparable {
+	public static func < (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		let lhsDate: Date = lhs[0]
+		let rhsDate: Date = rhs[0]
 
-public func != (lhs: BaseTime, rhs: BaseTime?) -> Bool {
-	guard let rhs = rhs else { return true }
+		if lhsDate.compare(rhsDate) == .orderedAscending {
+			return true
+		} else {
+			return false
+		}
+	}
 
-	return lhs != rhs
-}
+	public static func <= (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		if lhs == rhs { return true }
+		return lhs < rhs
+	}
 
-public func != (lhs: BaseTime?, rhs: BaseTime?) -> Bool {
-	// for in case of nil == nil
-	if lhs === rhs { return false }
+	public static func >= (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		if lhs == rhs { return true }
+		return lhs > rhs
+	}
 
-	guard let lhs = lhs else { return true }
-	guard let rhs = rhs else { return true }
-
-	return lhs != rhs
-}
-
-public func < (lhs: BaseTime, rhs: BaseTime) -> Bool {
-	guard let lhsBaseTimeDate = lhs.baseTimeDate(atIndex: 0) else { return false }
-	guard let rhsBaseTimeDate = rhs.baseTimeDate(atIndex: 0) else { return false }
-
-	if lhsBaseTimeDate.compare(rhsBaseTimeDate) == .OrderedAscending {
-		return true
-	} else {
-		return false
+	public static func > (lhs: BaseTime, rhs: BaseTime) -> Bool {
+		return !(lhs < rhs)
 	}
 }
