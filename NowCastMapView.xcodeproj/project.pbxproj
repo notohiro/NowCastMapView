@@ -828,6 +828,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.NowCastMapView;
 				PRODUCT_NAME = NowCastMapView;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -850,6 +851,7 @@
 				PRODUCT_NAME = NowCastMapView;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
