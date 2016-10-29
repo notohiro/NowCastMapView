@@ -43,7 +43,9 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
 		let request = RainLevelsModel.Request(coordinate: coordinate, range: 0...0)
-		XCTAssertNil(rainLevelsModel.rainLevels(with: request) {_ in self.handlerExecuted = true })
+		rainLevelsModel.rainLevels(with: request)
+		// test duplicated request and override completion handler
+		rainLevelsModel.rainLevels(with: request) {_ in self.handlerExecuted = true }
 
 		wait(seconds: 3)
 
@@ -55,6 +57,20 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 		}
 
 		XCTAssertTrue(handlerExecuted)
+
+		// cached request
+		result = nil
+
+		rainLevelsModel.rainLevels(with: request)
+
+		wait(seconds: 3)
+
+		switch result {
+		case .succeeded(_, _)?:
+			break
+		default:
+			XCTFail()
+		}
 	}
 
 	func testRainLevelsWithInvalidRequest() {
@@ -72,7 +88,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
 		let request = RainLevelsModel.Request(coordinate: coordinate, range: -100...0)
-		XCTAssertNil(rainLevelsModel.rainLevels(with: request) {_ in self.handlerExecuted = true })
+		rainLevelsModel.rainLevels(with: request) {_ in self.handlerExecuted = true }
 
 		wait(seconds: 3)
 
@@ -83,6 +99,35 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 			XCTFail()
 		}
 
+		XCTAssertTrue(handlerExecuted)
+	}
+
+	func testRainLevelsCancel() {
+		let baseTimeModel = BaseTimeModel()
+		baseTimeModel.delegate = self
+		baseTimeModel.fetch()
+		wait(seconds: BaseTestCase.timeout)
+		XCTAssertNotNil(baseTime)
+
+		guard let baseTime = self.baseTime else { XCTFail(); return }
+
+		let rainLevelsModel = RainLevelsModel(baseTime: baseTime)
+		rainLevelsModel.delegate = self
+
+		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
+
+		let request = RainLevelsModel.Request(coordinate: coordinate, range: 0...0)
+		rainLevelsModel.rainLevels(with: request) {_ in self.handlerExecuted = true }
+		rainLevelsModel.cancel(request)
+
+		wait(seconds: 3)
+
+		switch result {
+		case .canceled(_)?:
+			break
+		default:
+			XCTFail()
+		}
 		XCTAssertTrue(handlerExecuted)
 	}
 }

@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 public protocol RainLevelsProvider {
-	func rainLevels(with request: RainLevelsModel.Request, completionHandler: ((RainLevelsModel.Result) -> Void)?) -> RainLevels?
+	func rainLevels(with request: RainLevelsModel.Request, completionHandler: ((RainLevelsModel.Result) -> Void)?)
 }
 
 public protocol RainLevelsModelDelegate: class {
@@ -45,24 +45,17 @@ open class RainLevelsModel: RainLevelsProvider {
 		processingModels.forEach { (request, model) in finished(withResult: Result.failed(request: request)) }
 	}
 
-	public func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) -> RainLevels? {
-		var processTiles = false
-
+	public func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) {
 		if let handler = completionHandler {
 			completionHandlers[request] = handler
 		}
 
-		objc_sync_enter(self)
-		let retVal = rainLevels[request]
-		if retVal == nil {
-			if !processingRequests.contains(request) {
-				processTiles = true
-				processingRequests.insert(request)
-			}
+		if let rainLevels = rainLevels[request] {
+			finished(withResult: Result.succeeded(request: request, result: rainLevels))
+			return
 		}
-		objc_sync_exit(self)
 
-		if processTiles {
+		if processingRequests.insert(request).inserted {
 			tileQueue.addOperation {
 				let model = TileModel(baseTime: self.baseTime)
 				model.delegate = self
@@ -80,8 +73,10 @@ open class RainLevelsModel: RainLevelsProvider {
 				model.resume()
 			}
 		}
+	}
 
-		return retVal
+	public func cancel(_ request: Request) {
+		finished(withResult: Result.canceled(request: request))
 	}
 
 	fileprivate func finished(withResult result: Result) {
