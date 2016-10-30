@@ -21,12 +21,12 @@ public struct Coordinates {
 	/// The coordinate of bottom right.
 	public var terminal: CLLocationCoordinate2D
 
-	init(origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
+	public init(origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) {
 		self.origin = origin
 		self.terminal = terminal
 	}
 
-	init(modifiers: Tile.Modifiers) {
+	public init(modifiers: Tile.Modifiers) {
 		let deltas = Tile.Deltas(zoomLevel: modifiers.zoomLevel)
 		let originLatitude = Constants.originLatitude - Double(modifiers.latitude)*deltas.latitude
 		let originLongitude = Constants.originLongitude + Double(modifiers.longitude)*deltas.longitude
@@ -37,7 +37,7 @@ public struct Coordinates {
 		terminal = CLLocationCoordinate2DMake(terminalLatitude, terminalLongitude)
 	}
 
-	init(mapRect: MKMapRect) {
+	public init(mapRect: MKMapRect) {
 		// mapRect origin Coordinate
 		origin = MKCoordinateForMapPoint(mapRect.origin)
 

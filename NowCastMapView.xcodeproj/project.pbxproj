@@ -44,6 +44,7 @@
 		D38D34441CE724B100D77509 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D38D34451CE724B100D77509 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */; };
+		D391ACCD1DC450D400B9D866 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
 		D3A4D7C11D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
 		D3A4D7C21D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
 		D3A4D7C31D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
@@ -100,7 +101,6 @@
 		D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3F1E8DE1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
-		D3FD41FE1C6815D600EE1A65 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
 		D3FD41FF1C6815DA00EE1A65 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D3FD42061C6B6A9C00EE1A65 /* TileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */; };
 /* End PBXBuildFile section */
@@ -569,6 +569,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D391ACCD1DC450D400B9D866 /* Tile.swift in Sources */,
 				D3A5E4201D12221E005B47D4 /* BaseTime+Comparable.swift in Sources */,
 				D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */,
 				D3CB76531D96451E00498829 /* RainLevels.swift in Sources */,
@@ -598,7 +599,6 @@
 				D30F944C1DAAA06200AFEBB0 /* RainLevelsModelTests.swift in Sources */,
 				D3DE78AC1D77D6730054420C /* Coordinates.swift in Sources */,
 				D3CB764A1D96293000498829 /* Overlay.swift in Sources */,
-				D3FD41FE1C6815D600EE1A65 /* Tile.swift in Sources */,
 				D3112F9F1BACA1E700FE21CF /* BaseTimeModel.swift in Sources */,
 				D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */,
 				D3A4D7C31D62BF89005FA9D5 /* URL.swift in Sources */,
