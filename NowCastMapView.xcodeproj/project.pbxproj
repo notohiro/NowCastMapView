@@ -29,9 +29,9 @@
 		D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
 		D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
 		D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
-		D3716E941DA1D34E001DCC74 /* RainLevels+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevels+Request.swift */; };
-		D3716E951DA1D34E001DCC74 /* RainLevels+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevels+Request.swift */; };
-		D3716E961DA1D34E001DCC74 /* RainLevels+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevels+Request.swift */; };
+		D3716E941DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */; };
+		D3716E951DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */; };
+		D3716E961DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */; };
 		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
 		D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
 		D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
@@ -44,6 +44,7 @@
 		D38D34441CE724B100D77509 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D38D34451CE724B100D77509 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */; };
+		D391ACCD1DC450D400B9D866 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
 		D3A4D7C11D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
 		D3A4D7C21D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
 		D3A4D7C31D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
@@ -96,8 +97,10 @@
 		D3EA9D8F1DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
 		D3EA9D901DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
 		D3EA9D911DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
+		D3F1E8DC1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
+		D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
+		D3F1E8DE1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
-		D3FD41FE1C6815D600EE1A65 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
 		D3FD41FF1C6815DA00EE1A65 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D3FD42061C6B6A9C00EE1A65 /* TileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */; };
 /* End PBXBuildFile section */
@@ -135,7 +138,7 @@
 		D367BA341D94F24D0014E109 /* URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTests.swift; sourceTree = "<group>"; };
 		D367BA371D94F4440014E109 /* CoordinatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatesTests.swift; sourceTree = "<group>"; };
 		D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevel.swift; sourceTree = "<group>"; };
-		D3716E931DA1D34E001DCC74 /* RainLevels+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevels+Request.swift"; sourceTree = "<group>"; };
+		D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Request.swift"; sourceTree = "<group>"; };
 		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
 		D374E88D1C5ED75F001837E3 /* RainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevels.swift; sourceTree = "<group>"; };
 		D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseTime+Comparable.swift"; sourceTree = "<group>"; };
@@ -159,6 +162,7 @@
 		D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Modifiers.swift"; sourceTree = "<group>"; };
 		D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileModel+Request.swift"; sourceTree = "<group>"; };
 		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Result.swift"; sourceTree = "<group>"; };
 		D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsTest.swift; sourceTree = "<group>"; };
 		D3FD41FC1C68154F00EE1A65 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
 		D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileTests.swift; sourceTree = "<group>"; };
@@ -288,7 +292,8 @@
 				D33F56331D1BDB560088E547 /* RainLevel.swift */,
 				D374E88D1C5ED75F001837E3 /* RainLevels.swift */,
 				D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */,
-				D3716E931DA1D34E001DCC74 /* RainLevels+Request.swift */,
+				D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */,
+				D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */,
 				D3D3CCEE1BAE5A500083B7FC /* MapView */,
 			);
 			name = RainLevels;
@@ -534,6 +539,7 @@
 			files = (
 				D3A4D7C51D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */,
 				D3DE78AE1D78F5290054420C /* Tile+Modifiers.swift in Sources */,
+				D3F1E8DC1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */,
 				D3CB76481D96292E00498829 /* Overlay.swift in Sources */,
 				D3CB765A1D96712B00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeModel.swift in Sources */,
@@ -547,7 +553,7 @@
 				D3CB764F1D9637B400498829 /* UIColor.swift in Sources */,
 				D3CB76411D9628EC00498829 /* RainLevel.swift in Sources */,
 				D3CB764B1D96293200498829 /* OverlayRenderer.swift in Sources */,
-				D3716E941DA1D34E001DCC74 /* RainLevels+Request.swift in Sources */,
+				D3716E941DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */,
 				D3A4D7CA1D62C440005FA9D5 /* MKMapRect.swift in Sources */,
 				D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */,
 				D30341391C63864100F44630 /* UIImage.swift in Sources */,
@@ -563,6 +569,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D391ACCD1DC450D400B9D866 /* Tile.swift in Sources */,
 				D3A5E4201D12221E005B47D4 /* BaseTime+Comparable.swift in Sources */,
 				D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */,
 				D3CB76531D96451E00498829 /* RainLevels.swift in Sources */,
@@ -575,6 +582,7 @@
 				D3D3CCF21BAE6BE70083B7FC /* BaseTimeTests.swift in Sources */,
 				D3CB76561D966B3300498829 /* RainLevelsModel.swift in Sources */,
 				D3FD42061C6B6A9C00EE1A65 /* TileTests.swift in Sources */,
+				D3F1E8DE1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */,
 				D3CB76351D95487600498829 /* MKMapRectTests.swift in Sources */,
 				D36DB30F1D1B59F90003DD7F /* ZoomLevel.swift in Sources */,
 				D3CB76331D95467200498829 /* TileModelTests.swift in Sources */,
@@ -582,7 +590,7 @@
 				D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */,
 				D367BA351D94F24D0014E109 /* URLTests.swift in Sources */,
 				D3DE78B01D78F5290054420C /* Tile+Modifiers.swift in Sources */,
-				D3716E961DA1D34E001DCC74 /* RainLevels+Request.swift in Sources */,
+				D3716E961DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */,
 				D3A4D7CC1D62C440005FA9D5 /* MKMapRect.swift in Sources */,
 				D3FD41FF1C6815DA00EE1A65 /* UIImage.swift in Sources */,
 				D3112FA01BACA1EA00FE21CF /* BaseTime.swift in Sources */,
@@ -591,7 +599,6 @@
 				D30F944C1DAAA06200AFEBB0 /* RainLevelsModelTests.swift in Sources */,
 				D3DE78AC1D77D6730054420C /* Coordinates.swift in Sources */,
 				D3CB764A1D96293000498829 /* Overlay.swift in Sources */,
-				D3FD41FE1C6815D600EE1A65 /* Tile.swift in Sources */,
 				D3112F9F1BACA1E700FE21CF /* BaseTimeModel.swift in Sources */,
 				D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */,
 				D3A4D7C31D62BF89005FA9D5 /* URL.swift in Sources */,
@@ -606,6 +613,7 @@
 			files = (
 				D3A4D7C61D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */,
 				D3DE78AF1D78F5290054420C /* Tile+Modifiers.swift in Sources */,
+				D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */,
 				D3CB76491D96292F00498829 /* Overlay.swift in Sources */,
 				D3CB765B1D96712C00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
@@ -619,7 +627,7 @@
 				D3CB76501D9637B400498829 /* UIColor.swift in Sources */,
 				D3CB76401D9628EC00498829 /* RainLevel.swift in Sources */,
 				D3CB764C1D96293300498829 /* OverlayRenderer.swift in Sources */,
-				D3716E951DA1D34E001DCC74 /* RainLevels+Request.swift in Sources */,
+				D3716E951DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */,
 				D38D34401CE724B100D77509 /* BaseTime.swift in Sources */,
 				D38D34411CE724B100D77509 /* BaseTimeParser.swift in Sources */,
 				D38D34431CE724B100D77509 /* Tile.swift in Sources */,
