@@ -11,12 +11,11 @@ import CoreLocation
 import MapKit
 
 public protocol RainLevelsProvider {
-	func rainLevels(with request: RainLevelsModel.Request) -> RainLevels?
+	func rainLevels(with request: RainLevelsModel.Request, completionHandler: ((RainLevelsModel.Result) -> Void)?)
 }
 
 public protocol RainLevelsModelDelegate: class {
-	func rainLevelsModel(_ model: RainLevelsModel, added rainLevels: RainLevels)
-	func rainLevelsModel(_ model: RainLevelsModel, failed request: RainLevelsModel.Request)
+	func rainLevelsModel(_ model: RainLevelsModel, result: RainLevelsModel.Result)
 }
 
 open class RainLevelsModel: RainLevelsProvider {
@@ -24,10 +23,14 @@ open class RainLevelsModel: RainLevelsProvider {
 	open weak var delegate: RainLevelsModelDelegate?
 
 	open let baseTime: BaseTime
+
 	/// `processingRequests` contains requests including even not initialized request
 	open var processingRequests = Set<Request>()
+
 	/// `processingModels` contains only initialized requests
 	fileprivate var processingModels = [Request : TileModel]()
+
+	fileprivate var completionHandlers = [Request : ((Result) -> Void)]()
 
 	private var rainLevels = [Request : RainLevels]()
 
@@ -39,23 +42,20 @@ open class RainLevelsModel: RainLevelsProvider {
 	}
 
 	deinit {
-		processingModels.forEach { (request, model) in failed(request: request) }
+		processingModels.forEach { (request, model) in finished(withResult: Result.failed(request: request)) }
 	}
 
-	public func rainLevels(with request: Request) -> RainLevels? {
-		var processTiles = false
-
-		objc_sync_enter(self)
-		let retVal = rainLevels[request]
-		if retVal == nil {
-			if !processingRequests.contains(request) {
-				processTiles = true
-				processingRequests.insert(request)
-			}
+	public func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) {
+		if let handler = completionHandler {
+			completionHandlers[request] = handler
 		}
-		objc_sync_exit(self)
 
-		if processTiles {
+		if let rainLevels = rainLevels[request] {
+			finished(withResult: Result.succeeded(request: request, result: rainLevels))
+			return
+		}
+
+		if processingRequests.insert(request).inserted {
 			tileQueue.addOperation {
 				let model = TileModel(baseTime: self.baseTime)
 				model.delegate = self
@@ -64,7 +64,7 @@ open class RainLevelsModel: RainLevelsProvider {
 
 					let tileRequest = RainLevelsModel.makeRequest(index: index, coordinate: request.coordinate)
 					if model.tiles(with: tileRequest).first == nil {
-						self.failed(request: request)
+						self.finished(withResult: Result.failed(request: request))
 						return
 					}
 				}
@@ -73,17 +73,21 @@ open class RainLevelsModel: RainLevelsProvider {
 				model.resume()
 			}
 		}
-
-		return retVal
 	}
 
-	fileprivate func failed(request: Request) {
-		if processingRequests.contains(request) {
-			processingRequests.remove(request)
-			processingModels.removeValue(forKey: request)
+	public func cancel(_ request: Request) {
+		finished(withResult: Result.canceled(request: request))
+	}
 
-			delegate?.rainLevelsModel(self, failed: request)
-			processingModels[request]?.cancel()
+	fileprivate func finished(withResult result: Result) {
+		if processingRequests.remove(result.request) != nil {
+			processingModels[result.request]?.cancel()
+			processingModels.removeValue(forKey: result.request)
+
+			delegate?.rainLevelsModel(self, result: result)
+
+			completionHandlers[result.request]?(result)
+			completionHandlers.removeValue(forKey: result.request)
 		}
 	}
 
@@ -105,26 +109,24 @@ extension RainLevelsModel: TileModelDelegate {
 				for index in request.range {
 					let tileRequest = RainLevelsModel.makeRequest(index: index, coordinate: request.coordinate)
 					guard let tile = model.tiles(with: tileRequest).first else {
-						failed(request: request)
+						finished(withResult: Result.failed(request: request))
 						return
 					}
 					tiles[index] = tile
 				}
 
 				guard let rainLevels = RainLevels(baseTime: baseTime, coordinate: request.coordinate, tiles: tiles) else {
-					failed(request: request)
+					finished(withResult: Result.failed(request: request))
 					return
 				}
 
-				processingRequests.remove(request)
-				processingModels.removeValue(forKey: request)
-				delegate?.rainLevelsModel(self, added: rainLevels)
+				finished(withResult: Result.succeeded(request: request, result: rainLevels))
 			}
 		}
 	}
 
 	public func tileModel(_ model: TileModel, failed tile: Tile) {
 		let requests = processingModels.filter { (_, processingModel) in model === processingModel }
-		requests.forEach { (request, _) in failed(request: request) }
+		requests.forEach { (request, _) in finished(withResult: Result.failed(request: request)) }
 	}
 }

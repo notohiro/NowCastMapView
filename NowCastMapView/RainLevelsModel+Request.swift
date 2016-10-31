@@ -1,5 +1,5 @@
 //
-//  RainLevels+Request.swift
+//  RainLevelsModel+Request.swift
 //  NowCastMapView
 //
 //  Created by Hiroshi Noto on 2016/10/03.
