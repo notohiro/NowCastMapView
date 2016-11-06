@@ -38,8 +38,8 @@ public enum RainLevel: Int {
 		UIColor(rgba255: RGBA255(red: 180, green:   0, blue: 104, alpha: 255))
 	]
 
-	static let min = 0
-	static let max = 8
+	public static let min = 0
+	public static let max = 8
 
 	init?(rgba255: RGBA255) {
 		if let level = RainLevel.rgba255ToRainLevel[rgba255] {
