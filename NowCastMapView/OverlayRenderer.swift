@@ -30,7 +30,6 @@ open class OverlayRenderer: MKOverlayRenderer {
 	}
 
 	deinit {
-		print("OverlayRenderer.deinit")
 		tileModel.cancel()
 	}
 
