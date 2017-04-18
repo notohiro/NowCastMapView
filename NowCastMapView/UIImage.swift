@@ -10,6 +10,22 @@ import Foundation
 import UIKit
 
 extension UIImage {
+	/// this is no need anymore
+	var revertedImage: UIImage? {
+		guard let cgImage = cgImage else { return nil }
+
+		UIGraphicsBeginImageContext(size)
+
+		guard let newContext = UIGraphicsGetCurrentContext() else { return nil }
+
+		newContext.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
+		let revertedImage = UIGraphicsGetImageFromCurrentImageContext()
+
+		UIGraphicsEndImageContext()
+
+		return revertedImage
+	}
+
 	func rgba255(at point: CGPoint) -> RGBA255 {
 		// convert to binary data from getting pixel data
 		let pixelData = cgImage?.dataProvider?.data

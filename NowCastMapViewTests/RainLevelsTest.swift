@@ -12,6 +12,10 @@ import MapKit
 @testable import NowCastMapView
 
 class RainLevelsTest: BaseTestCase {
+	func testRainLevel() {
+		XCTAssertEqual(RainLevel.min, 0)
+		XCTAssertEqual(RainLevel.max, 8)
+	}
 
 	func testInit() {
 		let testPoints: [(point: CGPoint, expectedLevel: Int)] = [
