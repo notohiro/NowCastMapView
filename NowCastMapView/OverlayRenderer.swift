@@ -18,6 +18,7 @@ open class OverlayRenderer: MKOverlayRenderer {
 	open let tileModel: TileModel
 
 	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
+	public var imageAlpha: CGFloat = 0.6
 	public var lastRequestedZoomScale: MKZoomScale?
 
 	public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
@@ -44,10 +45,9 @@ open class OverlayRenderer: MKOverlayRenderer {
 		tiles.forEach { tile in
 			if let image = tile.image {
 				context.clear(rect(for: tile.mapRect))
-				context.setAlpha(0.6)
 
 				UIGraphicsPushContext(context)
-				image.draw(in: rect(for: tile.mapRect))
+				image.draw(in: rect(for: tile.mapRect), blendMode: .normal, alpha: imageAlpha)
 				UIGraphicsPopContext()
 			} else {
 				var red: CGFloat = 0

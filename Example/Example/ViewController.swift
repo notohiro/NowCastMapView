@@ -72,9 +72,7 @@ class ViewController: UIViewController {
 		didSet {
 			if let annotation = annotation {
 				let request = RainLevelsModel.Request(coordinate: annotation.coordinate, range: 0...0)
-				if let rainLevels = rainLevelsModel?.rainLevels(with: request) {
-					rainLevelsModel(rainLevelsModel!, added: rainLevels)
-				}
+				rainLevelsModel?.rainLevels(with: request)
 			}
 		}
 	}
@@ -140,28 +138,31 @@ extension ViewController: BaseTimeModelDelegate {
 // MARK: - BaseTimeModelDelegate
 
 extension ViewController: RainLevelsModelDelegate {
-	func rainLevelsModel(_ model: RainLevelsModel, added rainLevels: RainLevels) {
-		guard let level = rainLevels.levels[0]?.rawValue else { return }
-		let message = "level = " + String(level)
-		let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
+	func rainLevelsModel(_ model: RainLevelsModel, result: RainLevelsModel.Result) {
+		switch result {
+		case let .succeeded(request: _, result: result):
+			guard let level = result.levels[0]?.rawValue else { return }
+			let message = "level = " + String(level)
+			let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
 
-		let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-		alertController.addAction(defaultAction)
+			let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+			alertController.addAction(defaultAction)
 
-		OperationQueue.main.addOperation {
-			self.present(alertController, animated: true, completion: nil)
-		}
-	}
+			OperationQueue.main.addOperation {
+				self.present(alertController, animated: true, completion: nil)
+			}
+		case .failed(request: _):
+			let message = "failed"
+			let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
 
-	func rainLevelsModel(_ model: RainLevelsModel, failed request: RainLevelsModel.Request) {
-		let message = "failed"
-		let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
+			let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+			alertController.addAction(defaultAction)
 
-		let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-		alertController.addAction(defaultAction)
-
-		OperationQueue.main.addOperation {
-			self.present(alertController, animated: true, completion: nil)
+			OperationQueue.main.addOperation {
+				self.present(alertController, animated: true, completion: nil)
+			}
+		default:
+			break
 		}
 	}
 }

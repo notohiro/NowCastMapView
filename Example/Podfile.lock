@@ -1,16 +1,16 @@
 PODS:
-  - NowCastMapView (2.0)
+  - NowCastMapView (2.2.1)
 
 DEPENDENCIES:
   - NowCastMapView (from `../`)
 
 EXTERNAL SOURCES:
   NowCastMapView:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  NowCastMapView: d9146dc65ea35efb136ef257294bf95139660fdd
+  NowCastMapView: ec2fba9a9ed80157554f0b497b640c3651c92262
 
 PODFILE CHECKSUM: 06e52afdd8a32c8b1be246d212b25622459e7940
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.1
