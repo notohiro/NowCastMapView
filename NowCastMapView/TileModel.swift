@@ -150,7 +150,7 @@ extension TileModel: TileProvider {
 				} else {
 					var tile = Tile(image: nil, baseTime: baseTime, index: request.index, modifiers: mods, url: url)
 
-					tile.dataTask = session.dataTask(with: url) { data, response, error in
+					tile.dataTask = session.dataTask(with: url) { data, _, _ in
 						objc_sync_enter(self)
 						self.processingTiles.remove(tile)
 						tile.dataTask = nil
