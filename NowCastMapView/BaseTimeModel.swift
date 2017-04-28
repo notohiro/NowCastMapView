@@ -71,8 +71,8 @@ open class BaseTimeModel: BaseTimeProvider {
 		}
 		objc_sync_exit(self)
 
-		let task = session.dataTask(with: Constants.url) { [unowned self] data, response, error in
-			if let _ = error { // do something?
+		let task = session.dataTask(with: Constants.url) { [unowned self] data, _, error in
+			if error != nil { // do something?
 			} else {
 				let baseTime = data.flatMap { BaseTime(baseTimeData: $0) }
 

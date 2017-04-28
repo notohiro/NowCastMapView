@@ -49,9 +49,9 @@ public struct BaseTime {
 
 		// create ftDates with fts for forecast
 		let base = ftDates[0]
-		BaseTimeModel.Constants.fts.enumerated().forEach { index, ft in
-			if ft == 0 { return }
-			ftDates.insert(base.addingTimeInterval(TimeInterval(ft*60)), at: 0)
+		BaseTimeModel.Constants.fts.enumerated().forEach { _, minutes in
+			if minutes == 0 { return }
+			ftDates.insert(base.addingTimeInterval(TimeInterval(minutes*60)), at: 0)
 		}
 
 		// outputFormatter

@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-struct RGBA255 {
-	let red: Int
-	let green: Int
-	let blue: Int
-	let alpha: Int
+public struct RGBA255 {
+	public let red: Int
+	public let green: Int
+	public let blue: Int
+	public let alpha: Int
 
 	init(red: Int, green: Int, blue: Int, alpha: Int) {
 		self.red = RGBA255.round(red)
@@ -40,7 +40,7 @@ extension RGBA255: Hashable {
 // MARK: - Equatable
 
 extension RGBA255: Equatable {
-	static func == (lhs: RGBA255, rhs: RGBA255) -> Bool {
+	public static func == (lhs: RGBA255, rhs: RGBA255) -> Bool {
 		return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha ? true : false
 	}
 }
