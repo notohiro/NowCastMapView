@@ -98,7 +98,7 @@ public struct Tile {
 
 	- Returns: A `RGBA255` value at the given coordinate.
 	*/
-	func rgba255(at coordinate: CLLocationCoordinate2D) -> RGBA255? {
+	public func rgba255(at coordinate: CLLocationCoordinate2D) -> RGBA255? {
 		if contains(coordinate) == false { return nil }
 
 		guard let point = point(at: coordinate) else { return nil }

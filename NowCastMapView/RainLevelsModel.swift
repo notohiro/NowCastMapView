@@ -28,11 +28,11 @@ open class RainLevelsModel: RainLevelsProvider {
 	open var processingRequests = Set<Request>()
 
 	/// `processingModels` contains only initialized requests
-	fileprivate var processingModels = [Request : TileModel]()
+	fileprivate var processingModels = [Request: TileModel]()
 
-	fileprivate var completionHandlers = [Request : ((Result) -> Void)]()
+	fileprivate var completionHandlers = [Request: ((Result) -> Void)]()
 
-	private var rainLevels = [Request : RainLevels]()
+	private var rainLevels = [Request: RainLevels]()
 
 	private let tileQueue = OperationQueue()
 
@@ -42,7 +42,7 @@ open class RainLevelsModel: RainLevelsProvider {
 	}
 
 	deinit {
-		processingModels.forEach { (request, model) in finished(withResult: Result.failed(request: request)) }
+		processingModels.forEach { (request, _) in finished(withResult: Result.failed(request: request)) }
 	}
 
 	public func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) {
@@ -104,8 +104,8 @@ extension RainLevelsModel: TileModelDelegate {
 	public func tileModel(_ model: TileModel, added tiles: Set<Tile>) {
 		if model.processingTiles.count == 0 {
 			let requests = processingModels.filter { (_, processingModel) in model === processingModel }
-			requests.forEach { (request, processingModel) in
-				var tiles = [Int : Tile]()
+			requests.forEach { (request, _) in
+				var tiles = [Int: Tile]()
 				for index in request.range {
 					let tileRequest = RainLevelsModel.makeRequest(index: index, coordinate: request.coordinate)
 					guard let tile = model.tiles(with: tileRequest).first else {

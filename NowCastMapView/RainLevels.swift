@@ -12,8 +12,8 @@ import CoreLocation
 public struct RainLevels {
 	public let baseTime: BaseTime
 	public let coordinate: CLLocationCoordinate2D
-	private let tiles: [Int : Tile]
-	public private(set) var levels = [Int : RainLevel]()
+	public let tiles: [Int : Tile]
+	public private(set) var levels = [Int: RainLevel]()
 
 	// avoid call from main thread
 	public init?(baseTime: BaseTime, coordinate: CLLocationCoordinate2D, tiles: [Int : Tile]) {
@@ -29,7 +29,7 @@ public struct RainLevels {
 
 	// this function run in not main queue when instance initialized
 	private func calculate() -> [Int : RainLevel]? {
-		var rainLevels = [Int : RainLevel]()
+		var rainLevels = [Int: RainLevel]()
 		var failed = false
 
 		let queue = OperationQueue()
