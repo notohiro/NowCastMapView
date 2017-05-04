@@ -100,6 +100,9 @@
 		D3F1E8DC1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3F1E8DE1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
+		D3FCA2AE1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */; };
+		D3FCA2AF1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */; };
+		D3FCA2B01EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */; };
 		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
 		D3FD41FF1C6815DA00EE1A65 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D3FD42061C6B6A9C00EE1A65 /* TileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */; };
@@ -164,6 +167,7 @@
 		D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileModel+Request.swift"; sourceTree = "<group>"; };
 		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Result.swift"; sourceTree = "<group>"; };
+		D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Task.swift"; sourceTree = "<group>"; };
 		D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsTest.swift; sourceTree = "<group>"; };
 		D3FD41FC1C68154F00EE1A65 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
 		D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileTests.swift; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 				D33F56331D1BDB560088E547 /* RainLevel.swift */,
 				D374E88D1C5ED75F001837E3 /* RainLevels.swift */,
 				D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */,
+				D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */,
 				D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */,
 				D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */,
 				D3D3CCEE1BAE5A500083B7FC /* MapView */,
@@ -546,6 +551,7 @@
 				D3CB765A1D96712B00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeModel.swift in Sources */,
 				D3EA9D8F1DAC9A5C0019822D /* TileModel+Request.swift in Sources */,
+				D3FCA2AE1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */,
 				D3CB76551D96452200498829 /* RainLevels.swift in Sources */,
 				D3CB76581D966B3400498829 /* RainLevelsModel.swift in Sources */,
 				D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */,
@@ -604,6 +610,7 @@
 				D3112F9F1BACA1E700FE21CF /* BaseTimeModel.swift in Sources */,
 				D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */,
 				D3A4D7C31D62BF89005FA9D5 /* URL.swift in Sources */,
+				D3FCA2B01EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */,
 				D3CB763C1D955F6200498829 /* RGBA255.swift in Sources */,
 				D3DE78A71D6FB5740054420C /* TileModel.swift in Sources */,
 			);
@@ -620,6 +627,7 @@
 				D3CB765B1D96712C00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,
 				D3EA9D901DAC9A5C0019822D /* TileModel+Request.swift in Sources */,
+				D3FCA2AF1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */,
 				D3CB76541D96451E00498829 /* RainLevels.swift in Sources */,
 				D3CB76571D966B3300498829 /* RainLevelsModel.swift in Sources */,
 				D3DE78A61D6FB5740054420C /* TileModel.swift in Sources */,
