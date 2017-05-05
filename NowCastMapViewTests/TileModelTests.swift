@@ -65,7 +65,7 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 
 		let request = TileModel.Request(index: 0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
 		let tiles = tileModel.tiles(with: request)
-		let _ = tileModel.tiles(with: request)
+		_ = tileModel.tiles(with: request)
 		XCTAssertNotEqual(tiles.count, 0)
 		tileModel.resume()
 

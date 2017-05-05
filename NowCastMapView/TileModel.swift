@@ -109,10 +109,12 @@ open class TileModel {
 	open func cancel() {
 		// call `cancel()` for each tasks before `invalidateAndCancel()`.
 		// `invalidateAndCancel()` never exec completionHandler of tasks before resumed.
+		objc_sync_enter(self)
 		processingTiles.forEach { $0.dataTask?.cancel() }
 		session.invalidateAndCancel()
 		session = TileModel.initSession()
 		processingTiles.removeAll()
+		objc_sync_enter(self)
 	}
 
 	// MARK: - Helper Functions
