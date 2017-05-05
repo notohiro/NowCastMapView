@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "NowCastMapView"
-  s.version          = "2.3.0"
+  s.version          = "2.3.1"
   s.summary          = "library for High-resolution Precipitation Nowcasts provided by Japan Meteorological Agency"
   s.homepage         = "https://github.com/notohiro/NowCastMapView"
   s.license          = 'MIT'
