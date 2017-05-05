@@ -23,6 +23,16 @@
 		D335FBC21CBDEEF600960920 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D335FBC11CBDEEF600960920 /* tile2.png */; };
 		D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D3438CA41BADB3F4009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
+		D35344971EBE2AAA00CB27D3 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35344961EBE2AAA00CB27D3 /* TileCache.swift */; };
+		D35344981EBE2AB300CB27D3 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35344961EBE2AAA00CB27D3 /* TileCache.swift */; };
+		D35344991EBE2AB300CB27D3 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35344961EBE2AAA00CB27D3 /* TileCache.swift */; };
+		D353449B1EBF1E5F00CB27D3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353449A1EBF1E5F00CB27D3 /* Logger.swift */; };
+		D353449C1EBF1E5F00CB27D3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353449A1EBF1E5F00CB27D3 /* Logger.swift */; };
+		D353449D1EBF21A700CB27D3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353449A1EBF1E5F00CB27D3 /* Logger.swift */; };
+		D353449F1EBF466100CB27D3 /* TileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353449E1EBF466100CB27D3 /* TileCacheTests.swift */; };
+		D354FF841EBDF08800C80586 /* TileModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D354FF831EBDF08800C80586 /* TileModel+Task.swift */; };
+		D354FF851EBDF08800C80586 /* TileModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D354FF831EBDF08800C80586 /* TileModel+Task.swift */; };
+		D354FF861EBDF08800C80586 /* TileModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D354FF831EBDF08800C80586 /* TileModel+Task.swift */; };
 		D367BA351D94F24D0014E109 /* URLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367BA341D94F24D0014E109 /* URLTests.swift */; };
 		D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367BA371D94F4440014E109 /* CoordinatesTests.swift */; };
 		D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
@@ -139,6 +149,10 @@
 		D33F56331D1BDB560088E547 /* RainLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevel.swift; sourceTree = "<group>"; };
 		D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsModel.swift; sourceTree = "<group>"; };
 		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D35344961EBE2AAA00CB27D3 /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
+		D353449A1EBF1E5F00CB27D3 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		D353449E1EBF466100CB27D3 /* TileCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCacheTests.swift; sourceTree = "<group>"; };
+		D354FF831EBDF08800C80586 /* TileModel+Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileModel+Task.swift"; sourceTree = "<group>"; };
 		D367BA341D94F24D0014E109 /* URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTests.swift; sourceTree = "<group>"; };
 		D367BA371D94F4440014E109 /* CoordinatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatesTests.swift; sourceTree = "<group>"; };
 		D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevel.swift; sourceTree = "<group>"; };
@@ -253,6 +267,7 @@
 				D30F944B1DAAA06200AFEBB0 /* RainLevelsModelTests.swift */,
 				D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */,
 				D3CB76321D95467200498829 /* TileModelTests.swift */,
+				D353449E1EBF466100CB27D3 /* TileCacheTests.swift */,
 				D367BA371D94F4440014E109 /* CoordinatesTests.swift */,
 				D3CB763D1D95639100498829 /* ZoomLevelTests.swift */,
 				D367BA361D94F2540014E109 /* Extensions */,
@@ -276,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				D33249891BA727C9008F1F21 /* NowCastMapView.h */,
+				D353449A1EBF1E5F00CB27D3 /* Logger.swift */,
 				D3438CA21BADB3C9009B5AB8 /* Constants.swift */,
 				D332498B1BA727C9008F1F21 /* Info.plist */,
 			);
@@ -348,7 +364,9 @@
 				D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */,
 				D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */,
 				D3DE78A41D6FB5740054420C /* TileModel.swift */,
+				D354FF831EBDF08800C80586 /* TileModel+Task.swift */,
 				D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */,
+				D35344961EBE2AAA00CB27D3 /* TileCache.swift */,
 				D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */,
 				D3DE78A91D77D6730054420C /* Coordinates.swift */,
 			);
@@ -544,9 +562,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D354FF841EBDF08800C80586 /* TileModel+Task.swift in Sources */,
 				D3A4D7C51D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */,
 				D3DE78AE1D78F5290054420C /* Tile+Modifiers.swift in Sources */,
 				D3F1E8DC1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */,
+				D35344971EBE2AAA00CB27D3 /* TileCache.swift in Sources */,
+				D353449B1EBF1E5F00CB27D3 /* Logger.swift in Sources */,
 				D3CB76481D96292E00498829 /* Overlay.swift in Sources */,
 				D3CB765A1D96712B00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D33249B31BA84A03008F1F21 /* BaseTimeModel.swift in Sources */,
@@ -599,6 +620,8 @@
 				D367BA351D94F24D0014E109 /* URLTests.swift in Sources */,
 				D3DE78B01D78F5290054420C /* Tile+Modifiers.swift in Sources */,
 				D3716E961DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */,
+				D353449D1EBF21A700CB27D3 /* Logger.swift in Sources */,
+				D35344981EBE2AB300CB27D3 /* TileCache.swift in Sources */,
 				D3A4D7CC1D62C440005FA9D5 /* MKMapRect.swift in Sources */,
 				D3FD41FF1C6815DA00EE1A65 /* UIImage.swift in Sources */,
 				D3112FA01BACA1EA00FE21CF /* BaseTime.swift in Sources */,
@@ -611,7 +634,9 @@
 				D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */,
 				D3A4D7C31D62BF89005FA9D5 /* URL.swift in Sources */,
 				D3FCA2B01EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */,
+				D353449F1EBF466100CB27D3 /* TileCacheTests.swift in Sources */,
 				D3CB763C1D955F6200498829 /* RGBA255.swift in Sources */,
+				D354FF861EBDF08800C80586 /* TileModel+Task.swift in Sources */,
 				D3DE78A71D6FB5740054420C /* TileModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,9 +645,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D354FF851EBDF08800C80586 /* TileModel+Task.swift in Sources */,
 				D3A4D7C61D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */,
 				D3DE78AF1D78F5290054420C /* Tile+Modifiers.swift in Sources */,
 				D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */,
+				D35344991EBE2AB300CB27D3 /* TileCache.swift in Sources */,
+				D353449C1EBF1E5F00CB27D3 /* Logger.swift in Sources */,
 				D3CB76491D96292F00498829 /* Overlay.swift in Sources */,
 				D3CB765B1D96712C00498829 /* CLLocationCoordinate2D.swift in Sources */,
 				D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */,

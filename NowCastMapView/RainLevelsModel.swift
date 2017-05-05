@@ -15,21 +15,22 @@ public protocol RainLevelsProvider {
 }
 
 public protocol RainLevelsModelDelegate: class {
-	func rainLevelsModel(_ model: RainLevelsModel, result: RainLevelsModel.Result)
+	func rainLevelsModel(_ model: RainLevelsModel, task: RainLevelsModel.Task, result: RainLevelsModel.Result)
 }
 
 open class RainLevelsModel: RainLevelsProvider {
 
-	open weak var delegate: RainLevelsModelDelegate?
+	open private(set) weak var delegate: RainLevelsModelDelegate?
 
 	open let baseTime: BaseTime
 
-	open var tasks = [Task]()
+	open private(set) var tasks = [Task]()
 
-	private let lock = NSLock()
+	private let semaphore = DispatchSemaphore(value: 1)
 
-	public init(baseTime: BaseTime) {
+	public init(baseTime: BaseTime, delegate: RainLevelsModelDelegate? = nil) {
 		self.baseTime = baseTime
+		self.delegate = delegate
 	}
 
 	deinit {
@@ -37,15 +38,19 @@ open class RainLevelsModel: RainLevelsProvider {
 	}
 
 	open func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) -> Task {
+		semaphore.wait()
+
 		let task = Task(parent: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
 		tasks.append(task)
+
+		semaphore.signal()
 
 		return task
 	}
 
 	func remove(_ task: Task) {
-		lock.lock()
-		defer { self.lock.unlock() }
+		semaphore.wait()
+		defer { self.semaphore.signal() }
 
 		guard let index = tasks.index(of: task) else { return }
 		tasks.remove(at: index)

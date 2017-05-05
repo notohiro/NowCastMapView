@@ -24,4 +24,12 @@ extension MKMapRect {
 
 		self.init(origin: origin, size: size)
 	}
+
+	public init(coordinates: Coordinates) {
+		let origin = MKMapPointForCoordinate(coordinates.origin)
+		let terminal = MKMapPointForCoordinate(coordinates.terminal)
+		let size = MKMapSizeMake(terminal.x - origin.x, terminal.y - origin.y)
+
+		self.init(origin: origin, size: size)
+	}
 }

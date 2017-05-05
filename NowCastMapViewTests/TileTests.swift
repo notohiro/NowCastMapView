@@ -12,7 +12,7 @@ import MapKit
 @testable import NowCastMapView
 
 class TileModfiersTest: BaseTestCase {
-	func testInit() {
+	func testInitWithCoordinate() {
 		let coordinateAtRtightBottomOf00 = CLLocationCoordinate2DMake(47.6, 117.4)
 		guard let modifiers00 = Tile.Modifiers(zoomLevel: .level2, coordinate: coordinateAtRtightBottomOf00) else { XCTFail(); return }
 		XCTAssertEqual(modifiers00.latitude, 0)
@@ -22,10 +22,39 @@ class TileModfiersTest: BaseTestCase {
 		guard let modifiers11 = Tile.Modifiers(zoomLevel: .level2, coordinate: coordinateAtRtightBottomOf11) else { XCTFail(); return }
 		XCTAssertEqual(modifiers11.latitude, 1)
 		XCTAssertEqual(modifiers11.longitude, 1)
+
+		let coordinateAtRtightBottomOfServiceArea = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
+		guard let modifiers33 = Tile.Modifiers(zoomLevel: .level2, coordinate: coordinateAtRtightBottomOfServiceArea) else { XCTFail(); return }
+		XCTAssertEqual(modifiers33.latitude, 3)
+		XCTAssertEqual(modifiers33.longitude, 3)
+	}
+
+	func testInitWithInvalidCoordinate() {
+		let coordinateAtRtightBottomOf00 = CLLocationCoordinate2DMake(0, 0)
+		let modifiers = Tile.Modifiers(zoomLevel: .level2, coordinate: coordinateAtRtightBottomOf00)
+		XCTAssertNil(modifiers)
+	}
+
+	func testInitWithModifiers() {
+		let modifiers = Tile.Modifiers(zoomLevel: .level2, latitude: 3, longitude: 3)
+		XCTAssertNotNil(modifiers)
+	}
+
+	func testInitWithInvalidModifiers() {
+		let modifiers = Tile.Modifiers(zoomLevel: .level2, latitude: 4, longitude: 4)
+		XCTAssertNil(modifiers)
+	}
+
+	func testIsOnServiceBound() {
+		guard let modifiersOnBound = Tile.Modifiers(zoomLevel: .level2, latitude: 3, longitude: 3) else { XCTFail(); return }
+		XCTAssertTrue(modifiersOnBound.isOnServiceBound().east)
+		XCTAssertTrue(modifiersOnBound.isOnServiceBound().south)
+
+		guard let modifiersInTheMiddle = Tile.Modifiers(zoomLevel: .level2, latitude: 2, longitude: 2) else { XCTFail(); return }
+		XCTAssertFalse(modifiersInTheMiddle.isOnServiceBound().east)
+		XCTAssertFalse(modifiersInTheMiddle.isOnServiceBound().south)
 	}
 }
-
-
 
 class TileTests: BaseTestCase {
 	func testContains() {

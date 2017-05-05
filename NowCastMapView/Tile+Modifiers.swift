@@ -28,7 +28,7 @@ extension Tile {
 			self.latitude = latitude
 			self.longitude = longitude
 
-			if !isInServiceArea() { printError(); return nil }
+			if !isInServiceArea() { return nil }
 		}
 
 		init?(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D) {
@@ -53,7 +53,12 @@ extension Tile {
 			self.latitude = latitude
 			self.longitude = longitude
 
-			if !isInServiceArea() { printError(); return nil }
+			if !isInServiceArea() {
+				var message = "TileModel.isServiceAvailable == true, but initialization failed. "
+				message += "zoomLevel: \(zoomLevel), coordinate: \(coordinate)"
+				Logger.log(self, logLevel: .error, message: message)
+				return nil
+			}
 		}
 
 		public func isOnServiceBound() -> (east: Bool, south: Bool) {
@@ -71,13 +76,6 @@ extension Tile {
 			if longitude > zoomLevel.rawValue - 1 { return false }
 
 			return true
-		}
-
-		private func printError() {
-			var output: [String] = []
-			output.append("[ERROR] Tile.Modifiers initialization failed")
-			output.append("[zoomLevel]: \(zoomLevel), [latitude]: \(latitude), [longitude]: \(longitude)")
-			print(output)
 		}
 	}
 }

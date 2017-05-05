@@ -37,8 +37,6 @@ public struct Tile {
 
 	// MARK: - Internal Properties
 
-	var dataTask: URLSessionDataTask?
-
 	// MARK: - Functions
 
 	init(image: UIImage?, baseTime: BaseTime, index: Int, modifiers: Tile.Modifiers, url: URL) {

@@ -45,4 +45,15 @@ public struct Coordinates {
 		let terminalPoint = MKMapPointMake(mapRect.origin.x + mapRect.size.width, mapRect.origin.y + mapRect.size.height)
 		terminal = MKCoordinateForMapPoint(terminalPoint)
 	}
+
+	public func intersecting(_ coordinates: Coordinates) -> Coordinates? {
+		let newOrigin = CLLocationCoordinate2DMake(min(origin.latitude, coordinates.origin.latitude),
+		                                           max(origin.longitude, coordinates.origin.longitude))
+		let newTerminal = CLLocationCoordinate2DMake(max(terminal.latitude, coordinates.terminal.latitude),
+		                                             min(terminal.longitude, coordinates.terminal.longitude))
+
+		if newOrigin.latitude < newTerminal.latitude || newOrigin.longitude > newTerminal.longitude { return nil }
+
+		return Coordinates(origin: newOrigin, terminal: newTerminal)
+	}
 }

@@ -11,37 +11,32 @@ import MapKit
 
 @testable import NowCastMapView
 
-extension MKMapRect {
-	static func makeMapRect(origin: CLLocationCoordinate2D, terminal: CLLocationCoordinate2D) -> MKMapRect {
-		let originPoint = MKMapPointForCoordinate(origin)
-		let terminalPoint = MKMapPointForCoordinate(terminal)
-		let size = MKMapSizeMake(terminalPoint.x - originPoint.x, terminalPoint.y - originPoint.y)
-		return MKMapRectMake(originPoint.x, originPoint.y, size.width, size.height)
-	}
-}
-
 class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 	var baseTime: BaseTime?
 	var addedCount = 0
 	var failedCount = 0
+	var handlerExecuted = false
 
 	override func setUp() {
+		super.setUp()
+
 		baseTime = nil
 		addedCount = 0
 		failedCount = 0
+		handlerExecuted = false
 	}
 
 	func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {
 		self.baseTime = baseTime
 	}
 
-	func tileModel(_ model: TileModel, added tiles: Set<Tile>) {
+	func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
 		objc_sync_enter(self)
-		addedCount += tiles.count
+		addedCount += 1
 		objc_sync_exit(self)
 	}
 
-	func tileModel(_ model: TileModel, failed tile: Tile) {
+	func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) {
 		objc_sync_enter(self)
 		failedCount += 1
 		objc_sync_exit(self)
@@ -56,32 +51,25 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 
 		guard let baseTime = self.baseTime else { XCTFail(); return }
 
-		let tileModel = TileModel(baseTime: baseTime)
-		tileModel.delegate = self
+		let tileModel = TileModel(baseTime: baseTime, delegate: self)
 
 		let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 		let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
-		let request = TileModel.Request(index: 0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let tiles = tileModel.tiles(with: request)
-		_ = tileModel.tiles(with: request)
-		XCTAssertNotEqual(tiles.count, 0)
-		tileModel.resume()
+		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
+		let task1 = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+		let task2 = tileModel.tiles(with: request, completionHandler: nil)
+		task1.resume()
+		task2.resume()
 
 		wait(seconds: 3)
-		XCTAssertEqual(addedCount, tiles.count)
+		XCTAssertEqual(addedCount, 16*2)
 		XCTAssertEqual(failedCount, 0)
-
-		// tiles with cached
-		let tilesWithCached = tileModel.tiles(with: request)
-		XCTAssertEqual(tilesWithCached.filter { $0.image == nil }.count, 0)
-		wait(seconds: 3)
-		XCTAssertEqual(addedCount, tiles.count)
-		XCTAssertEqual(failedCount, 0)
+		XCTAssertTrue(handlerExecuted)
 	}
 
-	func testCancel() {
+	func testTilesWithRequestWithoutProcessing() {
 		let baseTimeModel = BaseTimeModel()
 		baseTimeModel.delegate = self
 		baseTimeModel.fetch()
@@ -90,22 +78,126 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 
 		guard let baseTime = self.baseTime else { XCTFail(); return }
 
-		let tileModel = TileModel(baseTime: baseTime)
-		tileModel.delegate = self
+		let tileModel = TileModel(baseTime: baseTime, delegate: self)
 
 		let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 		let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
-		let request = TileModel.Request(index: 0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let tiles = tileModel.tiles(with: request)
-		XCTAssertNotEqual(tiles.count, 0)
+		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates, withoutProcessing: true)
+		let task1 = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+		let task2 = tileModel.tiles(with: request, completionHandler: nil)
+		task1.resume()
+		task2.resume()
 
-		tileModel.cancel()
+		wait(seconds: 3)
+		XCTAssertEqual(addedCount, 16)
+		XCTAssertEqual(failedCount, 0)
+		XCTAssertTrue(handlerExecuted)
+	}
+
+	func testTilesWithIntersectMapRectRequest() {
+		let baseTimeModel = BaseTimeModel()
+		baseTimeModel.delegate = self
+		baseTimeModel.fetch()
+		wait(seconds: BaseTestCase.timeout)
+		XCTAssertNotNil(baseTime)
+
+		guard let baseTime = self.baseTime else { XCTFail(); return }
+
+		let tileModel = TileModel(baseTime: baseTime, delegate: self)
+
+		let origin = CLLocationCoordinate2DMake(Constants.originLatitude + 1, Constants.originLongitude)
+		let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
+		let coordinates = Coordinates(origin: origin, terminal: terminal)
+
+		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
+		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
+
+		wait(seconds: 3)
+		XCTAssertNotEqual(addedCount, 0)
+		XCTAssertEqual(failedCount, 0)
+		XCTAssertTrue(handlerExecuted)
+	}
+
+	func testTilesWithIntersectInvalidMapRectRequest() {
+		let baseTimeModel = BaseTimeModel()
+		baseTimeModel.delegate = self
+		baseTimeModel.fetch()
+		wait(seconds: BaseTestCase.timeout)
+		XCTAssertNotNil(baseTime)
+
+		guard let baseTime = self.baseTime else { XCTFail(); return }
+
+		let tileModel = TileModel(baseTime: baseTime, delegate: self)
+
+		let origin = CLLocationCoordinate2DMake(1, 0)
+		let terminal = CLLocationCoordinate2DMake(0, 1)
+		let coordinates = Coordinates(origin: origin, terminal: terminal)
+
+		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
+		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
 
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 0)
-		XCTAssertEqual(failedCount, tiles.count)
+		XCTAssertEqual(failedCount, 0)
+		XCTAssertTrue(handlerExecuted)
+	}
+
+	func testTaskCancel() {
+		let baseTimeModel = BaseTimeModel()
+		baseTimeModel.delegate = self
+		baseTimeModel.fetch()
+		wait(seconds: BaseTestCase.timeout)
+		XCTAssertNotNil(baseTime)
+
+		guard let baseTime = self.baseTime else { XCTFail(); return }
+
+		let tileModel = TileModel(baseTime: baseTime, delegate: self)
+
+		let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
+		let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
+		let coordinates = Coordinates(origin: origin, terminal: terminal)
+
+		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
+		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
+
+		task.invalidateAndCancel()
+
+		wait(seconds: 3)
+		XCTAssertEqual(addedCount, 0)
+		XCTAssertEqual(failedCount, 0)
+		XCTAssertFalse(handlerExecuted)
+	}
+
+	func testModelCancel() {
+		let baseTimeModel = BaseTimeModel()
+		baseTimeModel.delegate = self
+		baseTimeModel.fetch()
+		wait(seconds: BaseTestCase.timeout)
+		XCTAssertNotNil(baseTime)
+
+		guard let baseTime = self.baseTime else { XCTFail(); return }
+
+		let tileModel = TileModel(baseTime: baseTime, delegate: self)
+
+		let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
+		let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
+		let coordinates = Coordinates(origin: origin, terminal: terminal)
+
+		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
+		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
+
+		tileModel.cancelAll()
+
+		wait(seconds: 3)
+		XCTAssertEqual(addedCount, 0)
+		XCTAssertEqual(failedCount, 0)
+		XCTAssertFalse(handlerExecuted)
 	}
 
 	func testIsServiceAvailableWithinMapRect() {

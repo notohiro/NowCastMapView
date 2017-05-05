@@ -38,7 +38,7 @@ class RainLevelsTest: BaseTestCase {
 
 		for point in testPoints {
 			guard let coordinate = tile.coordinate(at: point.point) else { XCTFail(); return }
-			let tiles = [0 : tile]
+			let tiles = [0: tile]
 			guard let rainLevels = RainLevels(baseTime: baseTime, coordinate: coordinate, tiles: tiles) else { XCTFail(); return }
 
 			XCTAssertEqual(rainLevels.levels[0]?.rawValue, point.expectedLevel)
@@ -58,7 +58,7 @@ class RainLevelsTest: BaseTestCase {
 
 		for point in testPoints {
 			guard let coordinate = tile.coordinate(at: point.point) else { XCTFail(); return }
-			let tiles = [0 : tile]
+			let tiles = [0: tile]
 			guard let rainLevels = RainLevels(baseTime: baseTime, coordinate: coordinate, tiles: tiles) else { XCTFail(); return }
 
 			XCTAssertEqual(rainLevels.levels[0]?.rawValue, point.expectedLevel)
@@ -73,7 +73,7 @@ class RainLevelsTest: BaseTestCase {
 		guard let url = URL(baseTime: baseTime, index: 0, modifiers: modifiers) else { XCTFail(); return }
 		let tile = Tile(image: image, baseTime: baseTime, index: 0, modifiers: modifiers, url: url)
 
-		let tiles = [0 : tile]
+		let tiles = [0: tile]
 
 		XCTAssertNil(RainLevels(baseTime: baseTime, coordinate: CLLocationCoordinate2DMake(62, 99), tiles: tiles))
 	}

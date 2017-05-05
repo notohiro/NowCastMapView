@@ -46,8 +46,7 @@ class ViewController: UIViewController {
 					self.mapView.setNeedsDisplay()
 				}
 
-				rainLevelsModel = RainLevelsModel(baseTime: baseTime)
-				rainLevelsModel?.delegate = self
+				rainLevelsModel = RainLevelsModel(baseTime: baseTime, delegate: self)
 			}
 		}
 	}
@@ -72,7 +71,8 @@ class ViewController: UIViewController {
 		didSet {
 			if let annotation = annotation {
 				let request = RainLevelsModel.Request(coordinate: annotation.coordinate, range: 0...0)
-				rainLevelsModel?.rainLevels(with: request)
+				let task = rainLevelsModel?.rainLevels(with: request)
+				task?.resume()
 			}
 		}
 	}
@@ -138,7 +138,7 @@ extension ViewController: BaseTimeModelDelegate {
 // MARK: - BaseTimeModelDelegate
 
 extension ViewController: RainLevelsModelDelegate {
-	func rainLevelsModel(_ model: RainLevelsModel, result: RainLevelsModel.Result) {
+	func rainLevelsModel(_ model: RainLevelsModel, task: RainLevelsModel.Task, result: RainLevelsModel.Result) {
 		switch result {
 		case let .succeeded(request: _, result: result):
 			guard let level = result.levels[0]?.rawValue else { return }

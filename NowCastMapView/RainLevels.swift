@@ -15,6 +15,8 @@ public struct RainLevels {
 	public let tiles: [Int : Tile]
 	public private(set) var levels = [Int: RainLevel]()
 
+	private let semaphore = DispatchSemaphore(value: 1)
+
 	// avoid call from main thread
 	public init?(baseTime: BaseTime, coordinate: CLLocationCoordinate2D, tiles: [Int : Tile]) {
 		self.baseTime = baseTime
@@ -33,53 +35,21 @@ public struct RainLevels {
 		var failed = false
 
 		let queue = OperationQueue()
+		queue.qualityOfService = .background
+
 		tiles.forEach { (index, tile) in
 			queue.addOperation {
 				guard let rgba255 = tile.rgba255(at: self.coordinate) else { failed = true; return }
 				guard let rainLevel = RainLevel(rgba255: rgba255) else { failed = true; return }
 
+				self.semaphore.wait()
 				rainLevels[index] = rainLevel
+				self.semaphore.signal()
 			}
 		}
+
 		queue.waitUntilAllOperationsAreFinished()
 
 		return failed ? nil : rainLevels
 	}
 }
-
-// MARK: - Hashable
-
-//extension RainLevels: Hashable {
-//	public var hashValue: Int {
-//		return baseTime.hashValue
-//	}
-//}
-
-// MARK: - Equatable
-
-//extension RainLevels: Equatable {
-//	public static func == (lhs: Tile, rhs: Tile) -> Bool {
-//		return lhs.hashValue == rhs.hashValue
-//	}
-//}
-
-// MARK: - CustomStringConvertible
-
-//extension RainLevels: CustomStringConvertible {
-//	public var description: String {
-//		return baseTime.baseTimeString(atIndex: 0).flatMap { $0 + "\(coordinate.latitude)" + "\(coordinate.longitude)" } ?? "error"
-//	}
-//}
-
-// MARK: - CustomDebugStringConvertible
-
-//extension RainLevels: CustomDebugStringConvertible {
-//	public var debugDescription: String {
-//		var output: [String] = []
-//
-//		output.append("[url]: \(url)")
-//		output.append(image != nil ? "[image]: not nil" : "[image]: nil")
-//
-//		return output.joined(separator: "\n")
-//	}
-//}

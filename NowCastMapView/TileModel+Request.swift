@@ -15,16 +15,30 @@ extension TileModel {
 	*/
 	public struct Request {
 
-		public let index: Int
+		public let range: CountableClosedRange<Int>
 
 		public let scale: MKZoomScale
 
 		public let coordinates: Coordinates
 
-		public init(index: Int, scale: MKZoomScale, coordinates: Coordinates) {
-			self.index = index
+		public let mapRect: MKMapRect
+
+		public let withoutProcessing: Bool
+
+		public init(range: CountableClosedRange<Int>, scale: MKZoomScale, coordinates: Coordinates, withoutProcessing: Bool = false) {
+			self.range = range
 			self.scale = scale
 			self.coordinates = coordinates
+			self.mapRect = MKMapRect(coordinates: coordinates)
+			self.withoutProcessing = withoutProcessing
+		}
+
+		public init(range: CountableClosedRange<Int>, scale: MKZoomScale, mapRect: MKMapRect, withoutProcessing: Bool = false) {
+			self.range = range
+			self.scale = scale
+			self.coordinates = Coordinates(mapRect: mapRect)
+			self.mapRect = mapRect
+			self.withoutProcessing = withoutProcessing
 		}
 	}
 }

@@ -15,7 +15,7 @@ class BaseTimeModelTests: BaseTestCase, BaseTimeModelDelegate {
 
 	private var isFinished = false
 	private var delegateCount = 0
-	private var expectedResult: ComparisonResult? = nil
+	private var expectedResult: ComparisonResult?
 
 	override func setUp() {
 		super.setUp()

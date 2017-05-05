@@ -9,62 +9,48 @@
 import Foundation
 import MapKit
 
-/**
-A `TileProvider` protocol defines a way to request a `Tile`.
-*/
+/// A `TileProvider` protocol defines a way to request a `TileModel.Task`.
 public protocol TileProvider {
 
 	var baseTime: BaseTime { get }
 
-	/**
-	Returns tiles within given MapRect. The `Tile.image` object will be nil if it's not downloaded.
-	Call `resume()` method to obtain image file from internet.
-
-	- Parameter	request:	The request you need to get tiles.
-
-	- Returns: The tiles within given request.
-	*/
-	func tiles(with request: TileModel.Request) -> [Tile]
+	/// Returns task to obtain tiles within given MapRect.
+	/// Call `resume()` method of returning value to obtain image from internet.
+	///
+	/// - Parameters:
+	///   - request: The request you need to get tiles.
+	///   - completionHandler: The completion handler to call when the load request is complete.
+	/// - Returns: The task to process given request.
+	func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) -> TileModel.Task
 }
 
-/**
-A `TileAvailability` protocol defines a way to check the service availability.
-*/
+/// A `TileAvailability` protocol defines a way to check the service availability.
 public protocol TileAvailability {
-	/**
-	Returns the serivce availability within given MapRect.
 
-	- Parameter coordinates:	The `Coordinates` you want to know.
-
-	- Returns: `Coordinates` contains service area or not.
-	*/
+	/// Returns the serivce availability within given MapRect.
+	///
+	/// - Parameter coordinates: The `Coordinates` you want to know.
+	/// - Returns: `Coordinates` contains service area or not.
 	static func isServiceAvailable(within coordinates: Coordinates) -> Bool
 
-	/**
-	Returns the serivce availability at given coordinate.
-
-	- Parameter coordinate:	The coordinate you want to know.
-
-	- Returns: The service availability at coordinate.
-	*/
+	/// Returns the serivce availability at given coordinate.
+	///
+	/// - Parameter coordinate: The coordinate you want to know.
+	/// - Returns: The service availability at coordinate.
 	static func isServiceAvailable(at coordinate: CLLocationCoordinate2D) -> Bool
 }
 
-/**
-The delegate of a `TileModel` object must adopt the `TileModelDelegate` protocol.
-The `TileModelDelegate` protocol describes the methods that `TileModel` objects call on their delegates to handle requested events.
-*/
+/// The delegate of a `TileModel` object must adopt the `TileModelDelegate` protocol.
+/// The `TileModelDelegate` protocol describes the methods that `TileModel` objects call on their delegates to handle requested events.
 public protocol TileModelDelegate: class {
 	/// Tells the delegate that a request has finished and added tiles in model's cache.
-	func tileModel(_ model: TileModel, added tiles: Set<Tile>)
+	func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile)
 
 	/// Tells the delegate that a request has finished with error.
-	func tileModel(_ model: TileModel, failed tile: Tile)
+	func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile)
 }
 
-/**
-An `TileModel` object lets you load the `Tile` by providing a `Request` object.
-*/
+/// An `TileModel` object lets you load the `Tile` by providing a `Request` object.
 open class TileModel {
 
 	// MARK: - TileProvider
@@ -73,107 +59,62 @@ open class TileModel {
 
 	// MARK: - Public Properties
 
-	open weak var delegate: TileModelDelegate?
+	open fileprivate(set) var tasks = [Task]()
 
-	open var processingTiles = Set<Tile>()
+	open private(set) weak var delegate: TileModelDelegate?
 
 	// MARK: - Private Properties
 
-	fileprivate var session: URLSession
+	fileprivate let semaphore = DispatchSemaphore(value: 1)
 
-	fileprivate var cachedTiles = Set<Tile>() {
-		didSet {
-			let addedTiles = cachedTiles.subtracting(oldValue)
-			delegate?.tileModel(self, added: addedTiles)
-		}
-	}
+	// MARK: - Public Functions
 
-	// MARK: - Functions
-
-	public init(baseTime: BaseTime) {
+	public init(baseTime: BaseTime, delegate: TileModelDelegate? = nil) {
 		self.baseTime = baseTime
-		self.session = TileModel.initSession()
+		self.delegate = delegate
 	}
 
-	/// Resumes the all tasks, if it is suspended.
-	open func resume() {
-		processingTiles.forEach { $0.dataTask?.resume() }
+	public func cancelAll() {
+		let tasks = self.tasks
+
+		tasks.forEach { $0.invalidateAndCancel() }
 	}
 
-	/// Suspend the all tasks, if it is resumed.
-	open func suspend() {
-		processingTiles.forEach { $0.dataTask?.suspend() }
+	// MARK: - Internal Functions
+
+	func remove(_ task: Task) {
+		semaphore.wait()
+		defer { self.semaphore.signal() }
+
+		guard let index = tasks.index(of: task) else { return }
+		tasks.remove(at: index)
 	}
 
-	/// Immediately cancel the all tasks. Delegate will be called if it's set.
-	open func cancel() {
-		// call `cancel()` for each tasks before `invalidateAndCancel()`.
-		// `invalidateAndCancel()` never exec completionHandler of tasks before resumed.
-		objc_sync_enter(self)
-		processingTiles.forEach { $0.dataTask?.cancel() }
-		session.invalidateAndCancel()
-		session = TileModel.initSession()
-		processingTiles.removeAll()
-		objc_sync_enter(self)
-	}
+	func isProcessing(_ tile: Tile) -> Bool {
+		// thread safe
+		let tasks = self.tasks
 
-	// MARK: - Helper Functions
+		var processing = false
+		tasks.forEach { task in
+			if task.processingTiles[tile.url] != nil { processing = true }
+		}
 
-	private static func initSession() -> URLSession {
-		let configuration = URLSessionConfiguration.default
-		configuration.httpMaximumConnectionsPerHost = 4
-		return URLSession(configuration: configuration)
+		return processing
 	}
 }
 
 // MARK: - TileProvider
 
 extension TileModel: TileProvider {
-	open func tiles(with request: TileModel.Request) -> [Tile] {
-		var tiles = [Tile]()
+	open func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) -> Task {
+		semaphore.wait()
 
-		if !TileModel.isServiceAvailable(within: request.coordinates) { return tiles }
+		let task = Task(parent: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
+		tasks.append(task)
 
-		let zoomLevel = ZoomLevel(zoomScale: request.scale)
+		semaphore.signal()
 
-		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.origin) else { return tiles }
-		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.terminal) else { return tiles }
-
-		for latMod in originModifiers.latitude ... terminalModifiers.latitude {
-			for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
-				guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else { continue }
-				guard let url = URL(baseTime: baseTime, index: request.index, modifiers: mods) else { continue }
-
-				objc_sync_enter(self)
-				if let tile = (cachedTiles.filter { $0.url.absoluteString == url.absoluteString }.first) {
-					tiles.append(tile)
-				} else if let tile = (processingTiles.filter { $0.url.absoluteString == url.absoluteString }.first) {
-					tiles.append(tile)
-				} else {
-					var tile = Tile(image: nil, baseTime: baseTime, index: request.index, modifiers: mods, url: url)
-
-					tile.dataTask = session.dataTask(with: url) { data, _, _ in
-						objc_sync_enter(self)
-						self.processingTiles.remove(tile)
-						tile.dataTask = nil
-
-						if let image = (data.flatMap { UIImage(data: $0) }) {
-							tile.image = image
-							self.cachedTiles.insert(tile)
-						} else {
-							self.delegate?.tileModel(self, failed: tile)
-						}
-						objc_sync_exit(self)
-					}
-
-					processingTiles.insert(tile)
-					tiles.append(tile)
-				}
-				objc_sync_exit(self)
-			}
-		}
-
-		return tiles
+		return task
 	}
 }
 
@@ -200,5 +141,15 @@ extension TileModel: TileAvailability {
 		} else {
 			return false
 		}
+	}
+
+	open static var serviceAreaMapRect: MKMapRect {
+		return MKMapRect(coordinates: TileModel.serviceAreaCoordinates)
+	}
+
+	open static var serviceAreaCoordinates: Coordinates {
+		let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
+		let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
+		return Coordinates(origin: origin, terminal: terminal)
 	}
 }

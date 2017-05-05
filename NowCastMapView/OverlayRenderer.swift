@@ -15,7 +15,7 @@ open class OverlayRenderer: MKOverlayRenderer {
 
 	open let baseTime: BaseTime
 	open let index: Int
-	open let tileModel: TileModel
+	lazy open private(set) var tileCache: TileCache = TileCache(baseTime: self.baseTime, delegate: self)
 
 	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
 	public var imageAlpha: CGFloat = 0.6
@@ -24,23 +24,15 @@ open class OverlayRenderer: MKOverlayRenderer {
 	public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
 		self.baseTime = baseTime
 		self.index = index
-		tileModel = TileModel(baseTime: baseTime)
 
 		super.init(overlay: overlay)
-		tileModel.delegate = self
-	}
-
-	deinit {
-		tileModel.cancel()
 	}
 
 	override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
 		lastRequestedZoomScale = zoomScale
 
-		let coordinates = Coordinates(mapRect: mapRect)
-		let request = TileModel.Request(index: index, scale: zoomScale, coordinates: coordinates)
-		let tiles = tileModel.tiles(with: request)
-		tileModel.resume()
+		let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: mapRect)
+		let tiles = tileCache.tiles(with: request)
 
 		tiles.forEach { tile in
 			if let image = tile.image {
@@ -64,11 +56,9 @@ open class OverlayRenderer: MKOverlayRenderer {
 }
 
 extension OverlayRenderer: TileModelDelegate {
-	public func tileModel(_ model: TileModel, added tiles: Set<Tile>) {
-		tiles.forEach {
-			setNeedsDisplayIn($0.mapRect)
-		}
+	public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
+		setNeedsDisplayIn(tile.mapRect)
 	}
 
-	public func tileModel(_ model: TileModel, failed tile: Tile) { }
+	public func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) { }
 }

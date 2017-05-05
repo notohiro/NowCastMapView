@@ -15,6 +15,8 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 	var handlerExecuted = false
 
 	override func setUp() {
+		super.setUp()
+
 		baseTime = nil
 		result = nil
 		handlerExecuted = false
@@ -24,7 +26,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 		self.baseTime = baseTime
 	}
 
-	func rainLevelsModel(_ model: RainLevelsModel, result: RainLevelsModel.Result) {
+	func rainLevelsModel(_ model: RainLevelsModel, task: RainLevelsModel.Task, result: RainLevelsModel.Result) {
 		self.result = result
 	}
 
@@ -37,20 +39,18 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 
 		guard let baseTime = self.baseTime else { XCTFail(); return }
 
-		let rainLevelsModel = RainLevelsModel(baseTime: baseTime)
-		rainLevelsModel.delegate = self
+		let rainLevelsModel = RainLevelsModel(baseTime: baseTime, delegate: self)
 
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
-
 		let request = RainLevelsModel.Request(coordinate: coordinate, range: -12...12)
-		_ = rainLevelsModel.rainLevels(with: request)
-		// test duplicated request and override completion handler
-		_ = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
+		let task = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
 
 		wait(seconds: 3)
 
 		switch result {
-		case .succeeded(_, _)?:
+		case let .succeeded(_, rainLevels)?:
+			print(rainLevels)
 			break
 		default:
 			XCTFail()
@@ -69,8 +69,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 
 		guard let baseTime = self.baseTime else { XCTFail(); return }
 
-		let rainLevelsModel = RainLevelsModel(baseTime: baseTime)
-		rainLevelsModel.delegate = self
+		let rainLevelsModel = RainLevelsModel(baseTime: baseTime, delegate: self)
 
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
@@ -99,8 +98,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 
 		guard let baseTime = self.baseTime else { XCTFail(); return }
 
-		let rainLevelsModel = RainLevelsModel(baseTime: baseTime)
-		rainLevelsModel.delegate = self
+		let rainLevelsModel = RainLevelsModel(baseTime: baseTime, delegate: self)
 
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
