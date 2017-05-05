@@ -42,7 +42,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
-		let request = RainLevelsModel.Request(coordinate: coordinate, range: 0...0)
+		let request = RainLevelsModel.Request(coordinate: coordinate, range: -12...12)
 		_ = rainLevelsModel.rainLevels(with: request)
 		// test duplicated request and override completion handler
 		_ = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
@@ -104,7 +104,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
-		let request = RainLevelsModel.Request(coordinate: coordinate, range: 0...0)
+		let request = RainLevelsModel.Request(coordinate: coordinate, range: -12...12)
 		let task = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
 		task.cancel()
 
@@ -116,7 +116,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 		default:
 			XCTFail()
 		}
-		
+
 		XCTAssertTrue(handlerExecuted)
 		XCTAssert(rainLevelsModel.tasks.count == 0)
 	}

@@ -82,15 +82,20 @@ extension RainLevelsModel {
 
 		fileprivate func finished(withResult result: Result) {
 			lock.lock()
-			defer { self.lock.unlock() }
 
-			delegate?.rainLevelsModel(parent, result: result)
-			completionHandler?(result)
+			let delegate = self.delegate
+			let completionHandler = self.completionHandler
 
-			delegate = nil
-			completionHandler = nil
+			self.delegate = nil
+			self.completionHandler = nil
 
 			parent.remove(self)
+
+			lock.unlock()
+
+			// exec delegation and handler outside of NSLock, because method(ex. cancel()) may be called in these.
+			delegate?.rainLevelsModel(parent, result: result)
+			completionHandler?(result)
 		}
 	}
 }
@@ -105,7 +110,7 @@ extension RainLevelsModel.Task: TileModelDelegate {
 
 		if model.processingTiles.count != 0 { return }
 
-		if tiles.count != request.range.count {
+		if self.tiles.count != request.range.count {
 			finished(withResult: RainLevelsModel.Result.failed(request: request))
 			return
 		}
