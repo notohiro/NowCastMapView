@@ -19,7 +19,7 @@ open class OverlayRenderer: MKOverlayRenderer {
 
 	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
 	public var imageAlpha: CGFloat = 0.6
-	public var lastRequestedZoomScale: MKZoomScale?
+	public var lastDrawZoomScale: MKZoomScale?
 
 	public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
 		self.baseTime = baseTime
@@ -29,9 +29,10 @@ open class OverlayRenderer: MKOverlayRenderer {
 	}
 
 	override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
-		lastRequestedZoomScale = zoomScale
+		lastDrawZoomScale = zoomScale
 
-		let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: mapRect)
+		let intersectedMapRect = MKMapRectIntersection(mapRect, TileModel.serviceAreaMapRect)
+		let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: intersectedMapRect)
 		let tiles = tileCache.tiles(with: request)
 
 		var red: CGFloat = 0
@@ -41,7 +42,7 @@ open class OverlayRenderer: MKOverlayRenderer {
 		backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
 
 		context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
-		context.fill(rect(for: mapRect))
+		context.fill(rect(for: intersectedMapRect))
 
 		tiles.forEach { tile in
 			if let image = tile.image {
