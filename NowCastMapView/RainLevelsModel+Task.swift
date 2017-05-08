@@ -9,77 +9,80 @@
 import MapKit
 
 extension RainLevelsModel {
-	open class Task: Hashable {
+	open class Task {
 
 		// MARK: - Public Properties
 
-		public let request: Request
+		open let request: Request
 
-		public let baseTime: BaseTime
+		open let baseTime: BaseTime
 
-		public private(set) weak var delegate: RainLevelsModelDelegate?
+		open private(set) weak var delegate: RainLevelsModelDelegate?
 
-		public var hashValue: Int
+		open let hashValue = Date().hashValue
+
+		open private(set) var completionHandler: ((Result) -> Void)?
+
+		open fileprivate(set) var tiles = [Int: Tile]()
+
+		open fileprivate(set) var state = State.initialized
+
+		open let model: RainLevelsModel
 
 		// MARK: - Private Properties
 
-		lazy private var model: TileModel = TileModel(baseTime: self.baseTime, delegate: self)
+		lazy private var tileModel: TileModel = TileModel(baseTime: self.baseTime, delegate: self)
 
-		private let parent: RainLevelsModel
-
-		fileprivate var completionHandler: ((Result) -> Void)?
-
-		fileprivate var tiles = [Int: Tile]()
-
-//		private let queue = OperationQueue()
-
-		private var task: TileModel.Task?
+		private var task: TileModel.Task!
 
 		fileprivate let semaphore = DispatchSemaphore(value: 1)
 
 		// MARK: - Functions
 
-		public init(parent: RainLevelsModel,
+		public init(model: RainLevelsModel,
 		            request: Request,
 		            baseTime: BaseTime,
 		            delegate: RainLevelsModelDelegate?,
 		            completionHandler: ((Result) -> Void)?) {
-			self.parent = parent
+			self.model = model
 			self.request = request
 			self.baseTime = baseTime
 			self.delegate = delegate
 			self.completionHandler = completionHandler
-			self.hashValue = Date().hashValue
-
-//			queue.qualityOfService = .background
-
-			// prevent cancel() before initialize operation will be copmleted
-//			semaphore.wait()
 
 			let tileRequest = Task.makeRequest(range: request.range, coordinate: request.coordinate)
-			task = model.tiles(with: tileRequest, completionHandler: nil)
+			task = tileModel.tiles(with: tileRequest, completionHandler: nil)
 		}
 
 		open func resume() {
-			task?.resume()
+			semaphore.wait()
+
+			if state == .initialized { task.resume() }
+			state = .processing
+
+			semaphore.signal()
 		}
 
 		open func cancel() {
-//			semaphore.wait()
-			model.cancelAll()
-//			semaphore.signal()
+			semaphore.wait()
 
-//			finished(withResult: RainLevelsModel.Result.canceled(request: request))
+			if state == .initialized || state == .processing {
+				state = .canceled
+
+				tileModel.cancelAll()
+				finalizeTask()
+			}
+
+			semaphore.signal()
 		}
 
 		// MARK: - Private Functions
 
+		// should be called only once per instance and within semaphore
 		fileprivate func finished(withResult result: Result) {
-			semaphore.wait()
-
 			if let delegate = delegate {
 				OperationQueue().addOperation {
-					delegate.rainLevelsModel(self.parent, task: self, result: result)
+					delegate.rainLevelsModel(self.model, task: self, result: result)
 				}
 			}
 
@@ -89,14 +92,24 @@ extension RainLevelsModel {
 				}
 			}
 
-			self.delegate = nil
-			self.completionHandler = nil
-			self.task = nil
-
-			parent.remove(self)
-
-			semaphore.signal()
+			finalizeTask()
 		}
+
+		// should be called only once per instance and within semaphore
+		private func finalizeTask() {
+			delegate = nil
+			completionHandler = nil
+			model.remove(self)
+		}
+	}
+}
+
+extension RainLevelsModel.Task {
+	public enum State {
+		case initialized
+		case processing
+		case canceled
+		case completed
 	}
 }
 
@@ -115,22 +128,32 @@ extension RainLevelsModel.Task {
 extension RainLevelsModel.Task: TileModelDelegate {
 	public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
 		semaphore.wait()
-		tiles[tile.index] = tile
+
+		if state == .processing {
+			tiles[tile.index] = tile
+
+			if task.processingTiles.count != 0 {
+				semaphore.signal()
+				return
+			}
+
+			let result: RainLevelsModel.Result
+
+			if tiles.count != request.range.count {
+				result = RainLevelsModel.Result.failed(request: request)
+			} else {
+				if let rainLevels = RainLevels(baseTime: baseTime, coordinate: request.coordinate, tiles: tiles) {
+					result = RainLevelsModel.Result.succeeded(request: request, result: rainLevels)
+				} else {
+					result = RainLevelsModel.Result.failed(request: request)
+				}
+			}
+
+			state = .completed
+			finished(withResult: result)
+		}
+
 		semaphore.signal()
-
-		if task.processingTiles.count != 0 { return }
-
-		if tiles.count != request.range.count {
-			finished(withResult: RainLevelsModel.Result.failed(request: request))
-			return
-		}
-
-		guard let rainLevels = RainLevels(baseTime: baseTime, coordinate: request.coordinate, tiles: tiles) else {
-			finished(withResult: RainLevelsModel.Result.failed(request: request))
-			return
-		}
-
-		finished(withResult: RainLevelsModel.Result.succeeded(request: request, result: rainLevels))
 	}
 
 	public func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) {
@@ -140,8 +163,14 @@ extension RainLevelsModel.Task: TileModelDelegate {
 
 // MARK: - Hashable
 
+extension RainLevelsModel.Task: Hashable { }
+
 extension RainLevelsModel.Task {
 	public static func == (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
 		return lhs.hashValue == rhs.hashValue
+	}
+
+	public static func != (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
+		return !(lhs == rhs)
 	}
 }

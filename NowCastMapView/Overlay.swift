@@ -23,4 +23,8 @@ public class Overlay: NSObject, MKOverlay {
 
 		return MKMapRectMake(origin.x, origin.y, size.width, size.height)
 	}
+
+	public func intersects(_ mapRect: MKMapRect) -> Bool {
+		return MKMapRectIntersectsRect(mapRect, TileModel.serviceAreaMapRect)
+	}
 }

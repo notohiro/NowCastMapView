@@ -14,15 +14,12 @@ extension RainLevelsModel {
 			switch self {
 			case let .succeeded(_request, _):
 				return _request
-			case let .canceled(_request):
-				return _request
 			case let .failed(_request):
 				return _request
 			}
 		}
 
 		case succeeded(request: Request, result: RainLevels)
-		case canceled(request: Request)
 		case failed(request: Request)
 	}
 }

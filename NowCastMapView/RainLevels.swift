@@ -17,7 +17,6 @@ public struct RainLevels {
 
 	private let semaphore = DispatchSemaphore(value: 1)
 
-	// avoid call from main thread
 	public init?(baseTime: BaseTime, coordinate: CLLocationCoordinate2D, tiles: [Int : Tile]) {
 		self.baseTime = baseTime
 		self.coordinate = coordinate
@@ -25,11 +24,13 @@ public struct RainLevels {
 
 		if !TileModel.isServiceAvailable(at: coordinate) { return nil }
 
-		guard let levels = calculate() else { return nil }
+		guard let levels = calculate() else {
+			Logger.log(self, logLevel: .error, message: "RainLevels.init() failed")
+			return nil
+		}
 		self.levels = levels
 	}
 
-	// this function run in not main queue when instance initialized
 	private func calculate() -> [Int : RainLevel]? {
 		var rainLevels = [Int: RainLevel]()
 		var failed = false
@@ -39,8 +40,25 @@ public struct RainLevels {
 
 		tiles.forEach { (index, tile) in
 			queue.addOperation {
-				guard let rgba255 = tile.rgba255(at: self.coordinate) else { failed = true; return }
-				guard let rainLevel = RainLevel(rgba255: rgba255) else { failed = true; return }
+				guard let rgba255 = tile.rgba255(at: self.coordinate) else {
+					Logger.log(tile, logLevel: .error, message: "Tile.rgba255(at:) failed. coordinate: \(self.coordinate)")
+
+					self.semaphore.wait()
+					failed = true
+					self.semaphore.signal()
+
+					return
+				}
+
+				guard let rainLevel = RainLevel(rgba255: rgba255) else {
+					Logger.log(tile, logLevel: .error, message: "RainLevel(rgba255:) failed. rgba255: \(rgba255)")
+
+					self.semaphore.wait()
+					failed = true
+					self.semaphore.signal()
+
+					return
+				}
 
 				self.semaphore.wait()
 				rainLevels[index] = rainLevel

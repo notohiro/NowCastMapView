@@ -74,7 +74,8 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 		let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 
 		let request = RainLevelsModel.Request(coordinate: coordinate, range: -100...0)
-		_ = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
+		let task = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
 
 		wait(seconds: 3)
 
@@ -104,18 +105,13 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 
 		let request = RainLevelsModel.Request(coordinate: coordinate, range: -12...12)
 		let task = rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
+		task.resume()
 		task.cancel()
 
 		wait(seconds: 3)
 
-		switch result {
-		case .canceled(_)?:
-			break
-		default:
-			XCTFail()
-		}
-
-		XCTAssertTrue(handlerExecuted)
-		XCTAssert(rainLevelsModel.tasks.count == 0)
+		XCTAssertNil(result)
+		XCTAssertFalse(handlerExecuted)
+		XCTAssertEqual(rainLevelsModel.tasks.count, 0)
 	}
 }

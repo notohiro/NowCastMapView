@@ -161,8 +161,6 @@ extension ViewController: RainLevelsModelDelegate {
 			OperationQueue.main.addOperation {
 				self.present(alertController, animated: true, completion: nil)
 			}
-		default:
-			break
 		}
 	}
 }

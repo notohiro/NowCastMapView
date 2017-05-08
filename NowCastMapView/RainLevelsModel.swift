@@ -38,11 +38,10 @@ open class RainLevelsModel: RainLevelsProvider {
 	}
 
 	open func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) -> Task {
+		let task = Task(model: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
+
 		semaphore.wait()
-
-		let task = Task(parent: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
 		tasks.append(task)
-
 		semaphore.signal()
 
 		return task
@@ -52,7 +51,11 @@ open class RainLevelsModel: RainLevelsProvider {
 		semaphore.wait()
 		defer { self.semaphore.signal() }
 
-		guard let index = tasks.index(of: task) else { return }
+		guard let index = tasks.index(of: task) else {
+			Logger.log(self, logLevel: .warning, message: "tasks.index(of:) failed.")
+			return
+		}
+
 		tasks.remove(at: index)
 	}
 }

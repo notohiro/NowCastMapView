@@ -11,47 +11,50 @@ import UIKit
 import MapKit
 
 extension TileModel {
-	open class Task: NSObject {
+	open class Task {
 
 		// MARK: - Public Properties
 
-		open private(set) var request: Request
+		open private(set) var originalRequest: Request
+
+		open private(set) var currentRequest: Request?
 
 		open let baseTime: BaseTime
 
-		open weak var delegate: TileModelDelegate?
+		open private(set) weak var delegate: TileModelDelegate?
 
-		open var processingTiles = [URL: Tile]()
-		open var completedTiles = [Tile]()
+		open private(set) var processingTiles = [URL: Tile]()
+
+		open private(set) var completedTiles = [Tile]()
+
+		open private(set) var state = State.initialized
+
+		open let model: TileModel
+
+		open private(set) var completionHandler: (([Tile]) -> Void)?
+
+		open let hashValue = Date().hashValue
 
 		// MARK: - Private Properties
 
-		fileprivate var state = State.initialized
-
-		fileprivate let parent: TileModel
-
-		fileprivate var completionHandler: (([Tile]) -> Void)?
-
-		fileprivate var session: URLSession?
+		private var session: URLSession
 
 		private var suspendedTasks = [URLSessionTask]()
 
-		fileprivate let semaphore = DispatchSemaphore(value: 1)
+		private let semaphore = DispatchSemaphore(value: 1)
 
 		// MARK: - Functions
 
-		public init(parent: TileModel,
+		public init(model: TileModel,
 		            request: Request,
 		            baseTime: BaseTime,
 		            delegate: TileModelDelegate?,
 		            completionHandler: (([Tile]) -> Void)?) {
-			self.parent = parent
-			self.request = request
+			self.model = model
+			self.originalRequest = request
 			self.baseTime = baseTime
 			self.delegate = delegate
 			self.completionHandler = completionHandler
-
-			super.init()
 
 			let configuration = URLSessionConfiguration.default
 			configuration.httpMaximumConnectionsPerHost = 4
@@ -60,58 +63,12 @@ extension TileModel {
 
 			guard let newCoordinates = request.coordinates.intersecting(TileModel.serviceAreaCoordinates) else { return }
 
-			let newRequest = TileModel.Request(range: request.range,
+			currentRequest = TileModel.Request(range: request.range,
 			                                   scale: request.scale,
 			                                   coordinates: newCoordinates,
 			                                   withoutProcessing: request.withoutProcessing)
-			self.request = newRequest
 
-			let zoomLevel = ZoomLevel(zoomScale: newRequest.scale)
-
-			guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.origin) else {
-				var message = "Tile.Modifiers.init() failed. "
-				message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
-				Logger.log(self, logLevel: .warning, message: message)
-
-				return
-			}
-
-			guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.terminal) else {
-				var message = "Tile.Modifiers.init() failed. "
-				message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
-				Logger.log(self, logLevel: .warning, message: message)
-
-				return
-			}
-
-			for index in newRequest.range {
-				for latMod in originModifiers.latitude ... terminalModifiers.latitude {
-					for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
-						guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-							var message = "Tile.Modifiers.init() failed. "
-							message += "zoomLevel: \(zoomLevel) latitude: \(latMod) longitude: \(lonMod)"
-							Logger.log(self, logLevel: .warning, message: message)
-
-							continue
-						}
-
-						guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
-							let message = "URL.init() failed. baseTime: \(baseTime) index: \(index) modifiers: \(mods)"
-							Logger.log(self, logLevel: .warning, message: message)
-
-							continue
-						}
-
-						let tile = Tile(image: nil, baseTime: baseTime, index: index, modifiers: mods, url: url)
-
-						if newRequest.withoutProcessing && parent.isProcessing(tile) { continue }
-
-						suspendedTasks.append(makeDataTask(with: session, url: url))
-
-						processingTiles[url] = tile
-					}
-				}
-			}
+			configureTasks()
 		}
 
 		public func resume() {
@@ -153,13 +110,63 @@ extension TileModel {
 
 		// MARK: - Private Functions
 
-		// should be called only once per instance within semaphore
-		fileprivate func finalizeTask() {
-			session?.invalidateAndCancel()
-			session = nil
+		private func configureTasks() {
+			guard let currentRequest = self.currentRequest else { return }
+
+			let zoomLevel = ZoomLevel(zoomScale: currentRequest.scale)
+
+			guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.origin) else {
+				var message = "Tile.Modifiers.init() failed. "
+				message += "zoomLevel: \(zoomLevel) coordinate: \(currentRequest.coordinates.origin)"
+				Logger.log(self, logLevel: .warning, message: message)
+
+				return
+			}
+
+			guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.terminal) else {
+				var message = "Tile.Modifiers.init() failed. "
+				message += "zoomLevel: \(zoomLevel) coordinate: \(currentRequest.coordinates.origin)"
+				Logger.log(self, logLevel: .warning, message: message)
+
+				return
+			}
+
+			for index in currentRequest.range {
+				for latMod in originModifiers.latitude ... terminalModifiers.latitude {
+					for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
+						guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
+							var message = "Tile.Modifiers.init() failed. "
+							message += "zoomLevel: \(zoomLevel) latitude: \(latMod) longitude: \(lonMod)"
+							Logger.log(self, logLevel: .warning, message: message)
+
+							continue
+						}
+
+						guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
+							let message = "URL.init() failed. baseTime: \(baseTime) index: \(index) modifiers: \(mods)"
+							Logger.log(self, logLevel: .warning, message: message)
+
+							continue
+						}
+
+						let tile = Tile(image: nil, baseTime: baseTime, index: index, modifiers: mods, url: url)
+
+						if currentRequest.withoutProcessing && model.isProcessing(tile) { continue }
+
+						suspendedTasks.append(makeDataTask(with: session, url: url))
+
+						processingTiles[url] = tile
+					}
+				}
+			}
+		}
+
+		// should be called only once per instance and within semaphore
+		private func finalizeTask() {
+			session.invalidateAndCancel()
 			delegate = nil
 			completionHandler = nil
-			parent.remove(self)
+			model.remove(self)
 		}
 
 		private func makeDataTask(with session: URLSession, url: URL) -> URLSessionDataTask {
@@ -188,7 +195,7 @@ extension TileModel {
 
 						if let delegate = self.delegate {
 							OperationQueue().addOperation {
-								delegate.tileModel(self.parent, task: self, failed: tile)
+								delegate.tileModel(self.model, task: self, failed: tile)
 							}
 						}
 
@@ -201,7 +208,7 @@ extension TileModel {
 
 					if let delegate = self.delegate {
 						OperationQueue().addOperation {
-							delegate.tileModel(self.parent, task: self, added: tile)
+							delegate.tileModel(self.model, task: self, added: tile)
 						}
 					}
 
@@ -225,10 +232,24 @@ extension TileModel {
 }
 
 extension TileModel.Task {
-	enum State {
+	public enum State {
 		case initialized
 		case processing
 		case canceled
 		case completed
+	}
+}
+
+// MARK: - Hashable
+
+extension TileModel.Task: Hashable { }
+
+extension TileModel.Task: Equatable {
+	public static func == (lhs: TileModel.Task, rhs: TileModel.Task) -> Bool {
+		return lhs.hashValue == rhs.hashValue
+	}
+
+	public static func != (lhs: TileModel.Task, rhs: TileModel.Task) -> Bool {
+		return !(lhs == rhs)
 	}
 }

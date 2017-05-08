@@ -109,7 +109,7 @@ extension TileModel: TileProvider {
 	open func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) -> Task {
 		semaphore.wait()
 
-		let task = Task(parent: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
+		let task = Task(model: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
 		tasks.append(task)
 
 		semaphore.signal()

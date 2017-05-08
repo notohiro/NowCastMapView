@@ -34,6 +34,15 @@ open class OverlayRenderer: MKOverlayRenderer {
 		let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: mapRect)
 		let tiles = tileCache.tiles(with: request)
 
+		var red: CGFloat = 0
+		var green: CGFloat = 0
+		var blue: CGFloat = 0
+		var alpha: CGFloat = 0
+		backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+		context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
+		context.fill(rect(for: mapRect))
+
 		tiles.forEach { tile in
 			if let image = tile.image {
 				context.clear(rect(for: tile.mapRect))
@@ -41,15 +50,6 @@ open class OverlayRenderer: MKOverlayRenderer {
 				UIGraphicsPushContext(context)
 				image.draw(in: rect(for: tile.mapRect), blendMode: .normal, alpha: imageAlpha)
 				UIGraphicsPopContext()
-			} else {
-				var red: CGFloat = 0
-				var green: CGFloat = 0
-				var blue: CGFloat = 0
-				var alpha: CGFloat = 0
-				backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
-				context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
-				context.fill(rect(for: tile.mapRect))
 			}
 		}
 	}

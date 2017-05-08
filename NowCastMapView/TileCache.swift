@@ -63,7 +63,7 @@ extension TileCache: TileCacheProvider {
 
 		let zoomLevel = ZoomLevel(zoomScale: request.scale)
 
-		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.origin) else {
+		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.origin) else {
 			var message = "Tile.Modifiers.init() failed. "
 			message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
 			Logger.log(self, logLevel: .warning, message: message)
@@ -71,7 +71,7 @@ extension TileCache: TileCacheProvider {
 			return ret
 		}
 
-		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: request.coordinates.terminal) else {
+		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.terminal) else {
 			var message = "Tile.Modifiers.init() failed. "
 			message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
 			Logger.log(self, logLevel: .warning, message: message)
