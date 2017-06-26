@@ -66,7 +66,7 @@ extension TileCache: TileCacheProvider {
 		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.origin) else {
 			var message = "Tile.Modifiers.init() failed. "
 			message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
-			Logger.log(self, logLevel: .warning, message: message)
+			Logger.log(logLevel: .warning, message: message)
 
 			return ret
 		}
@@ -74,7 +74,7 @@ extension TileCache: TileCacheProvider {
 		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.terminal) else {
 			var message = "Tile.Modifiers.init() failed. "
 			message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
-			Logger.log(self, logLevel: .warning, message: message)
+			Logger.log(logLevel: .warning, message: message)
 
 			return ret
 		}
@@ -85,14 +85,14 @@ extension TileCache: TileCacheProvider {
 					guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
 						var message = "Tile.Modifiers.init() failed. "
 						message += "zoomLevel: \(zoomLevel) latitude: \(latMod) longitude: \(lonMod)"
-						Logger.log(self, logLevel: .warning, message: message)
+						Logger.log(logLevel: .warning, message: message)
 
 						continue
 					}
 
 					guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
 						let message = "URL.init() failed. baseTime: \(baseTime) index: \(index) modifiers: \(mods)"
-						Logger.log(self, logLevel: .warning, message: message)
+						Logger.log(logLevel: .warning, message: message)
 
 						continue
 					}

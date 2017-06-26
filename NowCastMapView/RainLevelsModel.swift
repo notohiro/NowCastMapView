@@ -52,7 +52,7 @@ open class RainLevelsModel: RainLevelsProvider {
 		defer { self.semaphore.signal() }
 
 		guard let index = tasks.index(of: task) else {
-			Logger.log(self, logLevel: .warning, message: "tasks.index(of:) failed.")
+			Logger.log(logLevel: .warning, message: "tasks.index(of:) failed.")
 			return
 		}
 

@@ -56,7 +56,7 @@ extension Tile {
 			if !isInServiceArea() {
 				var message = "TileModel.isServiceAvailable == true, but initialization failed. "
 				message += "zoomLevel: \(zoomLevel), coordinate: \(coordinate)"
-				Logger.log(self, logLevel: .error, message: message)
+				Logger.log(logLevel: .error, message: message)
 				return nil
 			}
 		}

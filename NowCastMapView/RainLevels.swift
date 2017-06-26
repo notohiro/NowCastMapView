@@ -25,7 +25,7 @@ public struct RainLevels {
 		if !TileModel.isServiceAvailable(at: coordinate) { return nil }
 
 		guard let levels = calculate() else {
-			Logger.log(self, logLevel: .error, message: "RainLevels.init() failed")
+			Logger.log(logLevel: .error, message: "RainLevels.init() failed")
 			return nil
 		}
 		self.levels = levels
@@ -41,7 +41,7 @@ public struct RainLevels {
 		tiles.forEach { (index, tile) in
 			queue.addOperation {
 				guard let rgba255 = tile.rgba255(at: self.coordinate) else {
-					Logger.log(tile, logLevel: .error, message: "Tile.rgba255(at:) failed. coordinate: \(self.coordinate)")
+					Logger.log(logLevel: .error, message: "Tile.rgba255(at:) failed. coordinate: \(self.coordinate)")
 
 					self.semaphore.wait()
 					failed = true
@@ -51,7 +51,7 @@ public struct RainLevels {
 				}
 
 				guard let rainLevel = RainLevel(rgba255: rgba255) else {
-					Logger.log(tile, logLevel: .error, message: "RainLevel(rgba255:) failed. rgba255: \(rgba255)")
+					Logger.log(logLevel: .error, message: "RainLevel(rgba255:) failed. rgba255: \(rgba255)")
 
 					self.semaphore.wait()
 					failed = true

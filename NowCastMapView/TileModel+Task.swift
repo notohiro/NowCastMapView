@@ -118,7 +118,7 @@ extension TileModel {
 			guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.origin) else {
 				var message = "Tile.Modifiers.init() failed. "
 				message += "zoomLevel: \(zoomLevel) coordinate: \(currentRequest.coordinates.origin)"
-				Logger.log(self, logLevel: .warning, message: message)
+				Logger.log(logLevel: .warning, message: message)
 
 				return
 			}
@@ -126,7 +126,7 @@ extension TileModel {
 			guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.terminal) else {
 				var message = "Tile.Modifiers.init() failed. "
 				message += "zoomLevel: \(zoomLevel) coordinate: \(currentRequest.coordinates.origin)"
-				Logger.log(self, logLevel: .warning, message: message)
+				Logger.log(logLevel: .warning, message: message)
 
 				return
 			}
@@ -137,14 +137,14 @@ extension TileModel {
 						guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
 							var message = "Tile.Modifiers.init() failed. "
 							message += "zoomLevel: \(zoomLevel) latitude: \(latMod) longitude: \(lonMod)"
-							Logger.log(self, logLevel: .warning, message: message)
+							Logger.log(logLevel: .warning, message: message)
 
 							continue
 						}
 
 						guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
 							let message = "URL.init() failed. baseTime: \(baseTime) index: \(index) modifiers: \(mods)"
-							Logger.log(self, logLevel: .warning, message: message)
+							Logger.log(logLevel: .warning, message: message)
 
 							continue
 						}
@@ -177,7 +177,7 @@ extension TileModel {
 					guard var tile = self.processingTiles.removeValue(forKey: url) else {
 						var message = "self.processingTiles.removeValue(forKey:) failed. "
 						message += "url: \(url)"
-						Logger.log(self, logLevel: .warning, message: message)
+						Logger.log(logLevel: .warning, message: message)
 
 						self.semaphore.signal()
 						return
@@ -191,7 +191,7 @@ extension TileModel {
 					guard let image = UIImage(data: data) else {
 						var message = "UIImage(data:) failed. "
 						message += "url: \(url)"
-						Logger.log(self, logLevel: .warning, message: message)
+						Logger.log(logLevel: .warning, message: message)
 
 						if let delegate = self.delegate {
 							OperationQueue().addOperation {

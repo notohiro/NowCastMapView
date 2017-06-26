@@ -15,14 +15,13 @@ class Logger {
 		case error = "[error]"
 	}
 
-	static func log(_ object: Any? = nil,
-	                logLevel: LogLevel,
+	static func log(logLevel: LogLevel,
 	                message: String? = nil,
 	                classFile: String = #file,
 	                functionName: String = #function,
 	                lineNumber: Int = #line) {
 		// Separator
-		print("-------------------------")
+		NSLog("-------------------------")
 
 		// Date
 		let dateFormatter = DateFormatter()
@@ -34,16 +33,11 @@ class Logger {
 		output += "[NowCastMapView] "
 		output += "\(logLevel.rawValue) "
 		output += "\(classFile.lastPathComponent):\(lineNumber) - \(functionName)"
-		print(output)
-
-		// print object
-		if let object = object {
-			print(object)
-		}
+		NSLog(output)
 
 		// print message
 		if let message = message {
-			print(message)
+			NSLog(message)
 		}
 	}
 }
