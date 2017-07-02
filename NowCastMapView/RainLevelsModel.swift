@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 public protocol RainLevelsProvider {
-	func rainLevels(with request: RainLevelsModel.Request, completionHandler: ((RainLevelsModel.Result) -> Void)?) -> RainLevelsModel.Task
+	func rainLevels(with request: RainLevelsModel.Request, completionHandler: ((RainLevelsModel.Result) -> Void)?) throws -> RainLevelsModel.Task
 }
 
 public protocol RainLevelsModelDelegate: class {
@@ -37,8 +37,12 @@ open class RainLevelsModel: RainLevelsProvider {
 		tasks.forEach { $0.cancel() }
 	}
 
-	open func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) -> Task {
-		let task = Task(model: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
+	open func rainLevels(with request: Request, completionHandler: ((Result) -> Void)? = nil) throws -> Task {
+		let task = try Task(model: self,
+		                    request: request,
+		                    baseTime: baseTime,
+		                    delegate: delegate,
+		                    completionHandler: completionHandler)
 
 		semaphore.wait()
 		tasks.append(task)
@@ -51,10 +55,7 @@ open class RainLevelsModel: RainLevelsProvider {
 		semaphore.wait()
 		defer { self.semaphore.signal() }
 
-		guard let index = tasks.index(of: task) else {
-			Logger.log(logLevel: .warning, message: "tasks.index(of:) failed.")
-			return
-		}
+		guard let index = tasks.index(of: task) else { return }
 
 		tasks.remove(at: index)
 	}

@@ -17,23 +17,19 @@ public struct RainLevels {
 
 	private let semaphore = DispatchSemaphore(value: 1)
 
-	public init?(baseTime: BaseTime, coordinate: CLLocationCoordinate2D, tiles: [Int : Tile]) {
+	public init(baseTime: BaseTime, coordinate: CLLocationCoordinate2D, tiles: [Int : Tile]) throws {
 		self.baseTime = baseTime
 		self.coordinate = coordinate
 		self.tiles = tiles
 
-		if !TileModel.isServiceAvailable(at: coordinate) { return nil }
+		if !TileModel.isServiceAvailable(at: coordinate) { throw NCError.outOfService }
 
-		guard let levels = calculate() else {
-			Logger.log(logLevel: .error, message: "RainLevels.init() failed")
-			return nil
-		}
-		self.levels = levels
+		self.levels = try calculate()
 	}
 
-	private func calculate() -> [Int : RainLevel]? {
+	private func calculate() throws -> [Int : RainLevel] {
 		var rainLevels = [Int: RainLevel]()
-		var failed = false
+		var error: Error?
 
 		let queue = OperationQueue()
 		queue.qualityOfService = .background
@@ -41,20 +37,16 @@ public struct RainLevels {
 		tiles.forEach { (index, tile) in
 			queue.addOperation {
 				guard let rgba255 = tile.rgba255(at: self.coordinate) else {
-					Logger.log(logLevel: .error, message: "Tile.rgba255(at:) failed. coordinate: \(self.coordinate)")
-
 					self.semaphore.wait()
-					failed = true
+					error = NCError.rainLevelsProcessingFailed(reason: .tileInvalid)
 					self.semaphore.signal()
 
 					return
 				}
 
 				guard let rainLevel = RainLevel(rgba255: rgba255) else {
-					Logger.log(logLevel: .error, message: "RainLevel(rgba255:) failed. rgba255: \(rgba255)")
-
 					self.semaphore.wait()
-					failed = true
+					error = NCError.rainLevelsProcessingFailed(reason: .colorInvalid(color: rgba255))
 					self.semaphore.signal()
 
 					return
@@ -68,6 +60,10 @@ public struct RainLevels {
 
 		queue.waitUntilAllOperationsAreFinished()
 
-		return failed ? nil : rainLevels
+		if let error = error {
+			throw error
+		}
+
+		return rainLevels
 	}
 }

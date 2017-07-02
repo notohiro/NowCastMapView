@@ -33,7 +33,6 @@ open class OverlayRenderer: MKOverlayRenderer {
 
 		let intersectedMapRect = MKMapRectIntersection(mapRect, TileModel.serviceAreaMapRect)
 		let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: intersectedMapRect)
-		let tiles = tileCache.tiles(with: request)
 
 		var red: CGFloat = 0
 		var green: CGFloat = 0
@@ -43,6 +42,8 @@ open class OverlayRenderer: MKOverlayRenderer {
 
 		context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
 		context.fill(rect(for: intersectedMapRect))
+
+		guard let tiles = try? tileCache.tiles(with: request) else { return }
 
 		tiles.forEach { tile in
 			if let image = tile.image {

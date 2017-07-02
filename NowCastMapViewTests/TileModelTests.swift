@@ -58,10 +58,15 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let task1 = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
-		let task2 = tileModel.tiles(with: request, completionHandler: nil)
-		task1.resume()
-		task2.resume()
+
+		do {
+			let task1 = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+			let task2 = try tileModel.tiles(with: request, completionHandler: nil)
+			task1.resume()
+			task2.resume()
+		} catch {
+			XCTFail()
+		}
 
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 16*2)
@@ -85,10 +90,15 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates, withoutProcessing: true)
-		let task1 = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
-		let task2 = tileModel.tiles(with: request, completionHandler: nil)
-		task1.resume()
-		task2.resume()
+
+		do {
+			let task1 = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+			let task2 = try tileModel.tiles(with: request, completionHandler: nil)
+			task1.resume()
+			task2.resume()
+		} catch {
+			XCTFail()
+		}
 
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 16)
@@ -112,8 +122,13 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
-		task.resume()
+
+		do {
+			let task = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+			task.resume()
+		} catch {
+			XCTFail()
+		}
 
 		wait(seconds: 3)
 		XCTAssertNotEqual(addedCount, 0)
@@ -137,8 +152,13 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
-		task.resume()
+
+		do {
+			let task = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+			task.resume()
+		} catch {
+			XCTFail()
+		}
 
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 0)
@@ -162,10 +182,14 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
-		task.resume()
 
-		task.invalidateAndCancel()
+		do {
+			let task = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+			task.resume()
+			task.invalidateAndCancel()
+		} catch {
+			XCTFail()
+		}
 
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 0)
@@ -189,8 +213,13 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let task = tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
-		task.resume()
+
+		do {
+			let task = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
+			task.resume()
+		} catch {
+			XCTFail()
+		}
 
 		tileModel.cancelAll()
 

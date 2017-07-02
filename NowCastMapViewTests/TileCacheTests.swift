@@ -56,16 +56,25 @@ class TileCacheTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		let coordinates = Coordinates(origin: origin, terminal: terminal)
 
 		let request = TileModel.Request(range: 0...0, scale: ZoomLevel.MKZoomScaleForLevel2, coordinates: coordinates)
-		let tiles = tileCache.tiles(with: request)
 
-		XCTAssertEqual(tiles.count, 0)
+		do {
+			let tiles = try tileCache.tiles(with: request)
+
+			XCTAssertEqual(tiles.count, 0)
+		} catch {
+			XCTFail()
+		}
 
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 16)
 		XCTAssertEqual(failedCount, 0)
 
-		let cachedTiles = tileCache.tiles(with: request)
+		do {
+			let cachedTiles = try tileCache.tiles(with: request)
 
-		XCTAssertEqual(cachedTiles.count, 16)
+			XCTAssertEqual(cachedTiles.count, 16)
+		} catch {
+			XCTFail()
+		}
 	}
 }

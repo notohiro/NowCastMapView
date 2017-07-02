@@ -23,7 +23,7 @@ public protocol TileCacheProvider {
 
 	- Returns: The tiles within given request.
 	*/
-	func tiles(with request: TileModel.Request) -> [Tile]
+	func tiles(with request: TileModel.Request) throws -> [Tile]
 }
 
 open class TileCache {
@@ -50,11 +50,13 @@ open class TileCache {
 }
 
 extension TileCache: TileCacheProvider {
-	open func tiles(with request: TileModel.Request) -> [Tile] {
+	open func tiles(with request: TileModel.Request) throws -> [Tile] {
 		var ret = [Tile]()
 		var needsRequest = false
 
-		guard let newCoordinates = request.coordinates.intersecting(TileModel.serviceAreaCoordinates) else { return ret }
+		guard let newCoordinates = request.coordinates.intersecting(TileModel.serviceAreaCoordinates) else {
+			throw NCError.outOfService
+		}
 
 		let newRequest = TileModel.Request(range: request.range,
 		                                   scale: request.scale,
@@ -64,37 +66,22 @@ extension TileCache: TileCacheProvider {
 		let zoomLevel = ZoomLevel(zoomScale: request.scale)
 
 		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.origin) else {
-			var message = "Tile.Modifiers.init() failed. "
-			message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
-			Logger.log(logLevel: .warning, message: message)
-
-			return ret
+			throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
 		}
 
 		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.terminal) else {
-			var message = "Tile.Modifiers.init() failed. "
-			message += "zoomLevel: \(zoomLevel) coordinate: \(newRequest.coordinates.origin)"
-			Logger.log(logLevel: .warning, message: message)
-
-			return ret
+			throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
 		}
 
 		for index in request.range {
 			for latMod in originModifiers.latitude ... terminalModifiers.latitude {
 				for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
 					guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-						var message = "Tile.Modifiers.init() failed. "
-						message += "zoomLevel: \(zoomLevel) latitude: \(latMod) longitude: \(lonMod)"
-						Logger.log(logLevel: .warning, message: message)
-
-						continue
+						throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
 					}
 
 					guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
-						let message = "URL.init() failed. baseTime: \(baseTime) index: \(index) modifiers: \(mods)"
-						Logger.log(logLevel: .warning, message: message)
-
-						continue
+						throw NCError.requestProcessingFailed(reason: .urlInitializationFailed)
 					}
 
 					if let cachedTile = cacheByURL[url] {
@@ -111,7 +98,7 @@ extension TileCache: TileCacheProvider {
 			                                   scale: request.scale,
 			                                   coordinates: request.coordinates,
 			                                   withoutProcessing: true)
-			let task = model.tiles(with: newRequest, completionHandler: nil)
+			let task = try model.tiles(with: newRequest, completionHandler: nil)
 			task.resume()
 		}
 

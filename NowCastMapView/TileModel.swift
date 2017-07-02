@@ -21,7 +21,7 @@ public protocol TileProvider {
 	///   - request: The request you need to get tiles.
 	///   - completionHandler: The completion handler to call when the load request is complete.
 	/// - Returns: The task to process given request.
-	func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) -> TileModel.Task
+	func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) throws -> TileModel.Task
 }
 
 /// A `TileAvailability` protocol defines a way to check the service availability.
@@ -61,7 +61,7 @@ open class TileModel {
 
 	open fileprivate(set) var tasks = [Task]()
 
-	open private(set) weak var delegate: TileModelDelegate?
+	open weak private(set) var delegate: TileModelDelegate?
 
 	// MARK: - Private Properties
 
@@ -106,13 +106,12 @@ open class TileModel {
 // MARK: - TileProvider
 
 extension TileModel: TileProvider {
-	open func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) -> Task {
+	open func tiles(with request: TileModel.Request, completionHandler: (([Tile]) -> Void)?) throws -> Task {
 		semaphore.wait()
+		defer { semaphore.signal() }
 
-		let task = Task(model: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
+		let task = try Task(model: self, request: request, baseTime: baseTime, delegate: delegate, completionHandler: completionHandler)
 		tasks.append(task)
-
-		semaphore.signal()
 
 		return task
 	}

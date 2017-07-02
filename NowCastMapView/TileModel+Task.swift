@@ -49,7 +49,7 @@ extension TileModel {
 		            request: Request,
 		            baseTime: BaseTime,
 		            delegate: TileModelDelegate?,
-		            completionHandler: (([Tile]) -> Void)?) {
+		            completionHandler: (([Tile]) -> Void)?) throws {
 			self.model = model
 			self.originalRequest = request
 			self.baseTime = baseTime
@@ -68,11 +68,12 @@ extension TileModel {
 			                                   coordinates: newCoordinates,
 			                                   withoutProcessing: request.withoutProcessing)
 
-			configureTasks()
+			try configureTasks()
 		}
 
 		public func resume() {
 			semaphore.wait()
+			defer { semaphore.signal() }
 
 			if state == .initialized && processingTiles.count == 0 {
 				state = .completed
@@ -92,61 +93,43 @@ extension TileModel {
 					task.resume()
 				}
 			}
-
-			semaphore.signal()
 		}
 
 		public func invalidateAndCancel() {
 			semaphore.wait()
+			defer { semaphore.signal() }
 
 			if state == .initialized || state == .processing {
 				state = .canceled
 
 				finalizeTask()
 			}
-
-			semaphore.signal()
 		}
 
 		// MARK: - Private Functions
 
-		private func configureTasks() {
+		private func configureTasks() throws {
 			guard let currentRequest = self.currentRequest else { return }
 
 			let zoomLevel = ZoomLevel(zoomScale: currentRequest.scale)
 
 			guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.origin) else {
-				var message = "Tile.Modifiers.init() failed. "
-				message += "zoomLevel: \(zoomLevel) coordinate: \(currentRequest.coordinates.origin)"
-				Logger.log(logLevel: .warning, message: message)
-
-				return
+				throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
 			}
 
 			guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.terminal) else {
-				var message = "Tile.Modifiers.init() failed. "
-				message += "zoomLevel: \(zoomLevel) coordinate: \(currentRequest.coordinates.origin)"
-				Logger.log(logLevel: .warning, message: message)
-
-				return
+				throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
 			}
 
 			for index in currentRequest.range {
 				for latMod in originModifiers.latitude ... terminalModifiers.latitude {
 					for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
 						guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-							var message = "Tile.Modifiers.init() failed. "
-							message += "zoomLevel: \(zoomLevel) latitude: \(latMod) longitude: \(lonMod)"
-							Logger.log(logLevel: .warning, message: message)
-
-							continue
+							throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
 						}
 
 						guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
-							let message = "URL.init() failed. baseTime: \(baseTime) index: \(index) modifiers: \(mods)"
-							Logger.log(logLevel: .warning, message: message)
-
-							continue
+							throw NCError.requestProcessingFailed(reason: .urlInitializationFailed)
 						}
 
 						let tile = Tile(image: nil, baseTime: baseTime, index: index, modifiers: mods, url: url)
@@ -172,34 +155,18 @@ extension TileModel {
 		private func makeDataTask(with session: URLSession, url: URL) -> URLSessionDataTask {
 			return session.dataTask(with: url) { data, _, _ in
 				self.semaphore.wait()
+				defer { self.semaphore.signal() }
 
 				if self.state == .processing {
-					guard var tile = self.processingTiles.removeValue(forKey: url) else {
-						var message = "self.processingTiles.removeValue(forKey:) failed. "
-						message += "url: \(url)"
-						Logger.log(logLevel: .warning, message: message)
+					guard var tile = self.processingTiles.removeValue(forKey: url) else { return }
 
-						self.semaphore.signal()
-						return
-					}
-
-					guard let data = data else {
-						// Network / URL failure
-						return
-					}
-
-					guard let image = UIImage(data: data) else {
-						var message = "UIImage(data:) failed. "
-						message += "url: \(url)"
-						Logger.log(logLevel: .warning, message: message)
-
+					guard let data = data, let image = UIImage(data: data) else {
 						if let delegate = self.delegate {
 							OperationQueue().addOperation {
 								delegate.tileModel(self.model, task: self, failed: tile)
 							}
 						}
 
-						self.semaphore.signal()
 						return
 					}
 
@@ -224,8 +191,6 @@ extension TileModel {
 						self.finalizeTask()
 					}
 				}
-
-				self.semaphore.signal()
 			}
 		}
 	}

@@ -53,12 +53,7 @@ extension Tile {
 			self.latitude = latitude
 			self.longitude = longitude
 
-			if !isInServiceArea() {
-				var message = "TileModel.isServiceAvailable == true, but initialization failed. "
-				message += "zoomLevel: \(zoomLevel), coordinate: \(coordinate)"
-				Logger.log(logLevel: .error, message: message)
-				return nil
-			}
+			if !isInServiceArea() { return nil }
 		}
 
 		public func isOnServiceBound() -> (east: Bool, south: Bool) {
