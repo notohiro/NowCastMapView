@@ -1,8 +1,11 @@
 # NowCastMapView
 
+[![Swift](https://img.shields.io/badge/Swift-3.0%2B-orange.svg)](https://swift.org)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NowCastMapView.svg)](https://img.shields.io/cocoapods/v/NowCastMapView.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/NowCastMapView.svg?style=flat)](http://cocoapods.org/pods/NowCastMapView)
+![license](https://cocoapod-badges.herokuapp.com/l/URWeatherView/badge.png)
+[![Twitter](https://img.shields.io/badge/twitter-@notohiro-blue.svg?style=flat)](http://twitter.com/notohiro)
 
 NowCastMapView is an library for [High-resolution Precipitation Nowcasts](http://www.jma.go.jp/en/highresorad/) provided by [Japan Meteorological Agency](http://www.jma.go.jp/jma/indexe.html) written in Swift
 
@@ -15,7 +18,7 @@ NowCastMapView is an library for [High-resolution Precipitation Nowcasts](http:/
 
 ## Requirements
 
-- iOS 9.0+
+- iOS 8.0+
 - Xcode 8.0+
 
 ## Installation
@@ -57,10 +60,6 @@ We provided NowCastMapViewController for general purpose, and of course,  you ca
 ### NowCastRainLevels
 
 You can obtain precipitation of specific coordinate from just few lines.
-
-## Author
-
-[![Twitter](https://img.shields.io/badge/twitter-@notohiro-blue.svg?style=flat)](http://twitter.com/notohiro)
 
 ## License
 
