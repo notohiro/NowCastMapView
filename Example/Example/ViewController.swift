@@ -71,8 +71,13 @@ class ViewController: UIViewController {
 		didSet {
 			if let annotation = annotation {
 				let request = RainLevelsModel.Request(coordinate: annotation.coordinate, range: 0...0)
-				let task = rainLevelsModel?.rainLevels(with: request)
-				task?.resume()
+
+				do {
+					let task = try rainLevelsModel?.rainLevels(with: request)
+					task?.resume()
+				} catch let error {
+					print(error)
+				}
 			}
 		}
 	}
@@ -151,7 +156,9 @@ extension ViewController: RainLevelsModelDelegate {
 			OperationQueue.main.addOperation {
 				self.present(alertController, animated: true, completion: nil)
 			}
-		case .failed(request: _):
+		case let .failed(request: _, error: error):
+			print(error)
+
 			let message = "failed"
 			let alertController = UIAlertController(title: "RainLevels", message: message, preferredStyle: .alert)
 

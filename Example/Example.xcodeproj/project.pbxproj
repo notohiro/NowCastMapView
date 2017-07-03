@@ -7,18 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BFA6736EDF0AB4FE0C42254 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A03B7945B2F221116BFD906 /* Pods_Example.framework */; };
 		D307FFA61C56EBA3001F6C66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D307FFA51C56EBA3001F6C66 /* AppDelegate.swift */; };
 		D307FFA81C56EBA3001F6C66 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D307FFA71C56EBA3001F6C66 /* ViewController.swift */; };
 		D307FFAB1C56EBA3001F6C66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D307FFA91C56EBA3001F6C66 /* Main.storyboard */; };
 		D307FFAD1C56EBA3001F6C66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D307FFAC1C56EBA3001F6C66 /* Assets.xcassets */; };
 		D307FFB01C56EBA3001F6C66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D307FFAE1C56EBA3001F6C66 /* LaunchScreen.storyboard */; };
+		D3368B441F093BA90051D63D /* NowCastMapView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3368B431F093BA90051D63D /* NowCastMapView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0532B57C7FD246AFD927CD26 /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
-		6A03B7945B2F221116BFD906 /* Pods_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		917FFC989C9EFCF4BF6F8BE4 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D307FFA21C56EBA3001F6C66 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D307FFA51C56EBA3001F6C66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D307FFA71C56EBA3001F6C66 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,7 +23,7 @@
 		D307FFAC1C56EBA3001F6C66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D307FFAF1C56EBA3001F6C66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D307FFB11C56EBA3001F6C66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F880CEB57E861C5EEBF4A429 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		D3368B431F093BA90051D63D /* NowCastMapView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NowCastMapView.framework; path = Carthage/Build/iOS/NowCastMapView.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,27 +31,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BFA6736EDF0AB4FE0C42254 /* Pods_Example.framework in Frameworks */,
+				D3368B441F093BA90051D63D /* NowCastMapView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		48A74E2D20E498846FCCCDA5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F880CEB57E861C5EEBF4A429 /* Pods-Example.debug.xcconfig */,
-				0532B57C7FD246AFD927CD26 /* Pods-Example.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		48C41ECC79FFEB3409F5C901 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				917FFC989C9EFCF4BF6F8BE4 /* Pods.framework */,
-				6A03B7945B2F221116BFD906 /* Pods_Example.framework */,
+				D3368B431F093BA90051D63D /* NowCastMapView.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -65,7 +52,6 @@
 				D307FFA41C56EBA3001F6C66 /* Example */,
 				D307FFA31C56EBA3001F6C66 /* Products */,
 				48C41ECC79FFEB3409F5C901 /* Frameworks */,
-				48A74E2D20E498846FCCCDA5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,12 +91,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D307FFCA1C56EBA3001F6C66 /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
-				11D30324AACCD9DE3C83D16C /* [CP] Check Pods Manifest.lock */,
 				D307FF9E1C56EBA3001F6C66 /* Sources */,
 				D307FF9F1C56EBA3001F6C66 /* Frameworks */,
 				D307FFA01C56EBA3001F6C66 /* Resources */,
-				0A65819EABE8DE0A207BB244 /* [CP] Embed Pods Frameworks */,
-				27527016CA248FDDF7C22703 /* [CP] Copy Pods Resources */,
+				D3368B461F093D4D0051D63D /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -170,50 +154,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A65819EABE8DE0A207BB244 /* [CP] Embed Pods Frameworks */ = {
+		D3368B461F093D4D0051D63D /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/NowCastMapView.framework",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = Carthage;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		11D30324AACCD9DE3C83D16C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		27527016CA248FDDF7C22703 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -339,15 +293,18 @@
 		};
 		D307FFCB1C56EBA3001F6C66 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F880CEB57E861C5EEBF4A429 /* Pods-Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = NGSEKJM42E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -358,15 +315,18 @@
 		};
 		D307FFCC1C56EBA3001F6C66 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0532B57C7FD246AFD927CD26 /* Pods-Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = NGSEKJM42E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
