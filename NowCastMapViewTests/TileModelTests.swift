@@ -156,6 +156,9 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		do {
 			let task = try tileModel.tiles(with: request) { _ in self.handlerExecuted = true }
 			task.resume()
+			XCTFail()
+		} catch NCError.outOfService {
+			// OK
 		} catch {
 			XCTFail()
 		}
@@ -163,7 +166,7 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		wait(seconds: 3)
 		XCTAssertEqual(addedCount, 0)
 		XCTAssertEqual(failedCount, 0)
-		XCTAssertTrue(handlerExecuted)
+		XCTAssertFalse(handlerExecuted)
 	}
 
 	func testTaskCancel() {

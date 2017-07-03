@@ -61,7 +61,9 @@ extension TileModel {
 			let session = URLSession(configuration: configuration)
 			self.session = session
 
-			guard let newCoordinates = request.coordinates.intersecting(TileModel.serviceAreaCoordinates) else { return }
+			guard let newCoordinates = request.coordinates.intersecting(TileModel.serviceAreaCoordinates) else {
+				throw NCError.outOfService
+			}
 
 			currentRequest = TileModel.Request(range: request.range,
 			                                   scale: request.scale,
