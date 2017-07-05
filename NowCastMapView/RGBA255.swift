@@ -33,7 +33,7 @@ public struct RGBA255 {
 
 extension RGBA255: Hashable {
 	public var hashValue: Int {
-		return UIColor(rgba255: self).hashValue
+		return red + green*256 + blue*256*256 + alpha*256*256*256
 	}
 }
 

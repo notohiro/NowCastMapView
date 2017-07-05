@@ -47,7 +47,7 @@ public protocol TileModelDelegate: class {
 	func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile)
 
 	/// Tells the delegate that a request has finished with error.
-	func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile)
+	func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error)
 }
 
 /// An `TileModel` object lets you load the `Tile` by providing a `Request` object.

@@ -66,22 +66,25 @@ extension TileCache: TileCacheProvider {
 		let zoomLevel = ZoomLevel(zoomScale: request.scale)
 
 		guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.origin) else {
-			throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
+			let reason = NCError.TileFailedReason.modifiersInitializationFailedCoordinate(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.origin)
+			throw NCError.tileFailed(reason: reason)
 		}
 
 		guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.terminal) else {
-			throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
+			let reason = NCError.TileFailedReason.modifiersInitializationFailedCoordinate(zoomLevel: zoomLevel, coordinate: newRequest.coordinates.terminal)
+			throw NCError.tileFailed(reason: reason)
 		}
 
 		for index in request.range {
 			for latMod in originModifiers.latitude ... terminalModifiers.latitude {
 				for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
 					guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-						throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
+						let reason = NCError.TileFailedReason.modifiersInitializationFailedMods(zoomLevel: zoomLevel, latitiude: latMod, Longitude: lonMod)
+						throw NCError.tileFailed(reason: reason)
 					}
 
 					guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
-						throw NCError.requestProcessingFailed(reason: .urlInitializationFailed)
+						throw NCError.tileFailed(reason: .urlInitializationFailed)
 					}
 
 					if let cachedTile = cacheByURL[url] {
@@ -116,7 +119,7 @@ extension TileCache: TileModelDelegate {
 		delegate?.tileModel(model, task: task, added: tile)
 	}
 
-	public func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) {
-		delegate?.tileModel(model, task: task, failed: tile)
+	public func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) {
+		delegate?.tileModel(model, task: task, failed: url, error: error)
 	}
 }

@@ -37,6 +37,8 @@ extension RainLevelsModel {
 
 		fileprivate let semaphore = DispatchSemaphore(value: 1)
 
+		private let queue = OperationQueue()
+
 		// MARK: - Functions
 
 		public init(model: RainLevelsModel,
@@ -53,6 +55,7 @@ extension RainLevelsModel {
 			tileModel = TileModel(baseTime: self.baseTime, delegate: self)
 
 			let tileRequest = Task.makeRequest(range: request.range, coordinate: request.coordinate)
+
 			task = try tileModel.tiles(with: tileRequest, completionHandler: nil)
 		}
 
@@ -81,13 +84,13 @@ extension RainLevelsModel {
 		// should be called only once per instance and within semaphore
 		fileprivate func finished(withResult result: Result) {
 			if let delegate = delegate {
-				OperationQueue().addOperation {
+				queue.addOperation {
 					delegate.rainLevelsModel(self.model, task: self, result: result)
 				}
 			}
 
 			if let handler = completionHandler {
-				OperationQueue().addOperation {
+				queue.addOperation {
 					handler(result)
 				}
 			}
@@ -133,24 +136,19 @@ extension RainLevelsModel.Task: TileModelDelegate {
 		if state == .processing {
 			tiles[tile.index] = tile
 
-			if task.processingTiles.count != 0 {
+			if tiles.count != request.range.count {
 				return
 			}
 
 			let result: RainLevelsModel.Result
 
-			if tiles.count != request.range.count {
-				let error = NCError.rainLevelsProcessingFailed(reason: .tileDownloadingFailed)
+			do {
+				let rainLevels = try RainLevels(baseTime: baseTime, coordinate: request.coordinate, tiles: tiles)
+				result = RainLevelsModel.Result.succeeded(request: request, result: rainLevels)
+			} catch let error as NCError {
 				result = RainLevelsModel.Result.failed(request: request, error: error)
-			} else {
-				do {
-					let rainLevels = try RainLevels(baseTime: baseTime, coordinate: request.coordinate, tiles: tiles)
-					result = RainLevelsModel.Result.succeeded(request: request, result: rainLevels)
-				} catch let error as NCError {
-					result = RainLevelsModel.Result.failed(request: request, error: error)
-				} catch {
-					result = RainLevelsModel.Result.failed(request: request, error: NCError.unknown)
-				}
+			} catch {
+				result = RainLevelsModel.Result.failed(request: request, error: NCError.unknown)
 			}
 
 			state = .completed
@@ -158,8 +156,7 @@ extension RainLevelsModel.Task: TileModelDelegate {
 		}
 	}
 
-	public func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) {
-		let error = NCError.rainLevelsProcessingFailed(reason: .tileDownloadingFailed)
+	public func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) {
 		finished(withResult: RainLevelsModel.Result.failed(request: request, error: error))
 	}
 }

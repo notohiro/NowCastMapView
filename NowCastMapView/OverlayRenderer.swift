@@ -62,5 +62,5 @@ extension OverlayRenderer: TileModelDelegate {
 		setNeedsDisplayIn(tile.mapRect)
 	}
 
-	public func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) { }
+	public func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) { }
 }

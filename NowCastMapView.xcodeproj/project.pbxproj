@@ -51,6 +51,7 @@
 		D3A4D7C61D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */; };
 		D3A4D7CA1D62C440005FA9D5 /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */; };
 		D3A4D7CB1D62C440005FA9D5 /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */; };
+		D3B1A1791F17174D0043770A /* RainLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1A1781F17174D0043770A /* RainLevelTests.swift */; };
 		D3CB76311D9527B000498829 /* BaseTimeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */; };
 		D3CB76331D95467200498829 /* TileModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76321D95467200498829 /* TileModelTests.swift */; };
 		D3CB76351D95487600498829 /* MKMapRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76341D95487600498829 /* MKMapRectTests.swift */; };
@@ -138,6 +139,7 @@
 		D3A4D7C01D62BF89005FA9D5 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Deltas.swift"; sourceTree = "<group>"; };
 		D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapRect.swift; sourceTree = "<group>"; };
+		D3B1A1781F17174D0043770A /* RainLevelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelTests.swift; sourceTree = "<group>"; };
 		D3CB76321D95467200498829 /* TileModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileModelTests.swift; sourceTree = "<group>"; };
 		D3CB76341D95487600498829 /* MKMapRectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapRectTests.swift; sourceTree = "<group>"; };
 		D3CB76391D955F6200498829 /* RGBA255.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA255.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */,
 				D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */,
 				D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */,
+				D3B1A1781F17174D0043770A /* RainLevelTests.swift */,
 				D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */,
 				D30F944B1DAAA06200AFEBB0 /* RainLevelsModelTests.swift */,
 				D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */,
@@ -582,6 +585,7 @@
 				D30F944C1DAAA06200AFEBB0 /* RainLevelsModelTests.swift in Sources */,
 				D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */,
 				D353449F1EBF466100CB27D3 /* TileCacheTests.swift in Sources */,
+				D3B1A1791F17174D0043770A /* RainLevelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

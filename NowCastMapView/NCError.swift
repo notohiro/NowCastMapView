@@ -7,21 +7,24 @@
 //
 
 import Foundation
+import CoreLocation
 
 public enum NCError: Error {
-	public enum RequestProcessingFailedReason {
-		case modifiersInitializationFailed
+	public enum TileFailedReason {
+		case internalError
+		case modifiersInitializationFailedMods(zoomLevel: ZoomLevel, latitiude: Int, Longitude: Int)
+		case modifiersInitializationFailedCoordinate(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D)
 		case urlInitializationFailed
+		case imageProcessingFailed
 	}
 
-	public enum RainLevelsProcessingFailedReason {
-		case tileDownloadingFailed
+	public enum RainLevelsFailedReason {
 		case tileInvalid
 		case colorInvalid(color: RGBA255)
 	}
 
 	case outOfService
-	case requestProcessingFailed(reason: RequestProcessingFailedReason)
-	case rainLevelsProcessingFailed(reason: RainLevelsProcessingFailedReason)
+	case tileFailed(reason: TileFailedReason)
+	case rainLevelsFailed(reason: RainLevelsFailedReason)
 	case unknown
 }

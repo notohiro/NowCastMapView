@@ -36,7 +36,9 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 		objc_sync_exit(self)
 	}
 
-	func tileModel(_ model: TileModel, task: TileModel.Task, failed tile: Tile) {
+	func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) {
+		print(error)
+
 		objc_sync_enter(self)
 		failedCount += 1
 		objc_sync_exit(self)
@@ -64,14 +66,18 @@ class TileModelTests: BaseTestCase, BaseTimeModelDelegate, TileModelDelegate {
 			let task2 = try tileModel.tiles(with: request, completionHandler: nil)
 			task1.resume()
 			task2.resume()
+
+			wait(seconds: 3)
+			XCTAssertEqual(addedCount, 16*2)
+			XCTAssertEqual(failedCount, 0)
+			XCTAssertEqual(task1.completedTiles.count, 16)
+			XCTAssertEqual(task2.completedTiles.count, 16)
+			XCTAssertEqual(task1.state, .completed)
+			XCTAssertEqual(task2.state, .completed)
+			XCTAssertTrue(handlerExecuted)
 		} catch {
 			XCTFail()
 		}
-
-		wait(seconds: 3)
-		XCTAssertEqual(addedCount, 16*2)
-		XCTAssertEqual(failedCount, 0)
-		XCTAssertTrue(handlerExecuted)
 	}
 
 	func testTilesWithRequestWithoutProcessing() {

@@ -17,7 +17,7 @@ extension TileModel {
 
 		open private(set) var originalRequest: Request
 
-		open private(set) var currentRequest: Request?
+		open private(set) var currentRequest: Request
 
 		open let baseTime: BaseTime
 
@@ -42,6 +42,8 @@ extension TileModel {
 		private var suspendedTasks = [URLSessionTask]()
 
 		private let semaphore = DispatchSemaphore(value: 1)
+
+		private let queue = OperationQueue()
 
 		// MARK: - Functions
 
@@ -81,7 +83,7 @@ extension TileModel {
 				state = .completed
 
 				if let handler = completionHandler {
-					OperationQueue().addOperation {
+					queue.addOperation {
 						handler(self.completedTiles)
 					}
 				}
@@ -111,27 +113,28 @@ extension TileModel {
 		// MARK: - Private Functions
 
 		private func configureTasks() throws {
-			guard let currentRequest = self.currentRequest else { return }
-
 			let zoomLevel = ZoomLevel(zoomScale: currentRequest.scale)
 
 			guard let originModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.origin) else {
-				throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
+				let reason = NCError.TileFailedReason.modifiersInitializationFailedCoordinate(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.origin)
+				throw NCError.tileFailed(reason: reason)
 			}
 
 			guard let terminalModifiers = Tile.Modifiers(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.terminal) else {
-				throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
+				let reason = NCError.TileFailedReason.modifiersInitializationFailedCoordinate(zoomLevel: zoomLevel, coordinate: currentRequest.coordinates.terminal)
+				throw NCError.tileFailed(reason: reason)
 			}
 
 			for index in currentRequest.range {
 				for latMod in originModifiers.latitude ... terminalModifiers.latitude {
 					for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
 						guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-							throw NCError.requestProcessingFailed(reason: .modifiersInitializationFailed)
+							let reason = NCError.TileFailedReason.modifiersInitializationFailedMods(zoomLevel: zoomLevel, latitiude: latMod, Longitude: lonMod)
+							throw NCError.tileFailed(reason: reason)
 						}
 
 						guard let url = URL(baseTime: baseTime, index: index, modifiers: mods) else {
-							throw NCError.requestProcessingFailed(reason: .urlInitializationFailed)
+							throw NCError.tileFailed(reason: .urlInitializationFailed)
 						}
 
 						let tile = Tile(image: nil, baseTime: baseTime, index: index, modifiers: mods, url: url)
@@ -155,29 +158,21 @@ extension TileModel {
 		}
 
 		private func makeDataTask(with session: URLSession, url: URL) -> URLSessionDataTask {
-			return session.dataTask(with: url) { data, _, _ in
+			return session.dataTask(with: url) { data, _, sessionError in
 				self.semaphore.wait()
-				defer { self.semaphore.signal() }
 
-				if self.state == .processing {
-					guard var tile = self.processingTiles.removeValue(forKey: url) else { return }
+				// process data only when state == .processing
+				if self.state != .processing {
+					self.semaphore.signal()
+					return
+				}
 
-					guard let data = data, let image = UIImage(data: data) else {
-						if let delegate = self.delegate {
-							OperationQueue().addOperation {
-								delegate.tileModel(self.model, task: self, failed: tile)
-							}
-						}
+				var error: Error?
 
-						return
-					}
-
-					tile.image = image
-					self.completedTiles.append(tile)
-
-					if let delegate = self.delegate {
-						OperationQueue().addOperation {
-							delegate.tileModel(self.model, task: self, added: tile)
+				defer {
+					if let error = error, let delegate = self.delegate {
+						self.queue.addOperation {
+							delegate.tileModel(self.model, task: self, failed: url, error: error)
 						}
 					}
 
@@ -185,12 +180,38 @@ extension TileModel {
 						self.state = .completed
 
 						if let handler = self.completionHandler {
-							OperationQueue().addOperation {
+							self.queue.addOperation {
 								handler(self.completedTiles)
 							}
 						}
 
 						self.finalizeTask()
+					}
+
+					self.semaphore.signal()
+				}
+
+				if let sessionError = sessionError {
+					error = sessionError
+					return
+				}
+
+				guard var tile = self.processingTiles.removeValue(forKey: url) else {
+					error = NCError.tileFailed(reason: .internalError)
+					return
+				}
+
+				guard let data = data, let image = UIImage(data: data) else {
+					error = NCError.tileFailed(reason: .imageProcessingFailed)
+					return
+				}
+
+				tile.image = image
+				self.completedTiles.append(tile)
+
+				if let delegate = self.delegate {
+					self.queue.addOperation {
+						delegate.tileModel(self.model, task: self, added: tile)
 					}
 				}
 			}

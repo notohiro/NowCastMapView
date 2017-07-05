@@ -38,7 +38,7 @@ public struct RainLevels {
 			queue.addOperation {
 				guard let rgba255 = tile.rgba255(at: self.coordinate) else {
 					self.semaphore.wait()
-					error = NCError.rainLevelsProcessingFailed(reason: .tileInvalid)
+					error = NCError.rainLevelsFailed(reason: .tileInvalid)
 					self.semaphore.signal()
 
 					return
@@ -46,7 +46,7 @@ public struct RainLevels {
 
 				guard let rainLevel = RainLevel(rgba255: rgba255) else {
 					self.semaphore.wait()
-					error = NCError.rainLevelsProcessingFailed(reason: .colorInvalid(color: rgba255))
+					error = NCError.rainLevelsFailed(reason: .colorInvalid(color: rgba255))
 					self.semaphore.signal()
 
 					return

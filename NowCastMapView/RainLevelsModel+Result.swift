@@ -20,6 +20,6 @@ extension RainLevelsModel {
 		}
 
 		case succeeded(request: Request, result: RainLevels)
-		case failed(request: Request, error: NCError)
+		case failed(request: Request, error: Error)
 	}
 }
