@@ -11,7 +11,7 @@ import MapKit
 
 open class OverlayRenderer: MKOverlayRenderer {
 
-	static let DefaultBackgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.6)
+	static let DefaultBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
 
 	open let baseTime: BaseTime
 	open let index: Int
