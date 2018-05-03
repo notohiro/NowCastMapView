@@ -34,11 +34,11 @@ extension UIImage {
 		// calculate RGBA
 		let pixelInfo: Int = ((Int(size.width) * Int(point.y)) + Int(point.x)) * 4
 
-		let r = Int(data[pixelInfo])
-		let g = Int(data[pixelInfo+1])
-		let b = Int(data[pixelInfo+2])
-		let a = Int(data[pixelInfo+3])
+		let red = Int(data[pixelInfo])
+		let green = Int(data[pixelInfo+1])
+		let blue = Int(data[pixelInfo+2])
+		let alpha = Int(data[pixelInfo+3])
 
-		return RGBA255(red: r, green: g, blue: b, alpha: a)
+		return RGBA255(red: red, green: green, blue: blue, alpha: alpha)
 	}
 }
