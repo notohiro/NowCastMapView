@@ -30,8 +30,6 @@ NowCastMapView is available through [CocoaPods](http://cocoapods.org) and [Carth
 
 To install, simply add the following line to your `Podfile`:
 
-> CocoaPods 0.39.0+ is required to build NowCastMapView.
-
 ```ruby
 platform :ios, '11.0'
 use_frameworks!
