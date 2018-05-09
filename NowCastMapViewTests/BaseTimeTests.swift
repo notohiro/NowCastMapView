@@ -27,16 +27,16 @@ class BaseTimeTests: BaseTestCase {
 	func testSubscriptAsString() {
 		guard let baseTime = baseTime(file: "OldBaseTime") else { XCTFail(); return }
 
-		for i in baseTime.range {
-			let _: String = baseTime[i]
+		for index in baseTime.range {
+			let _: String = baseTime[index]
 		}
 	}
 
 	func testSubscriptAsDate() {
 		guard let baseTime = baseTime(file: "OldBaseTime") else { XCTFail(); return }
 
-		for i in baseTime.range {
-			let _: Date = baseTime[i]
+		for index in baseTime.range {
+			let _: Date = baseTime[index]
 		}
 	}
 

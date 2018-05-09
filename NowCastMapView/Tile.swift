@@ -117,8 +117,8 @@ public struct Tile {
 
 		guard let image = self.image, let position = position(at: coordinate) else { return nil }
 
-		let x = floor(image.size.width * CGFloat(position.longitudePosition))
-		let y = floor(image.size.height * CGFloat(position.latitudePosition))
+		let x = floor(image.size.width * CGFloat(position.longitudePosition)) // swiftlint:disable:this identifier_name
+		let y = floor(image.size.height * CGFloat(position.latitudePosition)) // swiftlint:disable:this identifier_name
 
 		return CGPoint.init(x: x, y: y)
 	}

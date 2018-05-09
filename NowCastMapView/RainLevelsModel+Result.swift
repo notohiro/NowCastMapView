@@ -12,10 +12,10 @@ extension RainLevelsModel {
 	public enum Result {
 		public var request: Request {
 			switch self {
-			case let .succeeded(_request, _):
-				return _request
-			case let .failed(_request, _):
-				return _request
+			case let .succeeded(request, _):
+				return request
+			case let .failed(request, _):
+				return request
 			}
 		}
 
