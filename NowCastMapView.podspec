@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/notohiro/NowCastMapView.git', :tag => s.version }
 
   s.ios.deployment_target = '8.0'
+  s.swift_version = '4.1'
 
   s.requires_arc     = true
   s.source_files     = 'NowCastMapView/*'
