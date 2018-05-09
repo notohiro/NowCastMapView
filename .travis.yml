@@ -1,9 +1,9 @@
 language: objective-c
 osx_image: xcode9.3
-
 notifications:
   email: false
-  slack: dermond:VagNnWnik40tDLdBn4GHgeSx
-
+  slack:
+    secure: qb+c0/Vmitu5jlCwCE3d4Fv8VMjxtr2iLAxE11hcSuA5BHvmt6y6tHWABhKxl/h4KKuyd/700iBNSe2QVgOYFDSGsgIr+4WZ1hi2jRCqqxQ0uM9JcF+4Ow0iY1jlYEQYTu+bmTHpqi1b2Mbz/HSlkhTiEdwiRTUCD4RICBy4vC9b6noK2X9IT+m45cR8jaIj1qvW3ct4WlpTApGauWmu5882VyHgrI0hclHGDSaXYUn6QVCLsZks7sTY5Rj6jn71mVId73Y1BRd3xySW+hIzMQAE9EVeCVJ79MQkpDxGOCuK0Ghc0dqVVWBCA8pcHgFrutrWSoqTQJ/gAVz2IvL5Fh+ewlfgNMUh88ybU4C05haxGqbwTffkK+pZX8zaL9SOTkwTzjnMRYuhOAuW/HTCnZwUpQcFWhKZSHzzxR13gsq65uNofXy4aG124uOMI8eRXIkDgRzHAjjxpxIkcFGNHDA/6QSQokrBAuLoOVBO5Cp8OoLEMJhMCXM/BMgSsfnfODNe9IVzfk8NaiqzFYi2RnBlAfuB3OP24K95gC2mNexZ1AwxqF2/1S2/noEj8RXIpu4/AYoASJtpKXFTdcJJzkpC3yETngNMw3eRFBz1WtddrroYLtxnMqJud7G7Nxk3WHj90VnIHUE7OvnO+mwRHJVHS3JH45lYGUCyMGdz85Y=
 script:
-  - xcodebuild clean test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' -project NowCastMapView.xcodeproj -scheme 'NowCastMapView iOS' CODE_SIGNING_REQUIRED=NO
+- xcodebuild clean test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone
+  X,OS=11.3' -project NowCastMapView.xcodeproj -scheme 'NowCastMapView iOS' CODE_SIGNING_REQUIRED=NO
