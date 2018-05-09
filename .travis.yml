@@ -2,4 +2,4 @@ language: objective-c
 osx_image: xcode9.3
 
 script:
-  - xcodebuild clean test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' -project NowCastMapView.xcodeproj -scheme NowCastMapView
+  - xcodebuild clean test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' -project NowCastMapView.xcodeproj -scheme 'NowCastMapView iOS'
