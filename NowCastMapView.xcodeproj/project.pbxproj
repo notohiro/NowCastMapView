@@ -149,6 +149,9 @@
 		D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OldBaseTime.xml; sourceTree = "<group>"; };
 		D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeTests.swift; sourceTree = "<group>"; };
 		D3D3CCFA1BB6098A0083B7FC /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		D3D6421120A31D80004432C8 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		D3D6421220A31D8F004432C8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D3D6421320A31D99004432C8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D3DE78A41D6FB5740054420C /* TileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileModel.swift; sourceTree = "<group>"; };
 		D3DE78A91D77D6730054420C /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Modifiers.swift"; sourceTree = "<group>"; };
@@ -200,6 +203,9 @@
 		D332497C1BA727C9008F1F21 = {
 			isa = PBXGroup;
 			children = (
+				D3D6421120A31D80004432C8 /* .travis.yml */,
+				D3D6421320A31D99004432C8 /* .swiftlint.yml */,
+				D3D6421220A31D8F004432C8 /* .gitignore */,
 				D33D84641DCF279C00A627F6 /* NowCastMapView.podspec */,
 				D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */,
 				D33249881BA727C9008F1F21 /* NowCastMapView */,
