@@ -2,6 +2,7 @@ language: objective-c
 osx_image: xcode9.3
 
 notifications:
+  email: false
   slack: dermond:VagNnWnik40tDLdBn4GHgeSx
 
 script:
