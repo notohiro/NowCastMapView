@@ -1,5 +1,8 @@
 language: objective-c
 osx_image: xcode9.3
 
+notifications:
+  slack: dermond:VagNnWnik40tDLdBn4GHgeSx
+
 script:
   - xcodebuild clean test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.3' -project NowCastMapView.xcodeproj -scheme 'NowCastMapView iOS' CODE_SIGNING_REQUIRED=NO
