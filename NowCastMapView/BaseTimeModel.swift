@@ -35,7 +35,7 @@ open class BaseTimeModel: BaseTimeProvider {
 	private var fetchTimer: Timer?
 
 	/// immediately fetch + interval
-	open var fetchInterval: TimeInterval = 0 { // 0 means never check automatically
+	open var fetchInterval: TimeInterval = 0 { // 0 means will never check automatically
 		didSet {
 			objc_sync_enter(self)
 			fetchTimer?.invalidate()
