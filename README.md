@@ -1,7 +1,7 @@
 # NowCastMapView
 
 [![Swift](https://img.shields.io/badge/Swift-4.1%2B-orange.svg)](https://swift.org)
-[![Build Status](https://travis-ci.org/notohiro/NowCastMapView.svg?branch=master)](https://travis-ci.org/notohiro/NowCastMapView)
+[![Build Status](https://www.bitrise.io/app/4d0ac46d80b57ba1/status.svg?token=O6I0Vf9HX7KQ5ZxkpFpyjQ)](https://www.bitrise.io/app/4d0ac46d80b57ba1)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NowCastMapView.svg)](https://img.shields.io/cocoapods/v/NowCastMapView.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/NowCastMapView.svg?style=flat)](http://cocoapods.org/pods/NowCastMapView)
