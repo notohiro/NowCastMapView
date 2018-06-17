@@ -65,7 +65,7 @@ class ViewController: UIViewController {
 
 // MARK: - Other Variables
 
-	var renderers = [Int : OverlayRenderer]()
+	var renderers = [Int: OverlayRenderer]()
 
 	var annotation: MKPointAnnotation? {
 		didSet {
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
 		// register notification
 		baseTimeModel.delegate = self
 		baseTimeModel.fetch()
-		baseTimeModel.fetchInterval =  3
+		baseTimeModel.fetchInterval = 3
 
 		slider.maximumValue = Float(Constants.numberOfForecastBars)
 		slider.minimumValue = -Float(Constants.numberOfPastBars)
@@ -102,8 +102,8 @@ class ViewController: UIViewController {
 
 // MARK: - IBAction
 
-	@IBAction func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-		if (sender.state == .began) {
+	@IBAction private func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+		if sender.state == .began {
 			// remove existing annotations
 			mapView.removeAnnotations(mapView.annotations)
 
@@ -118,16 +118,15 @@ class ViewController: UIViewController {
 		}
 	}
 
-	@IBAction func sliderValueChanged(_ sender: UISlider) {
+	@IBAction private func sliderValueChanged(_ sender: UISlider) {
 		index = Int(floor(sender.value))
 		sender.value = Float(index)
 	}
 
-
-
 // MARK: - UIGestureRecognizerDelegate
 
-	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
 }

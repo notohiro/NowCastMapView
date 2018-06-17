@@ -106,6 +106,7 @@
 		D307FFD31C5C844B001F6C66 /* NewBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NewBaseTime.xml; sourceTree = "<group>"; };
 		D30F944B1DAAA06200AFEBB0 /* RainLevelsModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsModelTests.swift; sourceTree = "<group>"; };
 		D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeModelTests.swift; sourceTree = "<group>"; };
+		D32E376320D27EAD0094F59C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D33249861BA727C9008F1F21 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33249891BA727C9008F1F21 /* NowCastMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowCastMapView.h; sourceTree = "<group>"; };
 		D332498B1BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -150,7 +151,6 @@
 		D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeTests.swift; sourceTree = "<group>"; };
 		D3D3CCFA1BB6098A0083B7FC /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		D3D6421220A31D8F004432C8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		D3D6421320A31D99004432C8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D3D6421420A3201C004432C8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D3DE78A41D6FB5740054420C /* TileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileModel.swift; sourceTree = "<group>"; };
 		D3DE78A91D77D6730054420C /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 		D332497C1BA727C9008F1F21 = {
 			isa = PBXGroup;
 			children = (
-				D3D6421320A31D99004432C8 /* .swiftlint.yml */,
+				D32E376320D27EAD0094F59C /* .swiftlint.yml */,
 				D3D6421220A31D8F004432C8 /* .gitignore */,
 				D33D84641DCF279C00A627F6 /* NowCastMapView.podspec */,
 				D3D6421420A3201C004432C8 /* README.md */,
@@ -534,7 +534,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --path NowCastMapView\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

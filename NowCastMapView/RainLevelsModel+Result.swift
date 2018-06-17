@@ -8,18 +8,18 @@
 
 import Foundation
 
-extension RainLevelsModel {
-	public enum Result {
-		public var request: Request {
-			switch self {
-			case let .succeeded(request, _):
-				return request
-			case let .failed(request, _):
-				return request
-			}
-		}
+public extension RainLevelsModel {
+    enum Result {
+	    public var request: Request {
+    	    switch self {
+    	    case let .succeeded(request, _):
+	    	    return request
+    	    case let .failed(request, _):
+	    	    return request
+    	    }
+	    }
 
-		case succeeded(request: Request, result: RainLevels)
-		case failed(request: Request, error: Error)
-	}
+	    case succeeded(request: Request, result: RainLevels)
+	    case failed(request: Request, error: Error)
+    }
 }
