@@ -6,33 +6,33 @@
 //  Copyright © 2016 Hiroshi Noto. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
-extension RainLevelsModel {
-	public struct Request {
-		public let coordinate: CLLocationCoordinate2D
-		public let range: CountableClosedRange<Int>
+public extension RainLevelsModel {
+    struct Request {
+	    public let coordinate: CLLocationCoordinate2D
+	    public let range: CountableClosedRange<Int>
 
-		public init(coordinate: CLLocationCoordinate2D, range: CountableClosedRange<Int>) {
-			self.coordinate = coordinate
-			self.range = range
-		}
-	}
+	    public init(coordinate: CLLocationCoordinate2D, range: CountableClosedRange<Int>) {
+    	    self.coordinate = coordinate
+    	    self.range = range
+	    }
+    }
 }
 
 // MARK: - Hashable
 
 extension RainLevelsModel.Request: Hashable {
-	public var hashValue: Int {
-		return ("\(coordinate.latitude)" + "\(coordinate.longitude)" + "\(range)").hashValue
-	}
+    public var hashValue: Int {
+	    return ("\(coordinate.latitude)" + "\(coordinate.longitude)" + "\(range)").hashValue
+    }
 }
 
 // MARK: - Equatable
 
 extension RainLevelsModel.Request: Equatable {
-	public static func == (lhs: RainLevelsModel.Request, rhs: RainLevelsModel.Request) -> Bool {
-		return lhs.coordinate == rhs.coordinate && lhs.range == rhs.range
-	}
+    public static func == (lhs: RainLevelsModel.Request, rhs: RainLevelsModel.Request) -> Bool {
+	    return lhs.coordinate == rhs.coordinate && lhs.range == rhs.range
+    }
 }

@@ -15,104 +15,104 @@ fetched from "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime
 */
 public struct BaseTime {
 
-	// MARK: - Public Properties
+    // MARK: - Public Properties
 
-	public let range: CountableClosedRange<Int> // -35...0..12
-	public var count: Int { return range.count }
+    public let range: CountableClosedRange<Int> // -35...0..12
+    public var count: Int { return range.count }
 
-	// MARK: - Private Properties
+    // MARK: - Private Properties
 
-	private let ftStrings: [String]
-	private let ftDates: [Date]
+    private let ftStrings: [String]
+    private let ftDates: [Date]
 
-	// MARK: - Functions
+    // MARK: - Functions
 
-	public init?(baseTimeData data: Data) {
-		// parse xml
-		let parser = XMLParser(data: data)
-		let parserDelegate =  BaseTimeParser()
-		parser.delegate = parserDelegate
-		if !parser.parse() { return nil }
+    public init?(baseTimeData data: Data) {
+	    // parse xml
+	    let parser = XMLParser(data: data)
+	    let parserDelegate = BaseTimeParser()
+	    parser.delegate = parserDelegate
+	    if !parser.parse() { return nil }
 
-		// inputFormatter
-		let inputFormatter = DateFormatter()
-		inputFormatter.dateFormat = "yyyyMMddHHmm"
-		inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
+	    // inputFormatter
+	    let inputFormatter = DateFormatter()
+	    inputFormatter.dateFormat = "yyyyMMddHHmm"
+	    inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-		// create ftDates from baseTime
-		// contains only past date
-		var ftDates = [Date]()
-		for index in 0 ..< parserDelegate.parsedArr.count {
-			guard let date = inputFormatter.date(from: parserDelegate.parsedArr[index]) else { return nil }
-			ftDates.append(date)
-		}
+	    // create ftDates from baseTime
+	    // contains only past date
+	    var ftDates = [Date]()
+	    for index in 0 ..< parserDelegate.parsedArr.count {
+    	    guard let date = inputFormatter.date(from: parserDelegate.parsedArr[index]) else { return nil }
+    	    ftDates.append(date)
+	    }
 
-		// create ftDates with fts for forecast
-		let base = ftDates[0]
-		BaseTimeModel.Constants.fts.enumerated().forEach { _, minutes in
-			if minutes == 0 { return }
-			ftDates.insert(base.addingTimeInterval(TimeInterval(minutes*60)), at: 0)
-		}
+	    // create ftDates with fts for forecast
+	    let base = ftDates[0]
+	    BaseTimeModel.Constants.fts.enumerated().forEach { _, minutes in
+    	    if minutes == 0 { return }
+    	    ftDates.insert(base.addingTimeInterval(TimeInterval(minutes * 60)), at: 0)
+	    }
 
-		// outputFormatter
-		let outputFormatter = DateFormatter()
-		outputFormatter.dateFormat = "yyyyMMddHHmm"
-		outputFormatter.timeZone = TimeZone(abbreviation: "UTC")
+	    // outputFormatter
+	    let outputFormatter = DateFormatter()
+	    outputFormatter.dateFormat = "yyyyMMddHHmm"
+	    outputFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-		// create ftStrings from ftDates
-		var ftStrings = [String]()
-		ftDates.forEach { date in
-			ftStrings.append(outputFormatter.string(from: date))
-		}
+	    // create ftStrings from ftDates
+	    var ftStrings = [String]()
+	    ftDates.forEach { date in
+    	    ftStrings.append(outputFormatter.string(from: date))
+	    }
 
-		self.ftDates = ftDates
-		self.ftStrings = ftStrings
-		range = BaseTime.index(from: ftDates.endIndex-1) ... BaseTime.index(from: ftDates.startIndex)
+	    self.ftDates = ftDates
+	    self.ftStrings = ftStrings
+	    range = BaseTime.index(from: ftDates.endIndex - 1) ... BaseTime.index(from: ftDates.startIndex)
 
-		return
-	}
+	    return
+    }
 
-	public subscript(index: Int) -> String {
-		return ftStrings[BaseTime.arrayIndex(from: index)]
-	}
+    public subscript(index: Int) -> String {
+	    return ftStrings[BaseTime.arrayIndex(from: index)]
+    }
 
-	public subscript(index: Int) -> Date {
-		return ftDates[BaseTime.arrayIndex(from: index)]
-	}
+    public subscript(index: Int) -> Date {
+	    return ftDates[BaseTime.arrayIndex(from: index)]
+    }
 }
 
 // MARK: - Static Functions
 
 extension BaseTime {
-	/// convert from 0...47 to -35...12
-	static fileprivate func index(from arrayIndex: Int) -> Int {
-		return -(arrayIndex - (BaseTimeModel.Constants.fts.count - 1))
-	}
+    /// convert from 0...47 to -35...12
+    static private func index(from arrayIndex: Int) -> Int {
+	    return -(arrayIndex - (BaseTimeModel.Constants.fts.count - 1))
+    }
 
-	/// convert from -35...12 to 0...47
-	static fileprivate func arrayIndex(from index: Int) -> Int {
-		return (-index) + (BaseTimeModel.Constants.fts.count - 1)
-	}
+    /// convert from -35...12 to 0...47
+    static private func arrayIndex(from index: Int) -> Int {
+	    return (-index) + (BaseTimeModel.Constants.fts.count - 1)
+    }
 }
 
 // MARK: - CustomStringConvertible
 
 extension BaseTime: CustomStringConvertible {
-	public var description: String {
-		return self[0]
-	}
+    public var description: String {
+	    return self[0]
+    }
 }
 
 // MARK: - CustomDebugStringConvertible
 
 extension BaseTime: CustomDebugStringConvertible {
-	public var debugDescription: String {
-//		var output: [String] = []
+    public var debugDescription: String {
+//	    var output: [String] = []
 //
-//		output.append("[url]: \(url)")
-//		output.append(image != nil ? "[image]: not nil" : "[image]: nil")
+//	    output.append("[url]: \(url)")
+//	    output.append(image != nil ? "[image]: not nil" : "[image]: nil")
 //
-//		return output.joined(separator: "\n")
-		return description
-	}
+//	    return output.joined(separator: "\n")
+	    return description
+    }
 }

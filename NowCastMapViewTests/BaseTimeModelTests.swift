@@ -11,59 +11,59 @@ import XCTest
 @testable import NowCastMapView
 
 class BaseTimeModelTests: BaseTestCase, BaseTimeModelDelegate {
-	var baseTimeModel = BaseTimeModel()
+    var baseTimeModel = BaseTimeModel()
 
-	private var isFinished = false
-	private var delegateCount = 0
-	private var expectedResult: ComparisonResult?
+    private var isFinished = false
+    private var delegateCount = 0
+    private var expectedResult: ComparisonResult?
 
-	override func setUp() {
-		super.setUp()
+    override func setUp() {
+	    super.setUp()
 
-		baseTimeModel = BaseTimeModel()
-		baseTimeModel.delegate = self
+	    baseTimeModel = BaseTimeModel()
+	    baseTimeModel.delegate = self
 
-		isFinished = false
-		delegateCount = 0
-		expectedResult = nil
-	}
+	    isFinished = false
+	    delegateCount = 0
+	    expectedResult = nil
+    }
 
-	func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {
-		delegateCount += 1
+    func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {
+	    delegateCount += 1
 
-		if baseTime != nil {
-			isFinished = true
-		}
-	}
+	    if baseTime != nil {
+    	    isFinished = true
+	    }
+    }
 
-	func testFetch() {
-		baseTimeModel.fetch()
-		wait(seconds: BaseTestCase.timeout)
-		XCTAssertTrue(isFinished)
-	}
+    func testFetch() {
+	    baseTimeModel.fetch()
+	    wait(seconds: BaseTestCase.timeout)
+	    XCTAssertTrue(isFinished)
+    }
 
-	func testConcurrentFetchRequests() {
-		baseTimeModel.fetch()
-		baseTimeModel.fetch()
-		wait(seconds: BaseTestCase.timeout)
-		XCTAssertTrue(isFinished)
-		XCTAssertEqual(delegateCount, 1)
-	}
+    func testConcurrentFetchRequests() {
+	    baseTimeModel.fetch()
+	    baseTimeModel.fetch()
+	    wait(seconds: BaseTestCase.timeout)
+	    XCTAssertTrue(isFinished)
+	    XCTAssertEqual(delegateCount, 1)
+    }
 
-	func testFetchInterval() {
-		let interval: TimeInterval = 3
-		baseTimeModel.fetchInterval = interval
+    func testFetchInterval() {
+	    let interval: TimeInterval = 3
+	    baseTimeModel.fetchInterval = interval
 
-		// first notification
-		wait(seconds: interval + 1)
-		XCTAssertTrue(isFinished)
-		XCTAssertEqual(delegateCount, 1)
+	    // first notification
+	    wait(seconds: interval + 1)
+	    XCTAssertTrue(isFinished)
+	    XCTAssertEqual(delegateCount, 1)
 
-		baseTimeModel.current = nil
-		XCTAssertEqual(delegateCount, 2)
+	    baseTimeModel.current = nil
+	    XCTAssertEqual(delegateCount, 2)
 
-		// second notification
-		wait(seconds: interval + 3)
-		XCTAssertEqual(delegateCount, 3)
-	}
+	    // second notification
+	    wait(seconds: interval + 3)
+	    XCTAssertEqual(delegateCount, 3)
+    }
 }
