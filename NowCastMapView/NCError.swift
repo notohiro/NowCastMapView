@@ -12,7 +12,7 @@ import Foundation
 public enum NCError: Error {
     public enum TileFailedReason {
 	    case internalError
-	    case modifiersInitializationFailedMods(zoomLevel: ZoomLevel, latitiude: Int, Longitude: Int)
+	    case modifiersInitializationFailedMods(zoomLevel: ZoomLevel, latitiude: Int, longitude: Int)
 	    case modifiersInitializationFailedCoordinate(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D)
 	    case urlInitializationFailed
 	    case imageProcessingFailed

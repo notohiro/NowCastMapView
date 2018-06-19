@@ -21,9 +21,9 @@ public protocol BaseTimeModelDelegate: class {
 An `BaseTimeModel` object lets you fetch the `BaseTime`.
 */
 open class BaseTimeModel: BaseTimeProvider {
-    struct Constants {
-	    static let url = URL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
-	    static let fts = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+    internal struct Constants {
+	    internal static let url = URL(string: "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml")!
+	    internal static let fts = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
     }
 
     open weak var delegate: BaseTimeModelDelegate?

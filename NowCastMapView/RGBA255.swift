@@ -15,7 +15,7 @@ public struct RGBA255 {
     public let blue: Int
     public let alpha: Int
 
-    init(red: Int, green: Int, blue: Int, alpha: Int) {
+    public init(red: Int, green: Int, blue: Int, alpha: Int) {
 	    self.red = RGBA255.round(red)
 	    self.green = RGBA255.round(green)
 	    self.blue = RGBA255.round(blue)

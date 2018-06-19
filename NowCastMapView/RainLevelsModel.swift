@@ -22,7 +22,7 @@ open class RainLevelsModel: RainLevelsProvider {
 
     open private(set) weak var delegate: RainLevelsModelDelegate?
 
-    open let baseTime: BaseTime
+    public let baseTime: BaseTime
 
     open private(set) var tasks = [Task]()
 
@@ -51,7 +51,7 @@ open class RainLevelsModel: RainLevelsProvider {
 	    return task
     }
 
-    func remove(_ task: Task) {
+    internal func remove(_ task: Task) {
 	    semaphore.wait()
 	    defer { self.semaphore.signal() }
 

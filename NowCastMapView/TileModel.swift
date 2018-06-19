@@ -56,7 +56,7 @@ open class TileModel {
 
     // MARK: - TileProvider
 
-    open let baseTime: BaseTime
+    public let baseTime: BaseTime
 
     // MARK: - Public Properties
 
@@ -83,7 +83,7 @@ open class TileModel {
 
     // MARK: - Internal Functions
 
-    func remove(_ task: Task) {
+    internal func remove(_ task: Task) {
 	    semaphore.wait()
 	    defer { self.semaphore.signal() }
 
@@ -91,7 +91,7 @@ open class TileModel {
 	    tasks.remove(at: index)
     }
 
-    func isProcessing(_ tile: Tile) -> Bool {
+    internal func isProcessing(_ tile: Tile) -> Bool {
 	    // thread safe
 	    let tasks = self.tasks
 
@@ -125,7 +125,7 @@ extension TileModel: TileProvider {
 // MARK: - TileAvailability
 
 extension TileModel: TileAvailability {
-    open static func isServiceAvailable(within coordinates: Coordinates) -> Bool {
+    public static func isServiceAvailable(within coordinates: Coordinates) -> Bool {
 	    if coordinates.origin.latitude >= Constants.terminalLatitude &&
     	    coordinates.terminal.latitude <= Constants.originLatitude &&
     	    coordinates.origin.longitude <= Constants.terminalLongitude &&
@@ -136,7 +136,7 @@ extension TileModel: TileAvailability {
 	    }
     }
 
-    open static func isServiceAvailable(at coordinate: CLLocationCoordinate2D) -> Bool {
+    public static func isServiceAvailable(at coordinate: CLLocationCoordinate2D) -> Bool {
 	    if coordinate.latitude >= Constants.terminalLatitude &&
     	    coordinate.latitude <= Constants.originLatitude &&
     	    coordinate.longitude <= Constants.terminalLongitude &&
@@ -147,11 +147,11 @@ extension TileModel: TileAvailability {
 	    }
     }
 
-    open static var serviceAreaMapRect: MKMapRect {
+    public static var serviceAreaMapRect: MKMapRect {
 	    return MKMapRect(coordinates: TileModel.serviceAreaCoordinates)
     }
 
-    open static var serviceAreaCoordinates: Coordinates {
+    public static var serviceAreaCoordinates: Coordinates {
 	    let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
 	    let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
 	    return Coordinates(origin: origin, terminal: terminal)

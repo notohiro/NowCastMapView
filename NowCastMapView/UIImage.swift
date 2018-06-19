@@ -11,7 +11,7 @@ import UIKit
 
 extension UIImage {
     /// this is no need anymore
-    var revertedImage: UIImage? {
+    internal var revertedImage: UIImage? {
 	    guard let cgImage = cgImage else { return nil }
 
 	    UIGraphicsBeginImageContext(size)
@@ -26,7 +26,7 @@ extension UIImage {
 	    return revertedImage
     }
 
-    func rgba255(at point: CGPoint) -> RGBA255 {
+    internal func rgba255(at point: CGPoint) -> RGBA255 {
 	    // convert to binary data from getting pixel data
 	    let pixelData = cgImage?.dataProvider?.data
 	    let data: UnsafePointer = CFDataGetBytePtr(pixelData)
