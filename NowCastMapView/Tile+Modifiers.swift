@@ -23,7 +23,7 @@ public extension Tile {
 
 	    // MARK: - Functions
 
-	    init?(zoomLevel: ZoomLevel, latitude: Int, longitude: Int) {
+	    internal init?(zoomLevel: ZoomLevel, latitude: Int, longitude: Int) {
     	    self.zoomLevel = zoomLevel
     	    self.latitude = latitude
     	    self.longitude = longitude
@@ -31,7 +31,7 @@ public extension Tile {
     	    if !isInServiceArea() { return nil }
 	    }
 
-	    init?(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D) {
+	    internal init?(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D) {
     	    if !TileModel.isServiceAvailable(at: coordinate) { return nil }
 
     	    self.zoomLevel = zoomLevel

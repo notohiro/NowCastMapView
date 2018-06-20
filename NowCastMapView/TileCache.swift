@@ -42,7 +42,7 @@ open class TileCache {
 	    model.cancelAll()
     }
 
-    init(baseTime: BaseTime, delegate: TileModelDelegate?) {
+    internal init(baseTime: BaseTime, delegate: TileModelDelegate?) {
 	    self.baseTime = baseTime
 	    self.delegate = delegate
     }
@@ -79,7 +79,7 @@ extension TileCache: TileCacheProvider {
     	    for latMod in originModifiers.latitude ... terminalModifiers.latitude {
 	    	    for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
     	    	    guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-	    	    	    let reason = NCError.TileFailedReason.modifiersInitializationFailedMods(zoomLevel: zoomLevel, latitiude: latMod, Longitude: lonMod)
+	    	    	    let reason = NCError.TileFailedReason.modifiersInitializationFailedMods(zoomLevel: zoomLevel, latitiude: latMod, longitude: lonMod)
 	    	    	    throw NCError.tileFailed(reason: reason)
     	    	    }
 

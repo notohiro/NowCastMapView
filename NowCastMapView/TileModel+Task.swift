@@ -19,7 +19,7 @@ extension TileModel {
 
 	    open private(set) var currentRequest: Request
 
-	    open let baseTime: BaseTime
+        public let baseTime: BaseTime
 
 	    open private(set) weak var delegate: TileModelDelegate?
 
@@ -29,11 +29,11 @@ extension TileModel {
 
 	    open private(set) var state = State.initialized
 
-	    open let model: TileModel
+        public let model: TileModel
 
 	    open private(set) var completionHandler: (([Tile]) -> Void)?
 
-	    open let hashValue = Date().hashValue
+        public let hashValue = Date().hashValue
 
 	    // MARK: - Private Properties
 
@@ -129,7 +129,7 @@ extension TileModel {
 	    	    for latMod in originModifiers.latitude ... terminalModifiers.latitude {
     	    	    for lonMod in originModifiers.longitude ... terminalModifiers.longitude {
 	    	    	    guard let mods = Tile.Modifiers(zoomLevel: zoomLevel, latitude: latMod, longitude: lonMod) else {
-    	    	    	    let reason = NCError.TileFailedReason.modifiersInitializationFailedMods(zoomLevel: zoomLevel, latitiude: latMod, Longitude: lonMod)
+    	    	    	    let reason = NCError.TileFailedReason.modifiersInitializationFailedMods(zoomLevel: zoomLevel, latitiude: latMod, longitude: lonMod)
     	    	    	    throw NCError.tileFailed(reason: reason)
 	    	    	    }
 

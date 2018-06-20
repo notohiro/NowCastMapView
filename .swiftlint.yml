@@ -1,5 +1,4 @@
 disabled_rules:
-- xctfail_message
 
 opt_in_rules:
 - array_init
@@ -14,10 +13,10 @@ opt_in_rules:
 - empty_count
 - empty_string
 - empty_ectest_method
-# - explicit_acl # do this later
+- explicit_acl # do this later
 # - explicit_enum_raw_value
 - explicit_init
-# - explicit_top_level_acl # do this later
+- explicit_top_level_acl # do this later
 # - explicit_type_interface
 - extension_access_modifier
 - fallthrough

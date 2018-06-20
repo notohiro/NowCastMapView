@@ -39,7 +39,7 @@ public struct Tile {
 
     // MARK: - Functions
 
-    init(image: UIImage?, baseTime: BaseTime, index: Int, modifiers: Tile.Modifiers, url: URL) {
+    internal init(image: UIImage?, baseTime: BaseTime, index: Int, modifiers: Tile.Modifiers, url: URL) {
 	    self.image = image
 	    self.baseTime = baseTime
 	    self.index = index
@@ -59,7 +59,7 @@ public struct Tile {
 
     - Returns: Whether the tile contains the given coordinate
     */
-    func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
+    internal func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
 	    let origin = coordinates.origin
 	    let terminal = coordinates.terminal
 
@@ -112,7 +112,7 @@ public struct Tile {
 
     - Returns: A `CGPoint` value at the given coordinate.
     */
-    func point(at coordinate: CLLocationCoordinate2D) -> CGPoint? {
+    internal func point(at coordinate: CLLocationCoordinate2D) -> CGPoint? {
 	    if contains(coordinate) == false { return nil }
 
 	    guard let image = self.image, let position = position(at: coordinate) else { return nil }
@@ -134,7 +134,7 @@ public struct Tile {
 
     - Returns: A normalized position at the given coordinate.
     */
-    func position(at coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
+    internal func position(at coordinate: CLLocationCoordinate2D) -> (latitudePosition: Double, longitudePosition: Double)? {
 	    if contains(coordinate) == false { return nil }
 
 	    let latitudeNumberAsDouble = (coordinate.latitude - Constants.originLatitude) / -deltas.latitude
@@ -154,7 +154,7 @@ public struct Tile {
 
     - Returns: A `CLLocationCoordinate2D` value at the given point.
     */
-    func coordinate(at point: CGPoint) -> CLLocationCoordinate2D? {
+    internal func coordinate(at point: CGPoint) -> CLLocationCoordinate2D? {
 	    guard let image = self.image else { return nil }
 
 	    if point.x < 0 || point.y < 0 || point.x >= image.size.width || point.y >= image.size.height {

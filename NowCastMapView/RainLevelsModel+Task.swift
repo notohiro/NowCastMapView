@@ -13,13 +13,13 @@ extension RainLevelsModel {
 
 	    // MARK: - Public Properties
 
-	    open let request: Request
+        public let request: Request
 
-	    open let baseTime: BaseTime
+        public let baseTime: BaseTime
 
 	    open private(set) weak var delegate: RainLevelsModelDelegate?
 
-	    open let hashValue = Date().hashValue
+        public let hashValue = Date().hashValue
 
 	    open private(set) var completionHandler: ((Result) -> Void)?
 
@@ -27,7 +27,7 @@ extension RainLevelsModel {
 
 	    open private(set) var state = State.initialized
 
-	    open let model: RainLevelsModel
+        public let model: RainLevelsModel
 
 	    // MARK: - Private Properties
 

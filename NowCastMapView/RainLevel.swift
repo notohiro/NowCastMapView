@@ -13,7 +13,7 @@ public enum RainLevel: Int {
     case level0 = 0, level1, level2, level3, level4, level5, level6, level7, level8
 
     // swiftlint:disable colon
-    static let rgba255ToRainLevel = [
+    internal static let rgba255ToRainLevel = [
 	    RGBA255(red: 255, green: 255, blue: 255, alpha: 255): 0,
 	    RGBA255(red: 255, green: 255, blue: 255, alpha:   0): 0,
 	    RGBA255(red:   0, green:   0, blue:   0, alpha:   0): 0,
@@ -27,7 +27,7 @@ public enum RainLevel: Int {
 	    RGBA255(red: 180, green:   0, blue: 104, alpha: 255): 8
     ]
 
-    static let rainLevelToColor = [
+    internal static let rainLevelToColor = [
 	    UIColor(rgba255: RGBA255(red: 255, green: 255, blue: 255, alpha: 255)),
 	    UIColor(rgba255: RGBA255(red: 242, green: 242, blue: 255, alpha: 255)),
 	    UIColor(rgba255: RGBA255(red: 160, green: 210, blue: 255, alpha: 255)),
@@ -43,7 +43,7 @@ public enum RainLevel: Int {
     public static let min = 0
     public static let max = 8
 
-    init?(rgba255: RGBA255) {
+    internal init?(rgba255: RGBA255) {
 	    if let level = RainLevel.rgba255ToRainLevel[rgba255] {
     	    self.init(rawValue: level)
 	    } else {
