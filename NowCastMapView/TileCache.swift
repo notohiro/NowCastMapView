@@ -32,7 +32,7 @@ open class TileCache {
     public var cache = Set<Tile>()
     public var cacheByURL = [URL: Tile]()
 
-    lazy open private(set) var model: TileModel = TileModel(baseTime: self.baseTime, delegate: self)
+    open private(set) lazy var model: TileModel = TileModel(baseTime: self.baseTime, delegate: self)
 
     open private(set) weak var delegate: TileModelDelegate?
 

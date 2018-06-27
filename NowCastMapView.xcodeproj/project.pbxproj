@@ -134,6 +134,7 @@
 		D374E88D1C5ED75F001837E3 /* RainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevels.swift; sourceTree = "<group>"; };
 		D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseTime+Comparable.swift"; sourceTree = "<group>"; };
 		D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
+		D385C5A320E2F3C800934586 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D38D34311CE7204F00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InvalidBaseTime.xml; sourceTree = "<group>"; };
 		D38D747A1F02752A006A14D7 /* NCError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCError.swift; sourceTree = "<group>"; };
@@ -240,6 +241,7 @@
 		D33249941BA727C9008F1F21 /* NowCastMapViewTests */ = {
 			isa = PBXGroup;
 			children = (
+				D385C5A320E2F3C800934586 /* .swiftlint.yml */,
 				D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */,
 				D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */,
 				D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */,
@@ -534,7 +536,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

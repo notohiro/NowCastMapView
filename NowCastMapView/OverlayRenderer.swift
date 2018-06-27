@@ -15,7 +15,7 @@ open class OverlayRenderer: MKOverlayRenderer {
 
     public let baseTime: BaseTime
     public let index: Int
-    lazy open private(set) var tileCache: TileCache = TileCache(baseTime: self.baseTime, delegate: self)
+    open private(set) lazy var tileCache: TileCache = TileCache(baseTime: self.baseTime, delegate: self)
 
     public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
     public var imageAlpha: CGFloat = 0.6
