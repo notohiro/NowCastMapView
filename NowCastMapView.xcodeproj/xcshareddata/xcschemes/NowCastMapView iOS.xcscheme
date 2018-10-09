@@ -20,6 +20,20 @@
                ReferencedContainer = "container:NowCastMapView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D386DD19216D02490037EFF7"
+               BuildableName = "NowCastMapView iOS Tests.xctest"
+               BlueprintName = "NowCastMapView iOS Tests"
+               ReferencedContainer = "container:NowCastMapView.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -32,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D332498F1BA727C9008F1F21"
-               BuildableName = "NowCastMapViewTests.xctest"
-               BlueprintName = "NowCastMapViewTests"
+               BlueprintIdentifier = "D386DD19216D02490037EFF7"
+               BuildableName = "NowCastMapView iOS Tests.xctest"
+               BlueprintName = "NowCastMapView iOS Tests"
                ReferencedContainer = "container:NowCastMapView.xcodeproj">
             </BuildableReference>
          </TestableReference>

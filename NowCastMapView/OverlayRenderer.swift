@@ -11,56 +11,56 @@ import MapKit
 
 open class OverlayRenderer: MKOverlayRenderer {
 
-	static let DefaultBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+    public static let DefaultBackgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6)
 
-	open let baseTime: BaseTime
-	open let index: Int
-	lazy open private(set) var tileCache: TileCache = TileCache(baseTime: self.baseTime, delegate: self)
+    public let baseTime: BaseTime
+    public let index: Int
+    open private(set) lazy var tileCache: TileCache = TileCache(baseTime: self.baseTime, delegate: self)
 
-	public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
-	public var imageAlpha: CGFloat = 0.6
-	public var lastDrawZoomScale: MKZoomScale?
+    public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
+    public var imageAlpha: CGFloat = 0.6
+    public var lastDrawZoomScale: MKZoomScale?
 
-	public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
-		self.baseTime = baseTime
-		self.index = index
+    public init(overlay: MKOverlay, baseTime: BaseTime, index: Int) {
+	    self.baseTime = baseTime
+	    self.index = index
 
-		super.init(overlay: overlay)
-	}
+	    super.init(overlay: overlay)
+    }
 
-	override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
-		lastDrawZoomScale = zoomScale
+    override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
+	    lastDrawZoomScale = zoomScale
 
-		let intersectedMapRect = MKMapRectIntersection(mapRect, TileModel.serviceAreaMapRect)
-		let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: intersectedMapRect)
+	    let intersectedMapRect = mapRect.intersection(TileModel.serviceAreaMapRect)
+	    let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: intersectedMapRect)
 
-		var red: CGFloat = 0
-		var green: CGFloat = 0
-		var blue: CGFloat = 0
-		var alpha: CGFloat = 0
-		backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+	    var red: CGFloat = 0
+	    var green: CGFloat = 0
+	    var blue: CGFloat = 0
+	    var alpha: CGFloat = 0
+	    backgroundColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
 
-		context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
-		context.fill(rect(for: intersectedMapRect))
+	    context.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
+	    context.fill(rect(for: intersectedMapRect))
 
-		guard let tiles = try? tileCache.tiles(with: request) else { return }
+	    guard let tiles = try? tileCache.tiles(with: request) else { return }
 
-		tiles.forEach { tile in
-			if let image = tile.image {
-				context.clear(rect(for: tile.mapRect))
+	    tiles.forEach { tile in
+    	    if let image = tile.image {
+	    	    context.clear(rect(for: tile.mapRect))
 
-				UIGraphicsPushContext(context)
-				image.draw(in: rect(for: tile.mapRect), blendMode: .normal, alpha: imageAlpha)
-				UIGraphicsPopContext()
-			}
-		}
-	}
+	    	    UIGraphicsPushContext(context)
+	    	    image.draw(in: rect(for: tile.mapRect), blendMode: .normal, alpha: imageAlpha)
+	    	    UIGraphicsPopContext()
+    	    }
+	    }
+    }
 }
 
 extension OverlayRenderer: TileModelDelegate {
-	public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
-		setNeedsDisplayIn(tile.mapRect)
-	}
+    public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
+	    setNeedsDisplay(tile.mapRect)
+    }
 
-	public func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) { }
+    public func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) { }
 }
