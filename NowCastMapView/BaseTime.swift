@@ -85,12 +85,12 @@ public struct BaseTime {
 
 extension BaseTime {
     /// convert from 0...47 to -35...12
-    static private func index(from arrayIndex: Int) -> Int {
+    private static func index(from arrayIndex: Int) -> Int {
 	    return -(arrayIndex - (BaseTimeModel.Constants.fts.count - 1))
     }
 
     /// convert from -35...12 to 0...47
-    static private func arrayIndex(from index: Int) -> Int {
+    private static func arrayIndex(from index: Int) -> Int {
 	    return (-index) + (BaseTimeModel.Constants.fts.count - 1)
     }
 }

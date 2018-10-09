@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Constants {
+public enum Constants {
     // define coordinate of upper left and bottom right
     public static let originLatitude: Double = 61
     public static let originLongitude: Double = 100

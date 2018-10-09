@@ -31,9 +31,9 @@ extension RainLevelsModel {
 
 	    // MARK: - Private Properties
 
-	    private var tileModel: TileModel!
+        private var tileModel: TileModel! // swiftlint:disable:this implicitly_unwrapped_optional
 
-	    private var task: TileModel.Task!
+	    private var task: TileModel.Task! // swiftlint:disable:this implicitly_unwrapped_optional
 
 	    private let semaphore = DispatchSemaphore(value: 1)
 
@@ -46,17 +46,17 @@ extension RainLevelsModel {
 	                baseTime: BaseTime,
 	                delegate: RainLevelsModelDelegate?,
 	                completionHandler: ((Result) -> Void)?) throws {
-    	    self.model = model
-    	    self.request = request
-    	    self.baseTime = baseTime
-    	    self.delegate = delegate
-    	    self.completionHandler = completionHandler
+            self.model = model
+            self.request = request
+            self.baseTime = baseTime
+            self.delegate = delegate
+            self.completionHandler = completionHandler
 
-    	    tileModel = TileModel(baseTime: self.baseTime, delegate: self)
+            tileModel = TileModel(baseTime: self.baseTime, delegate: self)
 
-    	    let tileRequest = Task.makeRequest(range: request.range, coordinate: request.coordinate)
+            let tileRequest = Task.makeRequest(range: request.range, coordinate: request.coordinate)
 
-    	    task = try tileModel.tiles(with: tileRequest, completionHandler: nil)
+            task = try tileModel.tiles(with: tileRequest, completionHandler: nil)
 	    }
 
 	    open func resume() {
