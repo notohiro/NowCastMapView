@@ -46,7 +46,7 @@ open class BaseTimeModel: BaseTimeProvider {
                                        selector: #selector(BaseTimeModel.fetch),
                                        userInfo: nil,
                                        repeats: true)
-	    	    RunLoop.main.add(fetchTimer, forMode: .commonModes)
+	    	    RunLoop.main.add(fetchTimer, forMode: RunLoop.Mode.common)
 	    	    self.fetchTimer = fetchTimer
 	    	    fetch()
     	    }

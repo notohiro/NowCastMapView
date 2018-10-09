@@ -31,7 +31,7 @@ open class OverlayRenderer: MKOverlayRenderer {
     override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
 	    lastDrawZoomScale = zoomScale
 
-	    let intersectedMapRect = MKMapRectIntersection(mapRect, TileModel.serviceAreaMapRect)
+	    let intersectedMapRect = mapRect.intersection(TileModel.serviceAreaMapRect)
 	    let request = TileModel.Request(range: index...index, scale: zoomScale, mapRect: intersectedMapRect)
 
 	    var red: CGFloat = 0
@@ -59,7 +59,7 @@ open class OverlayRenderer: MKOverlayRenderer {
 
 extension OverlayRenderer: TileModelDelegate {
     public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
-	    setNeedsDisplayIn(tile.mapRect)
+	    setNeedsDisplay(tile.mapRect)
     }
 
     public func tileModel(_ model: TileModel, task: TileModel.Task, failed url: URL, error: Error) { }

@@ -39,11 +39,11 @@ public struct Coordinates {
 
     public init(mapRect: MKMapRect) {
 	    // mapRect origin Coordinate
-	    origin = MKCoordinateForMapPoint(mapRect.origin)
+	    origin = mapRect.origin.coordinate
 
 	    // mapRect terminal Coordinate
-	    let terminalPoint = MKMapPointMake(mapRect.origin.x + mapRect.size.width, mapRect.origin.y + mapRect.size.height)
-	    terminal = MKCoordinateForMapPoint(terminalPoint)
+	    let terminalPoint = MKMapPoint.init(x: mapRect.origin.x + mapRect.size.width, y: mapRect.origin.y + mapRect.size.height)
+	    terminal = terminalPoint.coordinate
     }
 
     public func intersecting(_ coordinates: Coordinates) -> Coordinates? {

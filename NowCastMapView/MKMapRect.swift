@@ -18,18 +18,18 @@ public extension MKMapRect {
 	    let originLatitude = coordinates.origin.latitude
 	    let originLongitude = coordinates.origin.longitude
 
-	    let origin = MKMapPointForCoordinate(CLLocationCoordinate2DMake(originLatitude, originLongitude))
-        let terminal = MKMapPointForCoordinate(CLLocationCoordinate2DMake(originLatitude - deltas.latitude,
+	    let origin = MKMapPoint.init(CLLocationCoordinate2DMake(originLatitude, originLongitude))
+        let terminal = MKMapPoint.init(CLLocationCoordinate2DMake(originLatitude - deltas.latitude,
                                                                           originLongitude + deltas.longitude))
-	    let size = MKMapSizeMake(terminal.x - origin.x, terminal.y - origin.y)
+	    let size = MKMapSize.init(width: terminal.x - origin.x, height: terminal.y - origin.y)
 
 	    self.init(origin: origin, size: size)
     }
 
     init(coordinates: Coordinates) {
-	    let origin = MKMapPointForCoordinate(coordinates.origin)
-	    let terminal = MKMapPointForCoordinate(coordinates.terminal)
-	    let size = MKMapSizeMake(terminal.x - origin.x, terminal.y - origin.y)
+	    let origin = MKMapPoint.init(coordinates.origin)
+	    let terminal = MKMapPoint.init(coordinates.terminal)
+	    let size = MKMapSize.init(width: terminal.x - origin.x, height: terminal.y - origin.y)
 
 	    self.init(origin: origin, size: size)
     }
