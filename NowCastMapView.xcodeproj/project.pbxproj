@@ -7,34 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D30341391C63864100F44630 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
-		D307FFD41C5C844B001F6C66 /* NewBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D307FFD31C5C844B001F6C66 /* NewBaseTime.xml */; };
-		D30F944A1DAA8FF000AFEBB0 /* RainLevelsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */; };
-		D30F944C1DAAA06200AFEBB0 /* RainLevelsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30F944B1DAAA06200AFEBB0 /* RainLevelsModelTests.swift */; };
-		D332498A1BA727C9008F1F21 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D33249911BA727C9008F1F21 /* NowCastMapView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249861BA727C9008F1F21 /* NowCastMapView.framework */; };
-		D33249AD1BA72823008F1F21 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
-		D33249B11BA842F2008F1F21 /* BaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* BaseTime.swift */; };
-		D33249B31BA84A03008F1F21 /* BaseTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* BaseTimeModel.swift */; };
-		D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B41BA86259008F1F21 /* BaseTimeParser.swift */; };
-		D335FBC21CBDEEF600960920 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D335FBC11CBDEEF600960920 /* tile2.png */; };
-		D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
-		D35344971EBE2AAA00CB27D3 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35344961EBE2AAA00CB27D3 /* TileCache.swift */; };
 		D35344991EBE2AB300CB27D3 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35344961EBE2AAA00CB27D3 /* TileCache.swift */; };
-		D353449F1EBF466100CB27D3 /* TileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353449E1EBF466100CB27D3 /* TileCacheTests.swift */; };
-		D354FF841EBDF08800C80586 /* TileModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D354FF831EBDF08800C80586 /* TileModel+Task.swift */; };
 		D354FF851EBDF08800C80586 /* TileModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D354FF831EBDF08800C80586 /* TileModel+Task.swift */; };
-		D367BA351D94F24D0014E109 /* URLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367BA341D94F24D0014E109 /* URLTests.swift */; };
-		D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367BA371D94F4440014E109 /* CoordinatesTests.swift */; };
 		D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
-		D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
 		D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */; };
-		D3716E941DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */; };
 		D3716E951DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */; };
-		D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */; };
-		D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
 		D375D5C51D0E5F1600A55405 /* BaseTime+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */; };
-		D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */; };
+		D386DD1F216D024A0037EFF7 /* NowCastMapView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38D34311CE7204F00D77509 /* NowCastMapView.framework */; };
+		D386DD36216D02C70037EFF7 /* RainLevelsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2A216D02C50037EFF7 /* RainLevelsTest.swift */; };
+		D386DD37216D02C70037EFF7 /* RainLevelsModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2B216D02C50037EFF7 /* RainLevelsModelTests.swift */; };
+		D386DD38216D02C70037EFF7 /* RainLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2C216D02C50037EFF7 /* RainLevelTests.swift */; };
+		D386DD39216D02C70037EFF7 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2D216D02C50037EFF7 /* BaseTestCase.swift */; };
+		D386DD3A216D02C70037EFF7 /* BaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2E216D02C50037EFF7 /* BaseTimeTests.swift */; };
+		D386DD3B216D02C70037EFF7 /* Info-iOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = D386DD2F216D02C60037EFF7 /* Info-iOS.plist */; };
+		D386DD3C216D02C70037EFF7 /* TileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD30216D02C60037EFF7 /* TileCacheTests.swift */; };
+		D386DD3D216D02C70037EFF7 /* TileModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD31216D02C60037EFF7 /* TileModelTests.swift */; };
+		D386DD3E216D02C70037EFF7 /* BaseTimeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD32216D02C60037EFF7 /* BaseTimeModelTests.swift */; };
+		D386DD3F216D02C70037EFF7 /* CoordinatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD33216D02C60037EFF7 /* CoordinatesTests.swift */; };
+		D386DD40216D02C70037EFF7 /* ZoomLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD34216D02C60037EFF7 /* ZoomLevelTests.swift */; };
+		D386DD41216D02C70037EFF7 /* TileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD35216D02C60037EFF7 /* TileTests.swift */; };
+		D386DD45216D02D90037EFF7 /* URLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD43216D02D80037EFF7 /* URLTests.swift */; };
+		D386DD46216D02D90037EFF7 /* MKMapRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD44216D02D90037EFF7 /* MKMapRectTests.swift */; };
+		D386DD4E216D02EA0037EFF7 /* OldBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D386DD48216D02E90037EFF7 /* OldBaseTime.xml */; };
+		D386DD4F216D02EA0037EFF7 /* tile2.png in Resources */ = {isa = PBXBuildFile; fileRef = D386DD49216D02E90037EFF7 /* tile2.png */; };
+		D386DD50216D02EA0037EFF7 /* FutureBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D386DD4A216D02E90037EFF7 /* FutureBaseTime.xml */; };
+		D386DD51216D02EA0037EFF7 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D386DD4B216D02E90037EFF7 /* tile.png */; };
+		D386DD52216D02EA0037EFF7 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D386DD4C216D02EA0037EFF7 /* InvalidBaseTime.xml */; };
+		D386DD53216D02EA0037EFF7 /* NewBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D386DD4D216D02EA0037EFF7 /* NewBaseTime.xml */; };
 		D38D34391CE7244300D77509 /* NowCastMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = D33249891BA727C9008F1F21 /* NowCastMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D38D343F1CE724B100D77509 /* BaseTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B21BA84A03008F1F21 /* BaseTimeModel.swift */; };
 		D38D34401CE724B100D77509 /* BaseTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249B01BA842F2008F1F21 /* BaseTime.swift */; };
@@ -42,114 +41,86 @@
 		D38D34431CE724B100D77509 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
 		D38D34441CE724B100D77509 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D38D34451CE724B100D77509 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
-		D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */; };
-		D38D747B1F02752A006A14D7 /* NCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38D747A1F02752A006A14D7 /* NCError.swift */; };
 		D38D747C1F02752A006A14D7 /* NCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38D747A1F02752A006A14D7 /* NCError.swift */; };
-		D3A4D7C11D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
 		D3A4D7C21D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
-		D3A4D7C51D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */; };
 		D3A4D7C61D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */; };
-		D3A4D7CA1D62C440005FA9D5 /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */; };
 		D3A4D7CB1D62C440005FA9D5 /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */; };
-		D3B1A1791F17174D0043770A /* RainLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1A1781F17174D0043770A /* RainLevelTests.swift */; };
-		D3CB76311D9527B000498829 /* BaseTimeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */; };
-		D3CB76331D95467200498829 /* TileModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76321D95467200498829 /* TileModelTests.swift */; };
-		D3CB76351D95487600498829 /* MKMapRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76341D95487600498829 /* MKMapRectTests.swift */; };
-		D3CB763A1D955F6200498829 /* RGBA255.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76391D955F6200498829 /* RGBA255.swift */; };
 		D3CB763B1D955F6200498829 /* RGBA255.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76391D955F6200498829 /* RGBA255.swift */; };
-		D3CB763E1D95639100498829 /* ZoomLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB763D1D95639100498829 /* ZoomLevelTests.swift */; };
 		D3CB76401D9628EC00498829 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
-		D3CB76411D9628EC00498829 /* RainLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F56331D1BDB560088E547 /* RainLevel.swift */; };
-		D3CB76481D96292E00498829 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* Overlay.swift */; };
 		D3CB76491D96292F00498829 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A41BA7280F008F1F21 /* Overlay.swift */; };
-		D3CB764B1D96293200498829 /* OverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */; };
 		D3CB764C1D96293300498829 /* OverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */; };
-		D3CB764F1D9637B400498829 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB764E1D9637B400498829 /* UIColor.swift */; };
 		D3CB76501D9637B400498829 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB764E1D9637B400498829 /* UIColor.swift */; };
 		D3CB76541D96451E00498829 /* RainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* RainLevels.swift */; };
-		D3CB76551D96452200498829 /* RainLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D374E88D1C5ED75F001837E3 /* RainLevels.swift */; };
 		D3CB76571D966B3300498829 /* RainLevelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */; };
-		D3CB76581D966B3400498829 /* RainLevelsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */; };
-		D3CB765A1D96712B00498829 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76591D96712B00498829 /* CLLocationCoordinate2D.swift */; };
 		D3CB765B1D96712C00498829 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB76591D96712B00498829 /* CLLocationCoordinate2D.swift */; };
-		D3D3CCF01BAE60D00083B7FC /* OldBaseTime.xml in Resources */ = {isa = PBXBuildFile; fileRef = D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */; };
-		D3D3CCF21BAE6BE70083B7FC /* BaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */; };
-		D3D3CCFB1BB6098A0083B7FC /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D3CCFA1BB6098A0083B7FC /* Tile.swift */; };
-		D3DE78A51D6FB5740054420C /* TileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78A41D6FB5740054420C /* TileModel.swift */; };
 		D3DE78A61D6FB5740054420C /* TileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78A41D6FB5740054420C /* TileModel.swift */; };
-		D3DE78AA1D77D6730054420C /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78A91D77D6730054420C /* Coordinates.swift */; };
 		D3DE78AB1D77D6730054420C /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78A91D77D6730054420C /* Coordinates.swift */; };
-		D3DE78AE1D78F5290054420C /* Tile+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */; };
 		D3DE78AF1D78F5290054420C /* Tile+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */; };
-		D3EA9D8F1DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
 		D3EA9D901DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
-		D3F1E8DC1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
-		D3FCA2AE1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */; };
 		D3FCA2AF1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */; };
-		D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FD41FC1C68154F00EE1A65 /* tile.png */; };
-		D3FD42061C6B6A9C00EE1A65 /* TileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D33249921BA727C9008F1F21 /* PBXContainerItemProxy */ = {
+		D386DD20216D024A0037EFF7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D332497D1BA727C9008F1F21 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D33249851BA727C9008F1F21;
-			remoteInfo = NowCastMapView;
+			remoteGlobalIDString = D38D34301CE7204F00D77509;
+			remoteInfo = "NowCastMapView iOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D30341381C63864100F44630 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		D307FFD31C5C844B001F6C66 /* NewBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NewBaseTime.xml; sourceTree = "<group>"; };
-		D30F944B1DAAA06200AFEBB0 /* RainLevelsModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsModelTests.swift; sourceTree = "<group>"; };
-		D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeModelTests.swift; sourceTree = "<group>"; };
 		D32E376320D27EAD0094F59C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
-		D33249861BA727C9008F1F21 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D33249891BA727C9008F1F21 /* NowCastMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowCastMapView.h; sourceTree = "<group>"; };
-		D332498B1BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D33249901BA727C9008F1F21 /* NowCastMapViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NowCastMapViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D33249971BA727C9008F1F21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D332498B1BA727C9008F1F21 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayRenderer.swift; sourceTree = "<group>"; };
 		D33249A41BA7280F008F1F21 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		D33249AC1BA72823008F1F21 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D33249B01BA842F2008F1F21 /* BaseTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTime.swift; sourceTree = "<group>"; };
 		D33249B21BA84A03008F1F21 /* BaseTimeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeModel.swift; sourceTree = "<group>"; };
 		D33249B41BA86259008F1F21 /* BaseTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeParser.swift; sourceTree = "<group>"; };
-		D335FBC11CBDEEF600960920 /* tile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile2.png; sourceTree = "<group>"; };
 		D33D84641DCF279C00A627F6 /* NowCastMapView.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = NowCastMapView.podspec; sourceTree = "<group>"; };
 		D33F56331D1BDB560088E547 /* RainLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevel.swift; sourceTree = "<group>"; };
 		D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsModel.swift; sourceTree = "<group>"; };
 		D3438CA21BADB3C9009B5AB8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D35344961EBE2AAA00CB27D3 /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
-		D353449E1EBF466100CB27D3 /* TileCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCacheTests.swift; sourceTree = "<group>"; };
 		D354FF831EBDF08800C80586 /* TileModel+Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileModel+Task.swift"; sourceTree = "<group>"; };
-		D367BA341D94F24D0014E109 /* URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTests.swift; sourceTree = "<group>"; };
-		D367BA371D94F4440014E109 /* CoordinatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatesTests.swift; sourceTree = "<group>"; };
 		D36DB30C1D1B58050003DD7F /* ZoomLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevel.swift; sourceTree = "<group>"; };
 		D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Request.swift"; sourceTree = "<group>"; };
-		D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
 		D374E88D1C5ED75F001837E3 /* RainLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevels.swift; sourceTree = "<group>"; };
 		D375D5C31D0E5DF700A55405 /* BaseTime+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseTime+Comparable.swift"; sourceTree = "<group>"; };
-		D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
-		D385C5A320E2F3C800934586 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D386DD1A216D02490037EFF7 /* NowCastMapView iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NowCastMapView iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D386DD2A216D02C50037EFF7 /* RainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsTest.swift; sourceTree = "<group>"; };
+		D386DD2B216D02C50037EFF7 /* RainLevelsModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsModelTests.swift; sourceTree = "<group>"; };
+		D386DD2C216D02C50037EFF7 /* RainLevelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelTests.swift; sourceTree = "<group>"; };
+		D386DD2D216D02C50037EFF7 /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
+		D386DD2E216D02C50037EFF7 /* BaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeTests.swift; sourceTree = "<group>"; };
+		D386DD2F216D02C60037EFF7 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		D386DD30216D02C60037EFF7 /* TileCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCacheTests.swift; sourceTree = "<group>"; };
+		D386DD31216D02C60037EFF7 /* TileModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileModelTests.swift; sourceTree = "<group>"; };
+		D386DD32216D02C60037EFF7 /* BaseTimeModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeModelTests.swift; sourceTree = "<group>"; };
+		D386DD33216D02C60037EFF7 /* CoordinatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatesTests.swift; sourceTree = "<group>"; };
+		D386DD34216D02C60037EFF7 /* ZoomLevelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevelTests.swift; sourceTree = "<group>"; };
+		D386DD35216D02C60037EFF7 /* TileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileTests.swift; sourceTree = "<group>"; };
+		D386DD43216D02D80037EFF7 /* URLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTests.swift; sourceTree = "<group>"; };
+		D386DD44216D02D90037EFF7 /* MKMapRectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapRectTests.swift; sourceTree = "<group>"; };
+		D386DD48216D02E90037EFF7 /* OldBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OldBaseTime.xml; sourceTree = "<group>"; };
+		D386DD49216D02E90037EFF7 /* tile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile2.png; sourceTree = "<group>"; };
+		D386DD4A216D02E90037EFF7 /* FutureBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FutureBaseTime.xml; sourceTree = "<group>"; };
+		D386DD4B216D02E90037EFF7 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
+		D386DD4C216D02EA0037EFF7 /* InvalidBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InvalidBaseTime.xml; sourceTree = "<group>"; };
+		D386DD4D216D02EA0037EFF7 /* NewBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NewBaseTime.xml; sourceTree = "<group>"; };
 		D38D34311CE7204F00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InvalidBaseTime.xml; sourceTree = "<group>"; };
 		D38D747A1F02752A006A14D7 /* NCError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCError.swift; sourceTree = "<group>"; };
 		D3A4D7C01D62BF89005FA9D5 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Deltas.swift"; sourceTree = "<group>"; };
 		D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapRect.swift; sourceTree = "<group>"; };
-		D3B1A1781F17174D0043770A /* RainLevelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelTests.swift; sourceTree = "<group>"; };
-		D3CB76321D95467200498829 /* TileModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileModelTests.swift; sourceTree = "<group>"; };
-		D3CB76341D95487600498829 /* MKMapRectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapRectTests.swift; sourceTree = "<group>"; };
 		D3CB76391D955F6200498829 /* RGBA255.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RGBA255.swift; sourceTree = "<group>"; };
-		D3CB763D1D95639100498829 /* ZoomLevelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomLevelTests.swift; sourceTree = "<group>"; };
 		D3CB764E1D9637B400498829 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		D3CB76591D96712B00498829 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
-		D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OldBaseTime.xml; sourceTree = "<group>"; };
-		D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeTests.swift; sourceTree = "<group>"; };
 		D3D3CCFA1BB6098A0083B7FC /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		D3D6421220A31D8F004432C8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D3D6421420A3201C004432C8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -160,25 +131,14 @@
 		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Result.swift"; sourceTree = "<group>"; };
 		D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Task.swift"; sourceTree = "<group>"; };
-		D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainLevelsTest.swift; sourceTree = "<group>"; };
-		D3FD41FC1C68154F00EE1A65 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
-		D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D33249821BA727C9008F1F21 /* Frameworks */ = {
+		D386DD17216D02490037EFF7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D33249AD1BA72823008F1F21 /* MapKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D332498D1BA727C9008F1F21 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D33249911BA727C9008F1F21 /* NowCastMapView.framework in Frameworks */,
+				D386DD1F216D024A0037EFF7 /* NowCastMapView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +170,7 @@
 				D3D6421420A3201C004432C8 /* README.md */,
 				D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */,
 				D33249881BA727C9008F1F21 /* NowCastMapView */,
-				D33249941BA727C9008F1F21 /* NowCastMapViewTests */,
+				D386DD29216D029F0037EFF7 /* Tests */,
 				D33249871BA727C9008F1F21 /* Products */,
 				A38797324710833736C08255 /* Frameworks */,
 			);
@@ -219,9 +179,8 @@
 		D33249871BA727C9008F1F21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D33249861BA727C9008F1F21 /* NowCastMapView.framework */,
-				D33249901BA727C9008F1F21 /* NowCastMapViewTests.xctest */,
 				D38D34311CE7204F00D77509 /* NowCastMapView.framework */,
+				D386DD1A216D02490037EFF7 /* NowCastMapView iOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,27 +195,6 @@
 				D3438CA11BADB0B0009B5AB8 /* etc */,
 			);
 			path = NowCastMapView;
-			sourceTree = "<group>";
-		};
-		D33249941BA727C9008F1F21 /* NowCastMapViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				D385C5A320E2F3C800934586 /* .swiftlint.yml */,
-				D3762E2C1CE755DA006D0979 /* BaseTestCase.swift */,
-				D3D3CCF11BAE6BE70083B7FC /* BaseTimeTests.swift */,
-				D3112F9D1BACA14F00FE21CF /* BaseTimeModelTests.swift */,
-				D3B1A1781F17174D0043770A /* RainLevelTests.swift */,
-				D3FD41FA1C67891A00EE1A65 /* RainLevelsTest.swift */,
-				D30F944B1DAAA06200AFEBB0 /* RainLevelsModelTests.swift */,
-				D3FD42051C6B6A9C00EE1A65 /* TileTests.swift */,
-				D3CB76321D95467200498829 /* TileModelTests.swift */,
-				D353449E1EBF466100CB27D3 /* TileCacheTests.swift */,
-				D367BA371D94F4440014E109 /* CoordinatesTests.swift */,
-				D3CB763D1D95639100498829 /* ZoomLevelTests.swift */,
-				D367BA361D94F2540014E109 /* Extensions */,
-				D3D3CCF51BAE9D090083B7FC /* Resources */,
-			);
-			path = NowCastMapViewTests;
 			sourceTree = "<group>";
 		};
 		D3438CA01BADB09F009B5AB8 /* BaseTime */ = {
@@ -276,18 +214,9 @@
 				D33249891BA727C9008F1F21 /* NowCastMapView.h */,
 				D38D747A1F02752A006A14D7 /* NCError.swift */,
 				D3438CA21BADB3C9009B5AB8 /* Constants.swift */,
-				D332498B1BA727C9008F1F21 /* Info.plist */,
+				D332498B1BA727C9008F1F21 /* Info-iOS.plist */,
 			);
 			name = etc;
-			sourceTree = "<group>";
-		};
-		D367BA361D94F2540014E109 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				D367BA341D94F24D0014E109 /* URLTests.swift */,
-				D3CB76341D95487600498829 /* MKMapRectTests.swift */,
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 		D374E88C1C5E083A001837E3 /* RainLevels */ = {
@@ -303,6 +232,49 @@
 				D3D3CCEE1BAE5A500083B7FC /* MapView */,
 			);
 			name = RainLevels;
+			sourceTree = "<group>";
+		};
+		D386DD29216D029F0037EFF7 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D386DD47216D02DE0037EFF7 /* Resources */,
+				D386DD42216D02D00037EFF7 /* Extensions */,
+				D386DD2D216D02C50037EFF7 /* BaseTestCase.swift */,
+				D386DD32216D02C60037EFF7 /* BaseTimeModelTests.swift */,
+				D386DD2E216D02C50037EFF7 /* BaseTimeTests.swift */,
+				D386DD33216D02C60037EFF7 /* CoordinatesTests.swift */,
+				D386DD2F216D02C60037EFF7 /* Info-iOS.plist */,
+				D386DD2B216D02C50037EFF7 /* RainLevelsModelTests.swift */,
+				D386DD2A216D02C50037EFF7 /* RainLevelsTest.swift */,
+				D386DD2C216D02C50037EFF7 /* RainLevelTests.swift */,
+				D386DD30216D02C60037EFF7 /* TileCacheTests.swift */,
+				D386DD31216D02C60037EFF7 /* TileModelTests.swift */,
+				D386DD35216D02C60037EFF7 /* TileTests.swift */,
+				D386DD34216D02C60037EFF7 /* ZoomLevelTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		D386DD42216D02D00037EFF7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D386DD44216D02D90037EFF7 /* MKMapRectTests.swift */,
+				D386DD43216D02D80037EFF7 /* URLTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D386DD47216D02DE0037EFF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D386DD4A216D02E90037EFF7 /* FutureBaseTime.xml */,
+				D386DD4C216D02EA0037EFF7 /* InvalidBaseTime.xml */,
+				D386DD4D216D02EA0037EFF7 /* NewBaseTime.xml */,
+				D386DD48216D02E90037EFF7 /* OldBaseTime.xml */,
+				D386DD4B216D02E90037EFF7 /* tile.png */,
+				D386DD49216D02E90037EFF7 /* tile2.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D3A4D7C81D62C41A005FA9D5 /* Extensions */ = {
@@ -326,20 +298,6 @@
 			name = MapView;
 			sourceTree = "<group>";
 		};
-		D3D3CCF51BAE9D090083B7FC /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D3FD41FC1C68154F00EE1A65 /* tile.png */,
-				D335FBC11CBDEEF600960920 /* tile2.png */,
-				D33249971BA727C9008F1F21 /* Info.plist */,
-				D3D3CCEF1BAE60D00083B7FC /* OldBaseTime.xml */,
-				D307FFD31C5C844B001F6C66 /* NewBaseTime.xml */,
-				D374E88A1C5D018C001837E3 /* FutureBaseTime.xml */,
-				D38D344A1CE733DB00D77509 /* InvalidBaseTime.xml */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		D3FDA9CA1BB7708F00BD5F45 /* Tile */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,14 +317,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D33249831BA727C9008F1F21 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D332498A1BA727C9008F1F21 /* NowCastMapView.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D38D342E1CE7204F00D77509 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,42 +328,22 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		D33249851BA727C9008F1F21 /* NowCastMapView */ = {
+		D386DD19216D02490037EFF7 /* NowCastMapView iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D332499A1BA727C9008F1F21 /* Build configuration list for PBXNativeTarget "NowCastMapView" */;
+			buildConfigurationList = D386DD22216D024A0037EFF7 /* Build configuration list for PBXNativeTarget "NowCastMapView iOS Tests" */;
 			buildPhases = (
-				D33249811BA727C9008F1F21 /* Sources */,
-				D33249821BA727C9008F1F21 /* Frameworks */,
-				D33249831BA727C9008F1F21 /* Headers */,
-				D33249841BA727C9008F1F21 /* Resources */,
-				D36DB30A1D1A45890003DD7F /* SwiftLint */,
+				D386DD16216D02490037EFF7 /* Sources */,
+				D386DD17216D02490037EFF7 /* Frameworks */,
+				D386DD18216D02490037EFF7 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D386DD21216D024A0037EFF7 /* PBXTargetDependency */,
 			);
-			name = NowCastMapView;
-			productName = NowCastMapView;
-			productReference = D33249861BA727C9008F1F21 /* NowCastMapView.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D332498F1BA727C9008F1F21 /* NowCastMapViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D332499D1BA727C9008F1F21 /* Build configuration list for PBXNativeTarget "NowCastMapViewTests" */;
-			buildPhases = (
-				D332498C1BA727C9008F1F21 /* Sources */,
-				D332498D1BA727C9008F1F21 /* Frameworks */,
-				D332498E1BA727C9008F1F21 /* Resources */,
-				D33F563F1D1CA4B60088E547 /* SwiftLint */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D33249931BA727C9008F1F21 /* PBXTargetDependency */,
-			);
-			name = NowCastMapViewTests;
-			productName = NowCastMapViewTests;
-			productReference = D33249901BA727C9008F1F21 /* NowCastMapViewTests.xctest */;
+			name = "NowCastMapView iOS Tests";
+			productName = "NowCastMapView iOS Tests";
+			productReference = D386DD1A216D02490037EFF7 /* NowCastMapView iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D38D34301CE7204F00D77509 /* NowCastMapView iOS */ = {
@@ -440,18 +370,15 @@
 		D332497D1BA727C9008F1F21 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Hiroshi Noto";
 				TargetAttributes = {
-					D33249851BA727C9008F1F21 = {
-						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0900;
+					D386DD19216D02490037EFF7 = {
+						CreatedOnToolsVersion = 10.0;
+						DevelopmentTeam = NGSEKJM42E;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
-					};
-					D332498F1BA727C9008F1F21 = {
-						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0900;
 					};
 					D38D34301CE7204F00D77509 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -473,31 +400,24 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D33249851BA727C9008F1F21 /* NowCastMapView */,
 				D38D34301CE7204F00D77509 /* NowCastMapView iOS */,
-				D332498F1BA727C9008F1F21 /* NowCastMapViewTests */,
+				D386DD19216D02490037EFF7 /* NowCastMapView iOS Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D33249841BA727C9008F1F21 /* Resources */ = {
+		D386DD18216D02490037EFF7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D332498E1BA727C9008F1F21 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D374E88B1C5D018C001837E3 /* FutureBaseTime.xml in Resources */,
-				D335FBC21CBDEEF600960920 /* tile2.png in Resources */,
-				D3FD41FD1C68154F00EE1A65 /* tile.png in Resources */,
-				D307FFD41C5C844B001F6C66 /* NewBaseTime.xml in Resources */,
-				D3D3CCF01BAE60D00083B7FC /* OldBaseTime.xml in Resources */,
-				D38D344B1CE733DB00D77509 /* InvalidBaseTime.xml in Resources */,
+				D386DD3B216D02C70037EFF7 /* Info-iOS.plist in Resources */,
+				D386DD53216D02EA0037EFF7 /* NewBaseTime.xml in Resources */,
+				D386DD51216D02EA0037EFF7 /* tile.png in Resources */,
+				D386DD4E216D02EA0037EFF7 /* OldBaseTime.xml in Resources */,
+				D386DD50216D02EA0037EFF7 /* FutureBaseTime.xml in Resources */,
+				D386DD4F216D02EA0037EFF7 /* tile2.png in Resources */,
+				D386DD52216D02EA0037EFF7 /* InvalidBaseTime.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,91 +430,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		D33F563F1D1CA4B60088E547 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint --path NowCastMapViewTests\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		D36DB30A1D1A45890003DD7F /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint lint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		D33249811BA727C9008F1F21 /* Sources */ = {
+		D386DD16216D02490037EFF7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D354FF841EBDF08800C80586 /* TileModel+Task.swift in Sources */,
-				D3A4D7C51D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */,
-				D3DE78AE1D78F5290054420C /* Tile+Modifiers.swift in Sources */,
-				D3F1E8DC1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */,
-				D35344971EBE2AAA00CB27D3 /* TileCache.swift in Sources */,
-				D3CB76481D96292E00498829 /* Overlay.swift in Sources */,
-				D3CB765A1D96712B00498829 /* CLLocationCoordinate2D.swift in Sources */,
-				D33249B31BA84A03008F1F21 /* BaseTimeModel.swift in Sources */,
-				D3EA9D8F1DAC9A5C0019822D /* TileModel+Request.swift in Sources */,
-				D3FCA2AE1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */,
-				D3CB76551D96452200498829 /* RainLevels.swift in Sources */,
-				D3CB76581D966B3400498829 /* RainLevelsModel.swift in Sources */,
-				D375D5C41D0E5DF700A55405 /* BaseTime+Comparable.swift in Sources */,
-				D33249B11BA842F2008F1F21 /* BaseTime.swift in Sources */,
-				D38D747B1F02752A006A14D7 /* NCError.swift in Sources */,
-				D3CB763A1D955F6200498829 /* RGBA255.swift in Sources */,
-				D3DE78A51D6FB5740054420C /* TileModel.swift in Sources */,
-				D3CB764F1D9637B400498829 /* UIColor.swift in Sources */,
-				D3CB76411D9628EC00498829 /* RainLevel.swift in Sources */,
-				D3CB764B1D96293200498829 /* OverlayRenderer.swift in Sources */,
-				D3716E941DA1D34E001DCC74 /* RainLevelsModel+Request.swift in Sources */,
-				D3A4D7CA1D62C440005FA9D5 /* MKMapRect.swift in Sources */,
-				D33249B51BA86259008F1F21 /* BaseTimeParser.swift in Sources */,
-				D30341391C63864100F44630 /* UIImage.swift in Sources */,
-				D3438CA31BADB3C9009B5AB8 /* Constants.swift in Sources */,
-				D3DE78AA1D77D6730054420C /* Coordinates.swift in Sources */,
-				D3A4D7C11D62BF89005FA9D5 /* URL.swift in Sources */,
-				D3D3CCFB1BB6098A0083B7FC /* Tile.swift in Sources */,
-				D36DB30D1D1B58050003DD7F /* ZoomLevel.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D332498C1BA727C9008F1F21 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D30F944A1DAA8FF000AFEBB0 /* RainLevelsTest.swift in Sources */,
-				D3CB763E1D95639100498829 /* ZoomLevelTests.swift in Sources */,
-				D3CB76311D9527B000498829 /* BaseTimeModelTests.swift in Sources */,
-				D3D3CCF21BAE6BE70083B7FC /* BaseTimeTests.swift in Sources */,
-				D3FD42061C6B6A9C00EE1A65 /* TileTests.swift in Sources */,
-				D3CB76351D95487600498829 /* MKMapRectTests.swift in Sources */,
-				D3CB76331D95467200498829 /* TileModelTests.swift in Sources */,
-				D3762E2D1CE755DA006D0979 /* BaseTestCase.swift in Sources */,
-				D367BA351D94F24D0014E109 /* URLTests.swift in Sources */,
-				D30F944C1DAAA06200AFEBB0 /* RainLevelsModelTests.swift in Sources */,
-				D367BA381D94F4440014E109 /* CoordinatesTests.swift in Sources */,
-				D353449F1EBF466100CB27D3 /* TileCacheTests.swift in Sources */,
-				D3B1A1791F17174D0043770A /* RainLevelTests.swift in Sources */,
+				D386DD3D216D02C70037EFF7 /* TileModelTests.swift in Sources */,
+				D386DD46216D02D90037EFF7 /* MKMapRectTests.swift in Sources */,
+				D386DD3E216D02C70037EFF7 /* BaseTimeModelTests.swift in Sources */,
+				D386DD41216D02C70037EFF7 /* TileTests.swift in Sources */,
+				D386DD3C216D02C70037EFF7 /* TileCacheTests.swift in Sources */,
+				D386DD39216D02C70037EFF7 /* BaseTestCase.swift in Sources */,
+				D386DD38216D02C70037EFF7 /* RainLevelTests.swift in Sources */,
+				D386DD37216D02C70037EFF7 /* RainLevelsModelTests.swift in Sources */,
+				D386DD45216D02D90037EFF7 /* URLTests.swift in Sources */,
+				D386DD3A216D02C70037EFF7 /* BaseTimeTests.swift in Sources */,
+				D386DD40216D02C70037EFF7 /* ZoomLevelTests.swift in Sources */,
+				D386DD3F216D02C70037EFF7 /* CoordinatesTests.swift in Sources */,
+				D386DD36216D02C70037EFF7 /* RainLevelsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,10 +490,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D33249931BA727C9008F1F21 /* PBXTargetDependency */ = {
+		D386DD21216D024A0037EFF7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D33249851BA727C9008F1F21 /* NowCastMapView */;
-			targetProxy = D33249921BA727C9008F1F21 /* PBXContainerItemProxy */;
+			target = D38D34301CE7204F00D77509 /* NowCastMapView iOS */;
+			targetProxy = D386DD20216D024A0037EFF7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -754,80 +607,57 @@
 			};
 			name = Release;
 		};
-		D332499B1BA727C9008F1F21 /* Debug */ = {
+		D386DD23216D024A0037EFF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = NowCastMapView/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NGSEKJM42E;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Tests/Info-iOS.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.NowCastMapView;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.notohiro.NowCastMapView-iOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		D332499C1BA727C9008F1F21 /* Release */ = {
+		D386DD24216D024A0037EFF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = NowCastMapView/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NGSEKJM42E;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Tests/Info-iOS.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.NowCastMapView;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.notohiro.NowCastMapView-iOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
-		D332499E1BA727C9008F1F21 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = NowCastMapViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.NowCastMapViewTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		D332499F1BA727C9008F1F21 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = NowCastMapViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.notohiro.NowCastMapViewTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -842,7 +672,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = NowCastMapView/Info.plist;
+				INFOPLIST_FILE = "NowCastMapView/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.notohiro.NowCastMapView-iOS";
@@ -863,7 +693,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = NowCastMapView/Info.plist;
+				INFOPLIST_FILE = "NowCastMapView/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.notohiro.NowCastMapView-iOS";
@@ -886,20 +716,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D332499A1BA727C9008F1F21 /* Build configuration list for PBXNativeTarget "NowCastMapView" */ = {
+		D386DD22216D024A0037EFF7 /* Build configuration list for PBXNativeTarget "NowCastMapView iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D332499B1BA727C9008F1F21 /* Debug */,
-				D332499C1BA727C9008F1F21 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D332499D1BA727C9008F1F21 /* Build configuration list for PBXNativeTarget "NowCastMapViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D332499E1BA727C9008F1F21 /* Debug */,
-				D332499F1BA727C9008F1F21 /* Release */,
+				D386DD23216D024A0037EFF7 /* Debug */,
+				D386DD24216D024A0037EFF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

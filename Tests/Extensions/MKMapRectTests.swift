@@ -16,7 +16,7 @@ class MKMapRectTests: BaseTestCase {
 	    guard let modifiers = Tile.Modifiers(zoomLevel: .level6, latitude: 0, longitude: 0) else { XCTFail(); return }
 	    let mapRect = MKMapRect(modifiers: modifiers)
 
-	    let origin = MKCoordinateForMapPoint(mapRect.origin)
+	    let origin = mapRect.origin.coordinate
 	    XCTAssertEqual(origin.latitude, 61)
 	    XCTAssertEqual(origin.longitude, 100)
 
