@@ -17,11 +17,11 @@ public class Overlay: NSObject, MKOverlay {
     }
 
     public var boundingMapRect: MKMapRect {
-	    let origin = MKMapPoint.init(CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude))
-	    let end = MKMapPoint.init(CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude))
-	    let size = MKMapSize.init(width: end.x - origin.x, height: end.y - origin.y)
+	    let origin = MKMapPoint(CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude))
+	    let end = MKMapPoint(CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude))
+	    let size = MKMapSize(width: end.x - origin.x, height: end.y - origin.y)
 
-	    return MKMapRect.init(x: origin.x, y: origin.y, width: size.width, height: size.height)
+	    return MKMapRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
     }
 
     public func intersects(_ mapRect: MKMapRect) -> Bool {

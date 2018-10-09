@@ -42,7 +42,7 @@ public struct Coordinates {
 	    origin = mapRect.origin.coordinate
 
 	    // mapRect terminal Coordinate
-	    let terminalPoint = MKMapPoint.init(x: mapRect.origin.x + mapRect.size.width, y: mapRect.origin.y + mapRect.size.height)
+	    let terminalPoint = MKMapPoint(x: mapRect.origin.x + mapRect.size.width, y: mapRect.origin.y + mapRect.size.height)
 	    terminal = terminalPoint.coordinate
     }
 
