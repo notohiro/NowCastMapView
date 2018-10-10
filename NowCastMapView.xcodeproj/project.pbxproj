@@ -19,7 +19,6 @@
 		D386DD38216D02C70037EFF7 /* RainLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2C216D02C50037EFF7 /* RainLevelTests.swift */; };
 		D386DD39216D02C70037EFF7 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2D216D02C50037EFF7 /* BaseTestCase.swift */; };
 		D386DD3A216D02C70037EFF7 /* BaseTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD2E216D02C50037EFF7 /* BaseTimeTests.swift */; };
-		D386DD3B216D02C70037EFF7 /* Info-iOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = D386DD2F216D02C60037EFF7 /* Info-iOS.plist */; };
 		D386DD3C216D02C70037EFF7 /* TileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD30216D02C60037EFF7 /* TileCacheTests.swift */; };
 		D386DD3D216D02C70037EFF7 /* TileModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD31216D02C60037EFF7 /* TileModelTests.swift */; };
 		D386DD3E216D02C70037EFF7 /* BaseTimeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D386DD32216D02C60037EFF7 /* BaseTimeModelTests.swift */; };
@@ -371,7 +370,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Hiroshi Noto";
 				TargetAttributes = {
 					D386DD19216D02490037EFF7 = {
@@ -410,7 +409,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D386DD3B216D02C70037EFF7 /* Info-iOS.plist in Resources */,
 				D386DD53216D02EA0037EFF7 /* NewBaseTime.xml in Resources */,
 				D386DD51216D02EA0037EFF7 /* tile.png in Resources */,
 				D386DD4E216D02EA0037EFF7 /* OldBaseTime.xml in Resources */,
