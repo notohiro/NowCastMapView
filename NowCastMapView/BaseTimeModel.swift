@@ -6,6 +6,7 @@
 //  Copyright © 2015 Hiroshi Noto. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 public protocol BaseTimeProvider {
@@ -13,7 +14,7 @@ public protocol BaseTimeProvider {
     var current: BaseTime? { get }
 }
 
-public protocol BaseTimeModelDelegate: class {
+public protocol BaseTimeModelDelegate: AnyObject {
     func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?)
 }
 
@@ -47,7 +48,7 @@ open class BaseTimeModel: BaseTimeProvider {
                                        selector: #selector(BaseTimeModel.fetch),
                                        userInfo: nil,
                                        repeats: true)
-	    	    RunLoop.main.add(fetchTimer, forMode: RunLoop.Mode.common)
+	    	    RunLoop.main.add(fetchTimer, forMode: .common)
 	    	    self.fetchTimer = fetchTimer
 	    	    fetch()
     	    }
@@ -55,7 +56,9 @@ open class BaseTimeModel: BaseTimeProvider {
 	    }
     }
 
-    open internal(set) var current: BaseTime? {
+    open var verbose = false
+
+    @Published open internal(set) var current: BaseTime? = nil {
 	    didSet {
     	    delegate?.baseTimeModel(self, fetched: current)
 	    }
@@ -80,7 +83,9 @@ open class BaseTimeModel: BaseTimeProvider {
 
 	    	    if self.current == nil, let baseTime = baseTime {
     	    	    self.current = baseTime
-	    	    } else if let current = self.current, let baseTime = baseTime, current < baseTime {
+                } else if self.verbose == true {
+                    self.current = baseTime
+                } else if let current = self.current, let baseTime = baseTime, current < baseTime {
     	    	    self.current = baseTime
 	    	    }
     	    }

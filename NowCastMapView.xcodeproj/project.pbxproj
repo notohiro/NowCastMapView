@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D304E1A922D1CFC00020E448 /* BaseTimeModelTestsWithPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304E1A822D1CFC00020E448 /* BaseTimeModelTestsWithPublisher.swift */; };
+		D304E1AD22D571CA0020E448 /* RGBA255Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304E1AC22D571CA0020E448 /* RGBA255Tests.swift */; };
+		D32A684322D811DD00872063 /* CLLocationCoordinate2DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32A684222D811DD00872063 /* CLLocationCoordinate2DTests.swift */; };
+		D32A684522D8A84E00872063 /* MKMapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32A684422D8A84E00872063 /* MKMapPoint.swift */; };
+		D32A684722D8A9DE00872063 /* MKMapSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32A684622D8A9DE00872063 /* MKMapSize.swift */; };
 		D35344991EBE2AB300CB27D3 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35344961EBE2AAA00CB27D3 /* TileCache.swift */; };
 		D354FF851EBDF08800C80586 /* TileModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D354FF831EBDF08800C80586 /* TileModel+Task.swift */; };
 		D36DB30B1D1A45AF0003DD7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33249AC1BA72823008F1F21 /* MapKit.framework */; };
@@ -41,6 +46,7 @@
 		D38D34441CE724B100D77509 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30341381C63864100F44630 /* UIImage.swift */; };
 		D38D34451CE724B100D77509 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3438CA21BADB3C9009B5AB8 /* Constants.swift */; };
 		D38D747C1F02752A006A14D7 /* NCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38D747A1F02752A006A14D7 /* NCError.swift */; };
+		D3A4542922D64EB300A568F7 /* RainLevelsModelRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4542822D64EB300A568F7 /* RainLevelsModelRequestTests.swift */; };
 		D3A4D7C21D62BF89005FA9D5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C01D62BF89005FA9D5 /* URL.swift */; };
 		D3A4D7C61D62BFC3005FA9D5 /* Tile+Deltas.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */; };
 		D3A4D7CB1D62C440005FA9D5 /* MKMapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */; };
@@ -56,6 +62,7 @@
 		D3DE78AB1D77D6730054420C /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78A91D77D6730054420C /* Coordinates.swift */; };
 		D3DE78AF1D78F5290054420C /* Tile+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */; };
 		D3EA9D901DAC9A5C0019822D /* TileModel+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */; };
+		D3EEE98522C5263A00463302 /* RainLevelsModel+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEE98422C5263A00463302 /* RainLevelsModel+Publisher.swift */; };
 		D3F1E8DD1DC05EDF0006F25E /* RainLevelsModel+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */; };
 		D3FCA2AF1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */; };
 /* End PBXBuildFile section */
@@ -72,7 +79,12 @@
 
 /* Begin PBXFileReference section */
 		D30341381C63864100F44630 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		D32E376320D27EAD0094F59C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D304E1A822D1CFC00020E448 /* BaseTimeModelTestsWithPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTimeModelTestsWithPublisher.swift; sourceTree = "<group>"; };
+		D304E1AB22D56EE10020E448 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D304E1AC22D571CA0020E448 /* RGBA255Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBA255Tests.swift; sourceTree = "<group>"; };
+		D32A684222D811DD00872063 /* CLLocationCoordinate2DTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DTests.swift; sourceTree = "<group>"; };
+		D32A684422D8A84E00872063 /* MKMapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapPoint.swift; sourceTree = "<group>"; };
+		D32A684622D8A9DE00872063 /* MKMapSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapSize.swift; sourceTree = "<group>"; };
 		D33249891BA727C9008F1F21 /* NowCastMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowCastMapView.h; sourceTree = "<group>"; };
 		D332498B1BA727C9008F1F21 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayRenderer.swift; sourceTree = "<group>"; };
@@ -114,6 +126,7 @@
 		D386DD4D216D02EA0037EFF7 /* NewBaseTime.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NewBaseTime.xml; sourceTree = "<group>"; };
 		D38D34311CE7204F00D77509 /* NowCastMapView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NowCastMapView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D38D747A1F02752A006A14D7 /* NCError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NCError.swift; sourceTree = "<group>"; };
+		D3A4542822D64EB300A568F7 /* RainLevelsModelRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainLevelsModelRequestTests.swift; sourceTree = "<group>"; };
 		D3A4D7C01D62BF89005FA9D5 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		D3A4D7C41D62BFC3005FA9D5 /* Tile+Deltas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Deltas.swift"; sourceTree = "<group>"; };
 		D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapRect.swift; sourceTree = "<group>"; };
@@ -127,7 +140,8 @@
 		D3DE78A91D77D6730054420C /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		D3DE78AD1D78F5290054420C /* Tile+Modifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tile+Modifiers.swift"; sourceTree = "<group>"; };
 		D3EA9D8E1DAC9A5C0019822D /* TileModel+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileModel+Request.swift"; sourceTree = "<group>"; };
-		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		D3EADC7E1CEE9883002412F2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		D3EEE98422C5263A00463302 /* RainLevelsModel+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Publisher.swift"; sourceTree = "<group>"; };
 		D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Result.swift"; sourceTree = "<group>"; };
 		D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RainLevelsModel+Task.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,7 +177,7 @@
 		D332497C1BA727C9008F1F21 = {
 			isa = PBXGroup;
 			children = (
-				D32E376320D27EAD0094F59C /* .swiftlint.yml */,
+				D304E1AB22D56EE10020E448 /* .swiftlint.yml */,
 				D3D6421220A31D8F004432C8 /* .gitignore */,
 				D33D84641DCF279C00A627F6 /* NowCastMapView.podspec */,
 				D3D6421420A3201C004432C8 /* README.md */,
@@ -225,6 +239,7 @@
 				D33F56331D1BDB560088E547 /* RainLevel.swift */,
 				D374E88D1C5ED75F001837E3 /* RainLevels.swift */,
 				D33F563B1D1C0F840088E547 /* RainLevelsModel.swift */,
+				D3EEE98422C5263A00463302 /* RainLevelsModel+Publisher.swift */,
 				D3FCA2AD1EBB60740016EAEA /* RainLevelsModel+Task.swift */,
 				D3716E931DA1D34E001DCC74 /* RainLevelsModel+Request.swift */,
 				D3F1E8DB1DC05EDF0006F25E /* RainLevelsModel+Result.swift */,
@@ -240,16 +255,19 @@
 				D386DD42216D02D00037EFF7 /* Extensions */,
 				D386DD2D216D02C50037EFF7 /* BaseTestCase.swift */,
 				D386DD32216D02C60037EFF7 /* BaseTimeModelTests.swift */,
+				D304E1A822D1CFC00020E448 /* BaseTimeModelTestsWithPublisher.swift */,
 				D386DD2E216D02C50037EFF7 /* BaseTimeTests.swift */,
 				D386DD33216D02C60037EFF7 /* CoordinatesTests.swift */,
 				D386DD2F216D02C60037EFF7 /* Info-iOS.plist */,
 				D386DD2B216D02C50037EFF7 /* RainLevelsModelTests.swift */,
+				D3A4542822D64EB300A568F7 /* RainLevelsModelRequestTests.swift */,
 				D386DD2A216D02C50037EFF7 /* RainLevelsTest.swift */,
 				D386DD2C216D02C50037EFF7 /* RainLevelTests.swift */,
 				D386DD30216D02C60037EFF7 /* TileCacheTests.swift */,
 				D386DD31216D02C60037EFF7 /* TileModelTests.swift */,
 				D386DD35216D02C60037EFF7 /* TileTests.swift */,
 				D386DD34216D02C60037EFF7 /* ZoomLevelTests.swift */,
+				D304E1AC22D571CA0020E448 /* RGBA255Tests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -259,6 +277,7 @@
 			children = (
 				D386DD44216D02D90037EFF7 /* MKMapRectTests.swift */,
 				D386DD43216D02D80037EFF7 /* URLTests.swift */,
+				D32A684222D811DD00872063 /* CLLocationCoordinate2DTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -281,6 +300,8 @@
 			children = (
 				D3A4D7C01D62BF89005FA9D5 /* URL.swift */,
 				D3A4D7C91D62C440005FA9D5 /* MKMapRect.swift */,
+				D32A684422D8A84E00872063 /* MKMapPoint.swift */,
+				D32A684622D8A9DE00872063 /* MKMapSize.swift */,
 				D30341381C63864100F44630 /* UIImage.swift */,
 				D3CB764E1D9637B400498829 /* UIColor.swift */,
 				D3CB76591D96712B00498829 /* CLLocationCoordinate2D.swift */,
@@ -372,24 +393,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Hiroshi Noto";
 				TargetAttributes = {
 					D386DD19216D02490037EFF7 = {
 						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 					};
 					D38D34301CE7204F00D77509 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = D33249801BA727C9008F1F21 /* Build configuration list for PBXProject "NowCastMapView" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -446,7 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint lint --path NowCastMapView\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		D386DD87216E52750037EFF7 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -475,8 +496,12 @@
 			files = (
 				D386DD3D216D02C70037EFF7 /* TileModelTests.swift in Sources */,
 				D386DD46216D02D90037EFF7 /* MKMapRectTests.swift in Sources */,
+				D304E1AD22D571CA0020E448 /* RGBA255Tests.swift in Sources */,
+				D304E1A922D1CFC00020E448 /* BaseTimeModelTestsWithPublisher.swift in Sources */,
 				D386DD3E216D02C70037EFF7 /* BaseTimeModelTests.swift in Sources */,
 				D386DD41216D02C70037EFF7 /* TileTests.swift in Sources */,
+				D32A684322D811DD00872063 /* CLLocationCoordinate2DTests.swift in Sources */,
+				D3A4542922D64EB300A568F7 /* RainLevelsModelRequestTests.swift in Sources */,
 				D386DD3C216D02C70037EFF7 /* TileCacheTests.swift in Sources */,
 				D386DD39216D02C70037EFF7 /* BaseTestCase.swift in Sources */,
 				D386DD38216D02C70037EFF7 /* RainLevelTests.swift in Sources */,
@@ -505,6 +530,7 @@
 				D3FCA2AF1EBB60740016EAEA /* RainLevelsModel+Task.swift in Sources */,
 				D3CB76541D96451E00498829 /* RainLevels.swift in Sources */,
 				D3CB76571D966B3300498829 /* RainLevelsModel.swift in Sources */,
+				D32A684522D8A84E00872063 /* MKMapPoint.swift in Sources */,
 				D3DE78A61D6FB5740054420C /* TileModel.swift in Sources */,
 				D38D343F1CE724B100D77509 /* BaseTimeModel.swift in Sources */,
 				D38D747C1F02752A006A14D7 /* NCError.swift in Sources */,
@@ -519,8 +545,10 @@
 				D38D34431CE724B100D77509 /* Tile.swift in Sources */,
 				D38D34441CE724B100D77509 /* UIImage.swift in Sources */,
 				D3DE78AB1D77D6730054420C /* Coordinates.swift in Sources */,
+				D32A684722D8A9DE00872063 /* MKMapSize.swift in Sources */,
 				D3A4D7C21D62BF89005FA9D5 /* URL.swift in Sources */,
 				D38D34451CE724B100D77509 /* Constants.swift in Sources */,
+				D3EEE98522C5263A00463302 /* RainLevelsModel+Publisher.swift in Sources */,
 				D36DB30E1D1B58050003DD7F /* ZoomLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,6 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -598,6 +627,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -668,7 +698,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -694,7 +724,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.notohiro.NowCastMapView-iOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -716,7 +746,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.notohiro.NowCastMapView-iOS";
 				PRODUCT_NAME = NowCastMapView;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -738,7 +768,7 @@
 				PRODUCT_NAME = NowCastMapView;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

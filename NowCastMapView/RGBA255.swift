@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public struct RGBA255 {
+public struct RGBA255: Hashable {
     public let red: Int
     public let green: Int
     public let blue: Int
@@ -29,18 +29,18 @@ public struct RGBA255 {
     }
 }
 
-// MARK: - Hashable
-
-extension RGBA255: Hashable {
-    public var hashValue: Int {
-	    return red + (green * 256) + (blue * 256 * 256) + (alpha * 256 * 256 * 256)
-    }
-}
-
-// MARK: - Equatable
-
-extension RGBA255: Equatable {
-    public static func == (lhs: RGBA255, rhs: RGBA255) -> Bool {
-	    return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha ? true : false
-    }
-}
+//// MARK: - Hashable
+//
+//extension RGBA255: Hashable {
+//    public var hashValue: Int {
+//	    return red + (green * 256) + (blue * 256 * 256) + (alpha * 256 * 256 * 256)
+//    }
+//}
+//
+//// MARK: - Equatable
+//
+//extension RGBA255: Equatable {
+//    public static func == (lhs: RGBA255, rhs: RGBA255) -> Bool {
+//	    return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha ? true : false
+//    }
+//}

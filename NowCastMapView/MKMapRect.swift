@@ -34,3 +34,20 @@ public extension MKMapRect {
 	    self.init(origin: origin, size: size)
     }
 }
+
+extension MKMapRect: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(origin)
+        hasher.combine(size)
+    }
+}
+
+extension MKMapRect: Equatable {
+    public static func == (lhs: MKMapRect, rhs: MKMapRect) -> Bool {
+        return lhs.origin == rhs.origin && lhs.size == rhs.size
+    }
+
+    public static func != (lhs: MKMapRect, rhs: MKMapRect) -> Bool {
+        return !(lhs == rhs)
+    }
+}

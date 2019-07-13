@@ -10,7 +10,6 @@ import MapKit
 
 extension RainLevelsModel {
     open class Task {
-
 	    // MARK: - Public Properties
 
         public let request: Request
@@ -19,7 +18,7 @@ extension RainLevelsModel {
 
 	    open private(set) weak var delegate: RainLevelsModelDelegate?
 
-        public let hashValue = Date().hashValue
+//        public let hashValue = Date().hashValue
 
 	    open private(set) var completionHandler: ((Result) -> Void)?
 
@@ -163,14 +162,16 @@ extension RainLevelsModel.Task: TileModelDelegate {
 
 // MARK: - Hashable
 
-extension RainLevelsModel.Task: Hashable { }
-
-public extension RainLevelsModel.Task {
-    static func == (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
-	    return lhs.hashValue == rhs.hashValue
+extension RainLevelsModel.Task: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self).hashValue)
     }
+}
 
-    static func != (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
-	    return !(lhs == rhs)
+// MARK: - Equatable
+
+extension RainLevelsModel.Task: Equatable {
+    public static func ==(lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }

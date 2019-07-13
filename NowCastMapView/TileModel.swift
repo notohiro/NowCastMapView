@@ -11,7 +11,6 @@ import MapKit
 
 /// A `TileProvider` protocol defines a way to request a `TileModel.Task`.
 public protocol TileProvider {
-
     var baseTime: BaseTime { get }
 
     /// Returns task to obtain tiles within given MapRect.
@@ -26,7 +25,6 @@ public protocol TileProvider {
 
 /// A `TileAvailability` protocol defines a way to check the service availability.
 public protocol TileAvailability {
-
     /// Returns the serivce availability within given MapRect.
     ///
     /// - Parameter coordinates: The `Coordinates` you want to know.
@@ -43,7 +41,7 @@ public protocol TileAvailability {
 /// The delegate of a `TileModel` object must adopt the `TileModelDelegate` protocol.
 /// The `TileModelDelegate` protocol describes the methods that `TileModel` objects
 /// call on their delegates to handle requested events.
-public protocol TileModelDelegate: class {
+public protocol TileModelDelegate: AnyObject {
     /// Tells the delegate that a request has finished and added tiles in model's cache.
     func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile)
 
@@ -53,7 +51,6 @@ public protocol TileModelDelegate: class {
 
 /// An `TileModel` object lets you load the `Tile` by providing a `Request` object.
 open class TileModel {
-
     // MARK: - TileProvider
 
     public let baseTime: BaseTime
@@ -62,7 +59,7 @@ open class TileModel {
 
     open private(set) var tasks = [Task]()
 
-    open weak private(set) var delegate: TileModelDelegate?
+    open private(set) weak var delegate: TileModelDelegate?
 
     // MARK: - Private Properties
 
@@ -87,7 +84,7 @@ open class TileModel {
 	    semaphore.wait()
 	    defer { self.semaphore.signal() }
 
-	    guard let index = tasks.index(of: task) else { return }
+	    guard let index = tasks.firstIndex(of: task) else { return }
 	    tasks.remove(at: index)
     }
 
@@ -125,6 +122,16 @@ extension TileModel: TileProvider {
 // MARK: - TileAvailability
 
 extension TileModel: TileAvailability {
+    public static var serviceAreaMapRect: MKMapRect {
+        return MKMapRect(coordinates: TileModel.serviceAreaCoordinates)
+    }
+
+    public static var serviceAreaCoordinates: Coordinates {
+        let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
+        let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
+        return Coordinates(origin: origin, terminal: terminal)
+    }
+
     public static func isServiceAvailable(within coordinates: Coordinates) -> Bool {
 	    if coordinates.origin.latitude >= Constants.terminalLatitude &&
     	    coordinates.terminal.latitude <= Constants.originLatitude &&
@@ -145,15 +152,5 @@ extension TileModel: TileAvailability {
 	    } else {
     	    return false
 	    }
-    }
-
-    public static var serviceAreaMapRect: MKMapRect {
-	    return MKMapRect(coordinates: TileModel.serviceAreaCoordinates)
-    }
-
-    public static var serviceAreaCoordinates: Coordinates {
-	    let origin = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
-	    let terminal = CLLocationCoordinate2DMake(Constants.terminalLatitude, Constants.terminalLongitude)
-	    return Coordinates(origin: origin, terminal: terminal)
     }
 }

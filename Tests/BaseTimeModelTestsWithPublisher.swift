@@ -7,10 +7,12 @@
 //
 
 import XCTest
+import Combine
 
 @testable import NowCastMapView
 
-class BaseTimeModelTests: BaseTestCase, BaseTimeModelDelegate {
+@available(iOS 13.0, *)
+class BaseTimeModelTestsWithPublisher: BaseTestCase {
     var baseTimeModel = BaseTimeModel()
 
     private var exp: XCTestExpectation?
@@ -19,47 +21,55 @@ class BaseTimeModelTests: BaseTestCase, BaseTimeModelDelegate {
 	    super.setUp()
 
 	    baseTimeModel = BaseTimeModel()
-	    baseTimeModel.delegate = self
 
         exp = nil
     }
 
-    func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {
-	    if baseTime != nil {
-    	    exp?.fulfill()
-	    }
-    }
-
     func testFetch() {
         let exp = expectation(description: "")
-        self.exp = exp
         exp.expectedFulfillmentCount = 1
 
-	    baseTimeModel.fetch()
+        let sub = baseTimeModel.$current
+            .filter { $0 != nil }
+            .sink { _ in exp.fulfill() }
+
+        baseTimeModel.fetch()
 
         wait(for: [exp], timeout: BaseTestCase.timeout)
+
+        sub.cancel()
     }
 
     func testConcurrentFetchRequests() {
         let exp = expectation(description: "")
-        self.exp = exp
         exp.expectedFulfillmentCount = 1
 
-	    baseTimeModel.fetch()
-	    baseTimeModel.fetch()
+        let sub = baseTimeModel.$current
+            .filter { $0 != nil }
+            .sink { _ in exp.fulfill() }
+
+        baseTimeModel.fetch()
+        baseTimeModel.fetch()
 
         wait(for: [exp], timeout: BaseTestCase.timeout)
+
+        sub.cancel()
     }
 
     func testFetchInterval() {
         let exp = expectation(description: "")
-        self.exp = exp
         exp.expectedFulfillmentCount = 3
 
-	    let interval: TimeInterval = 3
-	    baseTimeModel.fetchInterval = interval
+        let sub = baseTimeModel.$current
+            .filter { $0 != nil }
+            .sink { _ in exp.fulfill() }
+
+        let interval: TimeInterval = 3
         baseTimeModel.verbose = true
+        baseTimeModel.fetchInterval = interval
 
         wait(for: [exp], timeout: interval * Double(exp.expectedFulfillmentCount) + interval / 2)
+
+        sub.cancel()
     }
 }

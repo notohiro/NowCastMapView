@@ -8,8 +8,8 @@
 
 import Foundation
 
+/// Defines coordinate of upper left and bottom right
 public enum Constants {
-    // define coordinate of upper left and bottom right
     public static let originLatitude: Double = 61
     public static let originLongitude: Double = 100
     public static let terminalLatitude: Double = 7

@@ -13,8 +13,7 @@ import MapKit
 A `Coordinates` structure contains two `CLLocationCoordinate2D` objects to represent rectangle on the map.
 The `Coordinates` could be converted from a `MKMapRect` by using initializer.
 */
-public struct Coordinates {
-
+public struct Coordinates: Hashable {
     /// The coordinate of top left.
     public var origin: CLLocationCoordinate2D
 
@@ -47,10 +46,13 @@ public struct Coordinates {
     }
 
     public func intersecting(_ coordinates: Coordinates) -> Coordinates? {
-	    let newOrigin = CLLocationCoordinate2DMake(min(origin.latitude, coordinates.origin.latitude),
-	                                               max(origin.longitude, coordinates.origin.longitude))
-	    let newTerminal = CLLocationCoordinate2DMake(max(terminal.latitude, coordinates.terminal.latitude),
-	                                                 min(terminal.longitude, coordinates.terminal.longitude))
+        let min_origin = min(origin.latitude, coordinates.origin.latitude)
+        let max_origin = max(origin.longitude, coordinates.origin.longitude)
+        let newOrigin = CLLocationCoordinate2DMake(min_origin, max_origin)
+
+        let max_terminal = max(terminal.latitude, coordinates.terminal.latitude)
+        let min_terminal = min(terminal.longitude, coordinates.terminal.longitude)
+        let newTerminal = CLLocationCoordinate2DMake(max_terminal, min_terminal)
 
 	    if newOrigin.latitude < newTerminal.latitude || newOrigin.longitude > newTerminal.longitude { return nil }
 

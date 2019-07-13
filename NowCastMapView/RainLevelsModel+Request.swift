@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 
 public extension RainLevelsModel {
-    struct Request {
+    struct Request: Hashable {
 	    public let coordinate: CLLocationCoordinate2D
 	    public let range: CountableClosedRange<Int>
 
@@ -18,21 +18,11 @@ public extension RainLevelsModel {
     	    self.coordinate = coordinate
     	    self.range = range
 	    }
-    }
-}
 
-// MARK: - Hashable
-
-extension RainLevelsModel.Request: Hashable {
-    public var hashValue: Int {
-	    return ("\(coordinate.latitude)" + "\(coordinate.longitude)" + "\(range)").hashValue
-    }
-}
-
-// MARK: - Equatable
-
-extension RainLevelsModel.Request: Equatable {
-    public static func == (lhs: RainLevelsModel.Request, rhs: RainLevelsModel.Request) -> Bool {
-	    return lhs.coordinate == rhs.coordinate && lhs.range == rhs.range
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(coordinate.latitude)
+            hasher.combine(coordinate.longitude)
+            hasher.combine(range)
+        }
     }
 }

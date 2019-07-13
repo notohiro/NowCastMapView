@@ -158,4 +158,44 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 	    XCTAssertFalse(handlerExecuted)
 	    XCTAssertEqual(rainLevelsModel.tasks.count, 0)
     }
+
+    @available(iOS 13.0, *)
+    func testRainLevelsWithPublisher() {
+        let baseTimeModel = BaseTimeModel()
+        baseTimeModel.delegate = self
+        baseTimeModel.fetch()
+        wait(seconds: BaseTestCase.timeout)
+        XCTAssertNotNil(baseTime)
+
+        guard let baseTime = self.baseTime else { XCTFail(); return }
+
+        let rainLevelsModel = RainLevelsModel(baseTime: baseTime, delegate: self)
+
+        let coordinate = CLLocationCoordinate2DMake(Constants.originLatitude, Constants.originLongitude)
+        let request = RainLevelsModel.Request(coordinate: coordinate, range: -12...12)
+
+        let sub = rainLevelsModel.publisher(for: request)
+            .sink(receiveCompletion: { completion in
+
+            }, receiveValue: { repositories in
+                print(repositories)
+                self.handlerExecuted = true
+            })
+        //            let task = try rainLevelsModel.rainLevels(with: request) { _ in self.handlerExecuted = true }
+        //            task.resume()
+
+        wait(seconds: 3)
+
+        switch result {
+        case let .succeeded(_, rainLevels)?:
+            print(rainLevels)
+        default:
+            XCTFail()
+        }
+
+        XCTAssertTrue(handlerExecuted)
+        XCTAssert(rainLevelsModel.tasks.isEmpty)
+
+        sub.cancel()
+    }
 }

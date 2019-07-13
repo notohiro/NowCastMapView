@@ -10,12 +10,11 @@ import Foundation
 import MapKit
 
 open class OverlayRenderer: MKOverlayRenderer {
-
     public static let DefaultBackgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6)
 
     public let baseTime: BaseTime
     public let index: Int
-    open private(set) lazy var tileCache: TileCache = TileCache(baseTime: self.baseTime, delegate: self)
+    open private(set) lazy var tileCache = TileCache(baseTime: self.baseTime, delegate: self)
 
     public var backgroundColor = OverlayRenderer.DefaultBackgroundColor
     public var imageAlpha: CGFloat = 0.6

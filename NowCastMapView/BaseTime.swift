@@ -13,8 +13,7 @@ A `BaseTime` structure contains a set of indexes represents forecast timeline as
 A `BaseTime` instances are parsed and instantiated from a simple xml data
 fetched from "http://www.jma.go.jp/jp/highresorad/highresorad_tile/tile_basetime.xml".
 */
-public struct BaseTime {
-
+public struct BaseTime: Hashable {
     // MARK: - Public Properties
 
     public let range: CountableClosedRange<Int> // -35...0..12
