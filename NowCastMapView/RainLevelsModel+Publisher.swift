@@ -1,5 +1,5 @@
 //
-//  RainLevelsModel+Combine.swift
+//  RainLevelsModel+Publisher.swift
 //  NowCastMapView iOS
 //
 //  Created by Hiroshi Noto on 2019/06/28.
@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 
+@available(iOS 13.0, *)
 @available(iOSApplicationExtension 13.0, *)
 public extension RainLevelsModel {
     struct TaskPublisher: Publisher {
