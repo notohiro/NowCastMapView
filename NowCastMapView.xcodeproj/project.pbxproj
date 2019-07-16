@@ -85,6 +85,7 @@
 		D32A684222D811DD00872063 /* CLLocationCoordinate2DTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DTests.swift; sourceTree = "<group>"; };
 		D32A684422D8A84E00872063 /* MKMapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapPoint.swift; sourceTree = "<group>"; };
 		D32A684622D8A9DE00872063 /* MKMapSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMapSize.swift; sourceTree = "<group>"; };
+		D32A684822DDD76900872063 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		D33249891BA727C9008F1F21 /* NowCastMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowCastMapView.h; sourceTree = "<group>"; };
 		D332498B1BA727C9008F1F21 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		D33249A31BA7280F008F1F21 /* OverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayRenderer.swift; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 		D332497C1BA727C9008F1F21 = {
 			isa = PBXGroup;
 			children = (
+				D32A684822DDD76900872063 /* Package.swift */,
 				D304E1AB22D56EE10020E448 /* .swiftlint.yml */,
 				D3D6421220A31D8F004432C8 /* .gitignore */,
 				D33D84641DCF279C00A627F6 /* NowCastMapView.podspec */,
