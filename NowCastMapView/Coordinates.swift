@@ -46,13 +46,13 @@ public struct Coordinates: Hashable {
     }
 
     public func intersecting(_ coordinates: Coordinates) -> Coordinates? {
-        let min_origin = min(origin.latitude, coordinates.origin.latitude)
-        let max_origin = max(origin.longitude, coordinates.origin.longitude)
-        let newOrigin = CLLocationCoordinate2DMake(min_origin, max_origin)
+        let minOrigin = min(origin.latitude, coordinates.origin.latitude)
+        let maxOrigin = max(origin.longitude, coordinates.origin.longitude)
+        let newOrigin = CLLocationCoordinate2DMake(minOrigin, maxOrigin)
 
-        let max_terminal = max(terminal.latitude, coordinates.terminal.latitude)
-        let min_terminal = min(terminal.longitude, coordinates.terminal.longitude)
-        let newTerminal = CLLocationCoordinate2DMake(max_terminal, min_terminal)
+        let maxTerminal = max(terminal.latitude, coordinates.terminal.latitude)
+        let minTerminal = min(terminal.longitude, coordinates.terminal.longitude)
+        let newTerminal = CLLocationCoordinate2DMake(maxTerminal, minTerminal)
 
 	    if newOrigin.latitude < newTerminal.latitude || newOrigin.longitude > newTerminal.longitude { return nil }
 

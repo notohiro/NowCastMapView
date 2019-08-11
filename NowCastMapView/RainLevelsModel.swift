@@ -11,10 +11,12 @@ import Foundation
 import MapKit
 
 public protocol RainLevelsProvider {
+    // Creates `RainLevelsModel.Task` object that retrieves `RainLevels` of the specified conditions.
     func rainLevels(with request: RainLevelsModel.Request, completionHandler: ((RainLevelsModel.Result) -> Void)?) throws -> RainLevelsModel.Task
 }
 
 public protocol RainLevelsModelDelegate: AnyObject {
+    // Tells the delegate that a task completes with result.
     func rainLevelsModel(_ model: RainLevelsModel, task: RainLevelsModel.Task, result: RainLevelsModel.Result)
 }
 

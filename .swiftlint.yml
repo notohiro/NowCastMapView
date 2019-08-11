@@ -1,24 +1,20 @@
 # https://github.com/realm/SwiftLint/blob/master/Rules.md
 
 disabled_rules:
-- identifier_name # temporary disabled (https://github.com/realm/SwiftLint/issues/2231)
-
-# temporary disabled
-- missing_docs
-
-- conditional_returns_on_newline # this breaks simple code
-- discouraged_object_literal # use object_literal instead of this
-- explicit_type_interface # this kills simple code
-- fallthrough # added new default rule no_fallthrough_only (https://github.com/realm/SwiftLint/pull/2194) instead of this
-- file_header # no need for my project
-- no_extension_access_modifier # use extension_access_modifier instead of this
-- no_grouping_extension # this kills readable code
-- nesting # こまるというか節度をもてばよくない？
-- multiline_arguments_brackets # ふつうに崩れる
+# these kill simple / readable code
+- conditional_returns_on_newline
+- explicit_type_interface
+- no_grouping_extension
+- multiline_arguments_brackets
 - multiline_parameters_brackets
+
+- discouraged_object_literal # use object_literal instead of this
+- file_header # unnecessary for my project
+- no_extension_access_modifier # use extension_access_modifier instead of this
 
 ### !IMPORTANT!
 ### additional disabled rules for XCTest are in NowCastMapViewTests/.swiftlint.yml
+### 0.34.0
 
 opt_in_rules:
 - anyobject_protocol
@@ -139,6 +135,10 @@ file_length:
 - 1000  # error
 
 function_body_length:
+- 100   # warning
+- 200   # error
+
+closure_body_length:
 - 100   # warning
 - 200   # error
 

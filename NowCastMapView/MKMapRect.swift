@@ -9,7 +9,9 @@
 import Foundation
 import MapKit
 
+/// The extension of `MKMapRect` to provide initializer with `Tile.Modifiers`.
 public extension MKMapRect {
+    /// Creates a new `MKMapRect` structure from the specified values.
     init(modifiers: Tile.Modifiers) {
 	    let deltas = Tile.Deltas(zoomLevel: modifiers.zoomLevel)
 
@@ -26,6 +28,7 @@ public extension MKMapRect {
 	    self.init(origin: origin, size: size)
     }
 
+    /// Creates a new `MKMapRect` structure from the specified values.
     init(coordinates: Coordinates) {
 	    let origin = MKMapPoint(coordinates.origin)
 	    let terminal = MKMapPoint(coordinates.terminal)

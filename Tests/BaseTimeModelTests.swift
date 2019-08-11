@@ -20,8 +20,10 @@ class BaseTimeModelTests: BaseTestCase, BaseTimeModelDelegate {
 
 	    baseTimeModel = BaseTimeModel()
 	    baseTimeModel.delegate = self
+    }
 
-        exp = nil
+    override func tearDown() {
+         exp = nil
     }
 
     func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {

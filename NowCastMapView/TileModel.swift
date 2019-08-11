@@ -11,6 +11,7 @@ import MapKit
 
 /// A `TileProvider` protocol defines a way to request a `TileModel.Task`.
 public protocol TileProvider {
+    /// `TileProvider` provides `Tile`s based on this `baseTime`.
     var baseTime: BaseTime { get }
 
     /// Returns task to obtain tiles within given MapRect.
@@ -53,12 +54,15 @@ public protocol TileModelDelegate: AnyObject {
 open class TileModel {
     // MARK: - TileProvider
 
+    /// The object is used to fetch `Tile`s.
     public let baseTime: BaseTime
 
     // MARK: - Public Properties
 
+    /// The array of `Task`s currently working on.
     open private(set) var tasks = [Task]()
 
+    /// The object that acts as the delegate of the `TileModel`.
     open private(set) weak var delegate: TileModelDelegate?
 
     // MARK: - Private Properties
@@ -67,12 +71,22 @@ open class TileModel {
 
     // MARK: - Public Functions
 
+    /// Initializes and returns a `TileModel` object.
     public init(baseTime: BaseTime, delegate: TileModelDelegate? = nil) {
 	    self.baseTime = baseTime
 	    self.delegate = delegate
     }
 
+    // TODO: Test
+    deinit {
+        cancelAll()
+    }
+
+    /// Cancel all queued task requests.
     public func cancelAll() {
+        semaphore.wait()
+        defer { self.semaphore.signal() }
+
 	    let tasks = self.tasks
 
 	    tasks.forEach { $0.invalidateAndCancel() }

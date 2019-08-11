@@ -27,6 +27,8 @@ open class OverlayRenderer: MKOverlayRenderer {
 	    super.init(overlay: overlay)
     }
 
+    deinit { }
+
     override open func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
 	    lastDrawZoomScale = zoomScale
 

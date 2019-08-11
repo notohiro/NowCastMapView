@@ -9,14 +9,15 @@
 import Combine
 import Foundation
 
+// swiftlint:disable nesting
 @available(iOS 13.0, *)
 @available(iOSApplicationExtension 13.0, *)
 public extension RainLevelsModel {
     struct TaskPublisher: Publisher {
         public typealias Output = RainLevels
         public typealias Failure = Error
-        let model: RainLevelsModel
-        let request: RainLevelsModel.Request
+        internal let model: RainLevelsModel
+        internal let request: RainLevelsModel.Request
 
         // This function is called to attach the specified Subscriber to this Publisher by subscribe(_:)
         public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
@@ -44,7 +45,7 @@ public extension RainLevelsModel {
 
     struct RequestSubscription: Subscription {
         public let combineIdentifier: CombineIdentifier
-        let task: RainLevelsModel.Task
+        internal let task: RainLevelsModel.Task
 
         public func request(_ demand: Subscribers.Demand) {}
 

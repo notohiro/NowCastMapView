@@ -12,6 +12,8 @@ internal class BaseTimeParser: NSObject, XMLParserDelegate {
     internal var parsedArr = [String]()
     private var isBaseTimeElement: Bool = false
 
+    deinit { }
+
     internal func parserDidStartDocument(_ parser: XMLParser) {
 	    isBaseTimeElement = false
     }

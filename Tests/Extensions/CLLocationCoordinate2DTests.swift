@@ -11,9 +11,9 @@ import CoreLocation
 
 class CLLocationCoordinate2DTests: XCTestCase {
     func test() {
-        coordinate1 = CLLocationCoordinate2DMake(0, 0)
-        coordinate2 = CLLocationCoordinate2DMake(0, 0)
-        coordinate3 = CLLocationCoordinate2DMake(0, 1)
+        let coordinate1 = CLLocationCoordinate2DMake(0, 0)
+        let coordinate2 = CLLocationCoordinate2DMake(0, 0)
+        let coordinate3 = CLLocationCoordinate2DMake(0, 1)
 
         XCTAssertEqual(coordinate1, coordinate2)
         XCTAssertNotEqual(coordinate1, coordinate3)

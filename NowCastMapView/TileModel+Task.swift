@@ -72,6 +72,8 @@ extension TileModel {
     	    try configureTasks()
 	    }
 
+        deinit { }
+
 	    public func resume() {
     	    semaphore.wait()
     	    defer { semaphore.signal() }
@@ -236,7 +238,7 @@ extension TileModel.Task: Hashable {
 // MARK: - Equatable
 
 extension TileModel.Task: Equatable {
-    public static func ==(lhs: TileModel.Task, rhs: TileModel.Task) -> Bool {
+    public static func == (lhs: TileModel.Task, rhs: TileModel.Task) -> Bool {
         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }
