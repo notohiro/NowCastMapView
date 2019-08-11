@@ -66,7 +66,7 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 	    }
     }
 
-// fix later
+// TODO: fix later
 //    func testRainLevelsWithInvalidRange() {
 //	    let baseTimeModel = BaseTimeModel()
 //	    baseTimeModel.delegate = self
