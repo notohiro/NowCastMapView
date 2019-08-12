@@ -84,8 +84,12 @@ open class TileModel {
 
     /// Cancel all queued task requests.
     public func cancelAll() {
-        semaphore.wait()
-        defer { self.semaphore.signal() }
+        // DON'T DO THIS.
+        // semaphore.wait()
+        // defer { self.semaphore.signal() }
+        // cancelAll() doesn't need to lock self, because
+        // 1. Will copy tasks in the next line
+        // 2. Will be locked by each tasks when called remove(_ task: Task)
 
 	    let tasks = self.tasks
 

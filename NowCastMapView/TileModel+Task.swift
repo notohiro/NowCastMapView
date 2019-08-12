@@ -227,14 +227,6 @@ public extension TileModel.Task {
     }
 }
 
-// MARK: - Hashable
-
-extension TileModel.Task: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self).hashValue)
-    }
-}
-
 // MARK: - Equatable
 
 extension TileModel.Task: Equatable {
