@@ -20,7 +20,7 @@ NowCastMapView is an library for [High-resolution Precipitation Nowcasts](http:/
 ## Requirements
 
 - iOS 8.0+
-- Xcode 9.3+
+- Xcode 11.0+
 
 ## Installation
 
