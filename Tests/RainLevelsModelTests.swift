@@ -159,7 +159,6 @@ class RainLevelsModelTests: BaseTestCase, BaseTimeModelDelegate, RainLevelsModel
 	    XCTAssertEqual(rainLevelsModel.tasks.count, 0)
     }
 
-    @available(iOS 13.0, *)
     func testRainLevelsWithPublisher() {
         let baseTimeModel = BaseTimeModel()
         baseTimeModel.delegate = self

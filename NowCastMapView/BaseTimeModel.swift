@@ -58,8 +58,8 @@ open class BaseTimeModel: BaseTimeProvider {
 
     open var verbose = false
 
-//    @Published open internal(set) var current: BaseTime? = nil {
-    open internal(set) var current: BaseTime? = nil {
+    @Published open internal(set) var current: BaseTime? = nil {
+//    open internal(set) var current: BaseTime? = nil {
 	    didSet {
     	    delegate?.baseTimeModel(self, fetched: current)
 	    }

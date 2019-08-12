@@ -10,8 +10,6 @@ import Combine
 import Foundation
 
 // swiftlint:disable nesting
-@available(iOS 13.0, *)
-@available(iOSApplicationExtension 13.0, *)
 public extension RainLevelsModel {
     struct TaskPublisher: Publisher {
         public typealias Output = RainLevels
