@@ -8,10 +8,17 @@
 
 import Foundation
 
+/// Constants
 public enum Constants {
-    // define coordinate of upper left and bottom right
+    /// The north latitude of the service area  boundary.
     public static let originLatitude: Double = 61
+
+    /// The west latitude of the service area  boundary.
     public static let originLongitude: Double = 100
+
+    /// The south latitude of the service area  boundary.
     public static let terminalLatitude: Double = 7
+
+    /// The east latitude of the service area  boundary .
     public static let terminalLongitude: Double = 170
 }

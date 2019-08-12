@@ -15,12 +15,12 @@ These constants represents zoom level used at High-resolution Precipitation Nowc
 The `ZoomLevel` could be converted from a `MKZoomScale` by using initializer.
 */
 public enum ZoomLevel: Int {
-    internal static let MKZoomScaleForLevel4: CGFloat = 0.000_488
-    internal static let MKZoomScaleForLevel2: CGFloat = 0.000_122
-
     case level2 = 4
     case level4 = 16
     case level6 = 64
+
+    internal static let MKZoomScaleForLevel4: CGFloat = 0.000_488
+    internal static let MKZoomScaleForLevel2: CGFloat = 0.000_122
 
     internal init(zoomScale: MKZoomScale) {
 	    if zoomScale > ZoomLevel.MKZoomScaleForLevel4 {

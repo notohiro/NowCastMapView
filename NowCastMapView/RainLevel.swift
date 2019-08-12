@@ -51,15 +51,15 @@ public enum RainLevel: Int {
     public static let min = 0
     public static let max = 8
 
+    public var color: UIColor {
+        return RainLevel.rainLevelToColor[self.rawValue]
+    }
+
     internal init?(rgba255: RGBA255) {
 	    if let level = RainLevel.rgba255ToRainLevel[rgba255] {
     	    self.init(rawValue: level)
 	    } else {
     	    return nil
 	    }
-    }
-
-    public var color: UIColor {
-	    return RainLevel.rainLevelToColor[self.rawValue]
     }
 }

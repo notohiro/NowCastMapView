@@ -14,6 +14,7 @@ public extension RainLevelsModel {
     	    switch self {
     	    case let .succeeded(request, _):
 	    	    return request
+
     	    case let .failed(request, _):
 	    	    return request
     	    }

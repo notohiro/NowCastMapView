@@ -9,7 +9,9 @@
 import Foundation
 import MapKit
 
+/// The extension of `MKMapRect` to provide initializer with `Tile.Modifiers`.
 public extension MKMapRect {
+    /// Creates a new `MKMapRect` structure from the specified values.
     init(modifiers: Tile.Modifiers) {
 	    let deltas = Tile.Deltas(zoomLevel: modifiers.zoomLevel)
 
@@ -26,11 +28,29 @@ public extension MKMapRect {
 	    self.init(origin: origin, size: size)
     }
 
+    /// Creates a new `MKMapRect` structure from the specified values.
     init(coordinates: Coordinates) {
 	    let origin = MKMapPoint(coordinates.origin)
 	    let terminal = MKMapPoint(coordinates.terminal)
 	    let size = MKMapSize(width: terminal.x - origin.x, height: terminal.y - origin.y)
 
 	    self.init(origin: origin, size: size)
+    }
+}
+
+extension MKMapRect: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(origin)
+        hasher.combine(size)
+    }
+}
+
+extension MKMapRect: Equatable {
+    public static func == (lhs: MKMapRect, rhs: MKMapRect) -> Bool {
+        return lhs.origin == rhs.origin && lhs.size == rhs.size
+    }
+
+    public static func != (lhs: MKMapRect, rhs: MKMapRect) -> Bool {
+        return !(lhs == rhs)
     }
 }

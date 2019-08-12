@@ -10,23 +10,27 @@ import MapKit
 
 extension RainLevelsModel {
     open class Task {
-
 	    // MARK: - Public Properties
 
+        /// The `RainLevelsModel.Task` request object currently being handled by the task.
         public let request: Request
 
+        /// The object is used to fetch `RainLevels`.
         public let baseTime: BaseTime
 
+        /// The object that acts as the delegate of the `RainLevelsModel.Task`.
 	    open private(set) weak var delegate: RainLevelsModelDelegate?
 
-        public let hashValue = Date().hashValue
-
+        /// The block to execute when the task completes.
 	    open private(set) var completionHandler: ((Result) -> Void)?
 
+        /// The `Tile`s to calculate `RainLevels` for specified conditions.
 	    open private(set) var tiles = [Int: Tile]()
 
+        /// A representation of the overall task state.
 	    open private(set) var state = State.initialized
 
+        /// The parent object of this `Task`
         public let model: RainLevelsModel
 
 	    // MARK: - Private Properties
@@ -41,6 +45,7 @@ extension RainLevelsModel {
 
 	    // MARK: - Functions
 
+        // Creates a task that retrieves the RainLevels of the specified conditions.
 	    public init(model: RainLevelsModel,
 	                request: Request,
 	                baseTime: BaseTime,
@@ -59,6 +64,12 @@ extension RainLevelsModel {
             task = try tileModel.tiles(with: tileRequest, completionHandler: nil)
 	    }
 
+        // TODO: Test
+        deinit {
+            cancel()
+        }
+
+        /// Resumes the task, if it is suspended.
 	    open func resume() {
     	    semaphore.wait()
     	    defer { semaphore.signal() }
@@ -67,6 +78,7 @@ extension RainLevelsModel {
     	    state = .processing
 	    }
 
+        /// Cancels the task.
 	    open func cancel() {
     	    semaphore.wait()
     	    defer { semaphore.signal() }
@@ -163,14 +175,16 @@ extension RainLevelsModel.Task: TileModelDelegate {
 
 // MARK: - Hashable
 
-extension RainLevelsModel.Task: Hashable { }
-
-public extension RainLevelsModel.Task {
-    static func == (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
-	    return lhs.hashValue == rhs.hashValue
+extension RainLevelsModel.Task: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self).hashValue)
     }
+}
 
-    static func != (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
-	    return !(lhs == rhs)
+// MARK: - Equatable
+
+extension RainLevelsModel.Task: Equatable {
+    public static func == (lhs: RainLevelsModel.Task, rhs: RainLevelsModel.Task) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }

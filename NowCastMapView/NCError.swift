@@ -10,21 +10,21 @@ import CoreLocation
 import Foundation
 
 public enum NCError: Error {
-    public enum TileFailedReason {
-	    case internalError
-	    case modifiersInitializationFailedMods(zoomLevel: ZoomLevel, latitiude: Int, longitude: Int)
-	    case modifiersInitializationFailedCoordinate(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D)
-	    case urlInitializationFailed
-	    case imageProcessingFailed
-    }
-
-    public enum RainLevelsFailedReason {
-	    case tileInvalid
-	    case colorInvalid(color: RGBA255)
-    }
-
     case outOfService
     case tileFailed(reason: TileFailedReason)
     case rainLevelsFailed(reason: RainLevelsFailedReason)
     case unknown
+
+    public enum TileFailedReason {
+        case internalError
+        case modifiersInitializationFailedMods(zoomLevel: ZoomLevel, latitiude: Int, longitude: Int)
+        case modifiersInitializationFailedCoordinate(zoomLevel: ZoomLevel, coordinate: CLLocationCoordinate2D)
+        case urlInitializationFailed
+        case imageProcessingFailed
+    }
+
+    public enum RainLevelsFailedReason {
+        case tileInvalid
+        case colorInvalid(color: RGBA255)
+    }
 }

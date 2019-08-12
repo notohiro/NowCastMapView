@@ -15,7 +15,7 @@ public extension Tile {
     `zoomLevel`/`longitude`_`latitude`.png
     http://www.jma.go.jp/jp/highresorad/highresorad_tile/HRKSNC/201610101145/201610101145/zoom2/0_0.png
     */
-    struct Modifiers {
+    struct Modifiers: Hashable {
 	    public let zoomLevel: ZoomLevel
 
 	    public let latitude: Int

@@ -17,8 +17,7 @@ High-resolution Precipitation Nowcasts.
 For performance, you should initialize `Tile` instance by using `TileModel`.
 The `Tile` instances are cached by `TileModel`, and it handles duplicated requests.
 */
-public struct Tile {
-
+public struct Tile: Hashable {
     // MARK: - Public Properties
 
     public let baseTime: BaseTime
@@ -174,21 +173,31 @@ public struct Tile {
     }
 }
 
-// MARK: - Hashable
-
-extension Tile: Hashable {
-    public var hashValue: Int {
-	    return url.hashValue
-    }
-}
-
-// MARK: - Equatable
-
-extension Tile: Equatable {
-    public static func == (lhs: Tile, rhs: Tile) -> Bool {
-	    return lhs.hashValue == rhs.hashValue
-    }
-}
+//// MARK: - Hashable
+//
+//extension Tile: Hashable {
+////    public var hashValue: Int {
+////	    return url.hashValue
+////    }
+//    public func hash(into hasher: inout Hasher) {
+//        hasher.combine(baseTime)
+//        hasher.combine(index)
+//        hasher.combine(modifiers)
+//        hasher.combine(url)
+//        hasher.combine(image)
+//        hasher.combine(deltas)
+//        hasher.combine(coordinates)
+//        hasher.combine(mapRect)
+//    }
+//}
+//
+//// MARK: - Equatable
+//
+//extension Tile: Equatable {
+//    public static func == (lhs: Tile, rhs: Tile) -> Bool {
+//	    return lhs.hashValue == rhs.hashValue
+//    }
+//}
 
 // MARK: - CustomStringConvertible
 

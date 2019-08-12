@@ -13,57 +13,55 @@ import XCTest
 class BaseTimeModelTests: BaseTestCase, BaseTimeModelDelegate {
     var baseTimeModel = BaseTimeModel()
 
-    private var isFinished = false
-    private var delegateCount = 0
-    private var expectedResult: ComparisonResult?
+    private var exp: XCTestExpectation?
 
     override func setUp() {
 	    super.setUp()
 
 	    baseTimeModel = BaseTimeModel()
 	    baseTimeModel.delegate = self
+    }
 
-	    isFinished = false
-	    delegateCount = 0
-	    expectedResult = nil
+    override func tearDown() {
+         exp = nil
     }
 
     func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?) {
-	    delegateCount += 1
-
 	    if baseTime != nil {
-    	    isFinished = true
+    	    exp?.fulfill()
 	    }
     }
 
     func testFetch() {
+        let exp = expectation(description: "")
+        self.exp = exp
+        exp.expectedFulfillmentCount = 1
+
 	    baseTimeModel.fetch()
-	    wait(seconds: BaseTestCase.timeout)
-	    XCTAssertTrue(isFinished)
+
+        wait(for: [exp], timeout: BaseTestCase.timeout)
     }
 
     func testConcurrentFetchRequests() {
+        let exp = expectation(description: "")
+        self.exp = exp
+        exp.expectedFulfillmentCount = 1
+
 	    baseTimeModel.fetch()
 	    baseTimeModel.fetch()
-	    wait(seconds: BaseTestCase.timeout)
-	    XCTAssertTrue(isFinished)
-	    XCTAssertEqual(delegateCount, 1)
+
+        wait(for: [exp], timeout: BaseTestCase.timeout)
     }
 
     func testFetchInterval() {
+        let exp = expectation(description: "")
+        self.exp = exp
+        exp.expectedFulfillmentCount = 3
+
 	    let interval: TimeInterval = 3
 	    baseTimeModel.fetchInterval = interval
+        baseTimeModel.verbose = true
 
-	    // first notification
-	    wait(seconds: interval + 1)
-	    XCTAssertTrue(isFinished)
-	    XCTAssertEqual(delegateCount, 1)
-
-	    baseTimeModel.current = nil
-	    XCTAssertEqual(delegateCount, 2)
-
-	    // second notification
-	    wait(seconds: interval + 3)
-	    XCTAssertEqual(delegateCount, 3)
+        wait(for: [exp], timeout: interval * Double(exp.expectedFulfillmentCount) + interval / 2)
     }
 }

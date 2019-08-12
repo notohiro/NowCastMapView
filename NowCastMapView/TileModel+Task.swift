@@ -12,7 +12,6 @@ import UIKit
 
 extension TileModel {
     open class Task {
-
 	    // MARK: - Public Properties
 
 	    open private(set) var originalRequest: Request
@@ -32,8 +31,6 @@ extension TileModel {
         public let model: TileModel
 
 	    open private(set) var completionHandler: (([Tile]) -> Void)?
-
-        public let hashValue = Date().hashValue
 
 	    // MARK: - Private Properties
 
@@ -74,6 +71,8 @@ extension TileModel {
 
     	    try configureTasks()
 	    }
+
+        deinit { }
 
 	    public func resume() {
     	    semaphore.wait()
@@ -228,16 +227,10 @@ public extension TileModel.Task {
     }
 }
 
-// MARK: - Hashable
-
-extension TileModel.Task: Hashable { }
+// MARK: - Equatable
 
 extension TileModel.Task: Equatable {
     public static func == (lhs: TileModel.Task, rhs: TileModel.Task) -> Bool {
-	    return lhs.hashValue == rhs.hashValue
-    }
-
-    public static func != (lhs: TileModel.Task, rhs: TileModel.Task) -> Bool {
-	    return !(lhs == rhs)
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }

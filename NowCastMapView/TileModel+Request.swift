@@ -14,7 +14,6 @@ public extension TileModel {
     A `Request` structure represents the coordinate deltas from edge to edge of `Tile` for specified `ZoomLevel`.
     */
     struct Request {
-
 	    public let range: CountableClosedRange<Int>
 
 	    public let scale: MKZoomScale

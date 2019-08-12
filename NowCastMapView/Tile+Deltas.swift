@@ -8,11 +8,12 @@
 
 import Foundation
 
+/// The extension of `Tile` to provide `Deltas`.
 public extension Tile {
     /**
     A `Deltas` structure represents the coordinate deltas from edge to edge of `Tile` for specified `ZoomLevel`.
     */
-    struct Deltas {
+    struct Deltas: Hashable {
 	    internal let latitude: Double
 	    internal let longitude: Double
 

@@ -12,7 +12,6 @@ import Foundation
 A `TileCacheProvider` protocol defines a way to request a `Tile`.
 */
 public protocol TileCacheProvider {
-
     var baseTime: BaseTime { get }
 
     /**
@@ -32,7 +31,7 @@ open class TileCache {
     public var cache = Set<Tile>()
     public var cacheByURL = [URL: Tile]()
 
-    open private(set) lazy var model: TileModel = TileModel(baseTime: self.baseTime, delegate: self)
+    open private(set) lazy var model = TileModel(baseTime: self.baseTime, delegate: self)
 
     open private(set) weak var delegate: TileModelDelegate?
 
@@ -46,7 +45,6 @@ open class TileCache {
 	    self.baseTime = baseTime
 	    self.delegate = delegate
     }
-
 }
 
 extension TileCache: TileCacheProvider {

@@ -6,6 +6,7 @@
 //  Copyright © 2015 Hiroshi Noto. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 public protocol BaseTimeProvider {
@@ -13,7 +14,7 @@ public protocol BaseTimeProvider {
     var current: BaseTime? { get }
 }
 
-public protocol BaseTimeModelDelegate: class {
+public protocol BaseTimeModelDelegate: AnyObject {
     func baseTimeModel(_ model: BaseTimeModel, fetched baseTime: BaseTime?)
 }
 
@@ -47,7 +48,7 @@ open class BaseTimeModel: BaseTimeProvider {
                                        selector: #selector(BaseTimeModel.fetch),
                                        userInfo: nil,
                                        repeats: true)
-	    	    RunLoop.main.add(fetchTimer, forMode: RunLoop.Mode.common)
+	    	    RunLoop.main.add(fetchTimer, forMode: .common)
 	    	    self.fetchTimer = fetchTimer
 	    	    fetch()
     	    }
@@ -55,13 +56,18 @@ open class BaseTimeModel: BaseTimeProvider {
 	    }
     }
 
-    open internal(set) var current: BaseTime? {
+    open var verbose = false
+
+//    @Published open internal(set) var current: BaseTime? = nil {
+    open internal(set) var current: BaseTime? = nil {
 	    didSet {
     	    delegate?.baseTimeModel(self, fetched: current)
 	    }
     }
 
     public init() { }
+
+    deinit { }
 
     @objc
     open func fetch() {
@@ -73,19 +79,21 @@ open class BaseTimeModel: BaseTimeProvider {
 	    }
 	    objc_sync_exit(self)
 
-	    let task = session.dataTask(with: Constants.url) { [unowned self] data, _, error in
+	    let task = session.dataTask(with: Constants.url) { [weak self] data, _, error in
     	    if error != nil { // do something?
     	    } else {
 	    	    let baseTime = data.flatMap { BaseTime(baseTimeData: $0) }
 
-	    	    if self.current == nil, let baseTime = baseTime {
-    	    	    self.current = baseTime
-	    	    } else if let current = self.current, let baseTime = baseTime, current < baseTime {
-    	    	    self.current = baseTime
+	    	    if self?.current == nil, let baseTime = baseTime {
+    	    	    self?.current = baseTime
+                } else if self?.verbose == true {
+                    self?.current = baseTime
+                } else if let current = self?.current, let baseTime = baseTime, current < baseTime {
+    	    	    self?.current = baseTime
 	    	    }
     	    }
 
-    	    self.fetching = false
+    	    self?.fetching = false
 	    }
 	    task.priority = URLSessionTask.highPriority
 	    task.resume()
