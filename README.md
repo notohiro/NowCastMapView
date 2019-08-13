@@ -19,7 +19,7 @@ NowCastMapView is an library for [High-resolution Precipitation Nowcasts](http:/
 
 ## Requirements
 
-- iOS 8.0+
+- iOS 13.0+
 - Xcode 11.0+
 
 ## Installation
@@ -31,7 +31,7 @@ NowCastMapView is available through [CocoaPods](http://cocoapods.org) and [Carth
 To install, simply add the following line to your `Podfile`:
 
 ```ruby
-platform :ios, '11.0'
+platform :ios, '13.0'
 use_frameworks!
 
 pod 'NowCastMapView'
