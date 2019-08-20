@@ -28,7 +28,7 @@ public protocol TileCacheProvider {
 open class TileCache {
     public let baseTime: BaseTime
 
-    public var cache = Set<Tile>()
+//    public var cache = Set<Tile>()
     public var cacheByURL = [URL: Tile]()
 
     open private(set) lazy var model = TileModel(baseTime: self.baseTime, delegate: self)
@@ -110,7 +110,7 @@ extension TileCache: TileCacheProvider {
 extension TileCache: TileModelDelegate {
     public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
 	    semaphore.wait()
-	    cache.insert(tile)
+//	    cache.insert(tile)
 	    cacheByURL[tile.url] = tile
 	    semaphore.signal()
 
