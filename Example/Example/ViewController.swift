@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 					renderers[index] = renderer
 				}
 				OperationQueue.main.addOperation {
-					self.mapView.add(overlay, level: .aboveRoads)
+					self.mapView.addOverlay(overlay, level: .aboveRoads)
 					self.mapView.setNeedsDisplay()
 				}
 
