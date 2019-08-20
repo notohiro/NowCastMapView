@@ -85,11 +85,13 @@ extension TileCache: TileCacheProvider {
 	    	    	    throw NCError.tileFailed(reason: .urlInitializationFailed)
     	    	    }
 
+                    semaphore.wait()
     	    	    if let cachedTile = cacheByURL[url] {
 	    	    	    ret.append(cachedTile)
     	    	    } else {
 	    	    	    needsRequest = true
     	    	    }
+                    semaphore.signal()
 	    	    }
     	    }
 	    }
