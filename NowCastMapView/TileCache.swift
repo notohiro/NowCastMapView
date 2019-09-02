@@ -28,8 +28,7 @@ public protocol TileCacheProvider {
 open class TileCache {
     public let baseTime: BaseTime
 
-    public var cache = Set<Tile>()
-    public var cacheByURL = [URL: Tile]()
+    private var cache = [URL: Tile]()
 
     open private(set) lazy var model = TileModel(baseTime: self.baseTime, delegate: self)
 
@@ -85,7 +84,7 @@ extension TileCache: TileCacheProvider {
 	    	    	    throw NCError.tileFailed(reason: .urlInitializationFailed)
     	    	    }
 
-    	    	    if let cachedTile = cacheByURL[url] {
+    	    	    if let cachedTile = cache[url] {
 	    	    	    ret.append(cachedTile)
     	    	    } else {
 	    	    	    needsRequest = true
@@ -110,8 +109,7 @@ extension TileCache: TileCacheProvider {
 extension TileCache: TileModelDelegate {
     public func tileModel(_ model: TileModel, task: TileModel.Task, added tile: Tile) {
 	    semaphore.wait()
-	    cache.insert(tile)
-	    cacheByURL[tile.url] = tile
+	    cache[tile.url] = tile
 	    semaphore.signal()
 
 	    delegate?.tileModel(model, task: task, added: tile)
