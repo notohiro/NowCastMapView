@@ -107,8 +107,8 @@ open class TileModel {
     }
 
     internal func isProcessing(_ tile: Tile) -> Bool {
-	    // thread safe
-	    let tasks = self.tasks
+	    semaphore.wait()
+        defer { self.semaphore.signal() }
 
 	    var processing = false
 	    tasks.forEach { task in
